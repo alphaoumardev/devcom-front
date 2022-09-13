@@ -1,7 +1,7 @@
-import {MdOutlineQuickreply, MdPeopleOutline} from "react-icons/md";
+import {MdOutlineQuickreply} from "react-icons/md";
 import {RiShareForwardLine} from "react-icons/ri";
 import {BsCodeSlash, BsEmojiHeartEyes, BsHeart, BsImage} from "react-icons/bs";
-import {AiOutlineFullscreen, AiOutlineRetweet} from "react-icons/ai";
+import {AiOutlineRetweet} from "react-icons/ai";
 import {FiLink, FiSettings} from "react-icons/fi";
 import {GrLocation} from "react-icons/gr";
 
@@ -19,7 +19,6 @@ const Feed = ()=>
                         <a className="font-bold text-gray-700 cursor-pointer dark:text-gray-200">Alpha Oumar <span className="font-thin">@Alphaoumar</span></a>
                     </div>
                 </div>
-
                 <div className="mt-2">
                     {/*new article edit*/}
                     <form>

@@ -8,7 +8,7 @@ const Home = ()=>
 {
     return(
         <>
-            <Header/>
+            {/*<Header/>*/}
             <div className="flex justify-center items-baseline gap-10 min-w-8xl left-5">
                 <Sidebar/>
                 <Feed/>
