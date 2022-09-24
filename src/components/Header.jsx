@@ -14,7 +14,7 @@ class Header extends Component {
             <nav className="sticky-top bg-gray-300 border-gray-200 px-8 shadow-lg sm:px-4 py-4 rounded dark:bg-gray-900">
                 <div className=" flex justify-between w-10/12 mx-auto ">
                     <div>
-                        <a href="#" className="flex">
+                        <a href="/" className="flex">
                             <img src="https://res.cloudinary.com/diallo/image/upload/v1662517794/devcom_qxhwcj.jpg"
                                  className="mr-3 rounded-full  h-14 w-14 object-cover rounded-full  sm:h-14 "
                                  alt="Logo"/>
@@ -23,13 +23,13 @@ class Header extends Component {
                         </a>
                     </div>
 
-                    <div className="relative flex justify-center ">
+                    <div className="relative flex justify-center w-96">
                         <div className="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
                             <BsSearch/>
 
                         </div>
                         <input type="search" id="search"
-                               className="block p-4 pl-10 w-96 text-xl  border-none bg-gray-100 text-sm text-gray-900  rounded-lg focus:ring-blue-200 focus:border-blue-200 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                               className="block p-4 pl-10 w-full text-xl  border-none bg-gray-100 text-sm text-gray-900  rounded-lg focus:ring-blue-200 focus:border-blue-200 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                placeholder="Search..." required/>
                     </div>
 
@@ -166,16 +166,15 @@ class Header extends Component {
                             </div>
                         </div>
                         {/*notifications end*/}
-                        {/*<-- Dropdown toggle button -->*/}
+                        {/*<-- Dropdown popover me -->*/}
 
                         <div className=" relative block">
                             <img src="https://diallo.oss-cn-shanghai.aliyuncs.com/photos/diallo.jpg"
                                  className="peer relative rounded-full  h-12 w-12 object-cover " alt="Logo"/>
                             {/*<-- Dropdown menu -->*/}
-                            <div
-                                className="hidden peer-hover:block absolute hover:block  m-auto w-56 py-9 right-0  mt-2  bg-white rounded-md shadow-2xl dark:bg-gray-800">
+                            <div className="hidden peer-hover:block absolute hover:block  m-auto w-56 py-9 right-0  mt-2  bg-white rounded-md shadow-2xl dark:bg-gray-800">
 
-                                <a href="#"
+                                <a href="/me"
                                    className="flex items-center p-3 -mt-2 text-sm text-gray-600 transition-colors duration-300 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white">
                                     <img className="flex-shrink-0 object-cover mx-1 rounded-full w-9 h-9"
                                          src="https://diallo.oss-cn-shanghai.aliyuncs.com/photos/diallo.jpg" alt="Me"/>
@@ -186,7 +185,7 @@ class Header extends Component {
                                     </div>
                                 </a>
                                 <hr className="border-gray-200 dark:border-gray-700 "/>
-                                <a href="#"
+                                <a href="/me"
                                    className="flex items-center p-3 text-sm text-gray-600 capitalize transition-colors duration-300 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white">
                                     <BsPerson size={17}/>
                                     <span className="mx-1"> view profile</span>

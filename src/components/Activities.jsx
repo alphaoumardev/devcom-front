@@ -14,7 +14,7 @@ const Activities = ()=>
                 <div className="py-3  border-b border-gray-300 flex">
                     <img src="https://diallo.oss-cn-shanghai.aliyuncs.com/photos/diallo.jpg" alt="host"
                          className="h-10 w-10 rounded-full object-cover"/>
-                    <span className="ml-5">Alpha Diallo <br/><d className="text-blue-700">@alphaoumar</d></span>
+                    <span className="ml-5">Alpha Diallo <br/><b className="text-blue-700">@alphaoumar</b></span>
                     <span className="justify-end">6 days ago</span>
                 </div>
                 <div className="p-6 text-base">
@@ -95,9 +95,7 @@ const Activities = ()=>
             </div>
 
         </div>
-
-
-    </>
+        </>
             )
 }
 export default Activities

@@ -1,7 +1,21 @@
 import {BiDownArrow,} from "react-icons/bi";
+import {useDispatch, useSelector} from "react-redux";
+import {useNavigate} from "react-router-dom";
+import {useEffect} from "react";
+import {getTopicsAction} from "../redux/Actions/topicsActions";
 
 const Sidebar = ()=>
 {
+    const dispatch = useDispatch()
+    const navigate = useNavigate()
+    const {topics} = useSelector(state => state.getTopicsReducer)
+
+    // console.log(topics)
+    useEffect(() =>
+    {
+        dispatch(getTopicsAction())
+    }, [dispatch,]);
+
     return(
 
         <aside className="sticky top-24 overflow-y-scroll w-96 hover:shadow-2xl" aria-label="Sidebar">
@@ -12,56 +26,64 @@ const Sidebar = ()=>
                             <span className="ml-3 uppercase px-12 py-3 bg-gray-200 text-center rounded-full">Browse Topics</span>
                         </a>
                     </li>
+                    {topics?.map((item, index) =>
+                        <li key={index}>
+                            <a href="#" className="flex items-center p-2 font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
+                                <span className="flex-1 ml-3 whitespace-nowrap capitalize text-xl hover:font-bold">{item?.name}</span>
+                                <span className="inline-flex justify-center items-center p-5 ml-3 w-3 h-3 text-sm font-medium text-blue-600 bg-blue-200 rounded-full dark:bg-blue-900 dark:text-blue-200">49</span>
+                            </a>
+                        </li>
+                    )}
+
+                    <ul className="collapse mt-4 " id="collapseExample">
+                        <li>
+                            <a href="#" className="flex items-center p-2 font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
+                                <span className="flex-1 ml-3 whitespace-nowrap capitalize text-xl hover:font-bold">React</span>
+                                <span className="inline-flex justify-center items-center p-5 ml-3 w-3 h-3 text-sm font-medium text-blue-600 bg-blue-200 rounded-full dark:bg-blue-900 dark:text-blue-200">49</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" className="flex items-center p-2 font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
+                                <span className="flex-1 ml-3 whitespace-nowrap capitalize text-xl hover:font-bold">Vue</span>
+                                <span className="inline-flex justify-center items-center p-5 ml-3 w-3 h-3 text-sm font-medium text-blue-600 bg-blue-200 rounded-full dark:bg-blue-900 dark:text-blue-200">36</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" className="flex items-center p-2 font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
+                                <span className="flex-1 ml-3 whitespace-nowrap capitalize text-xl hover:font-bold">Python</span>
+                                <span className="inline-flex justify-center items-center p-5 ml-3 w-3 h-3 text-sm font-medium text-blue-600 bg-blue-200 rounded-full dark:bg-blue-900 dark:text-blue-200">23</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" className="flex items-center p-2 font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
+                                <span className="flex-1 ml-3 whitespace-nowrap capitalize text-xl hover:font-bold">Java</span>
+                                <span className="inline-flex justify-center items-center p-5 ml-3 w-3 h-3 text-sm font-medium text-blue-600 bg-blue-200 rounded-full dark:bg-blue-900 dark:text-blue-200">13</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" className="flex items-center p-2 font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
+                                <span className="flex-1 ml-3 whitespace-nowrap capitalize text-xl hover:font-bold">Node.js</span>
+                                <span className="inline-flex justify-center items-center p-5 ml-3 w-3 h-3 text-sm font-medium text-blue-600 bg-blue-200 rounded-full dark:bg-blue-900 dark:text-blue-200">62</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" className="flex items-center p-2 font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
+                                <span className="flex-1 ml-3 whitespace-nowrap capitalize text-xl hover:font-bold">Django</span>
+                                <span className="inline-flex justify-center items-center p-5 ml-3 w-3 h-3 text-sm font-medium text-blue-600 bg-blue-200 rounded-full dark:bg-blue-900 dark:text-blue-200">14</span>
+                            </a>
+                        </li>
+                    </ul>
                     <li>
-                        <a href="#" className="flex items-center p-2 font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
-                            <span className="flex-1 ml-3 whitespace-nowrap capitalize text-xl hover:font-bold">All</span>
-                            <span className="inline-flex justify-center items-center p-5 ml-3 w-3 h-3 text-sm font-medium text-blue-600 bg-blue-200 rounded-full dark:bg-blue-900 dark:text-blue-200">83</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" className="flex items-center p-2 font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
-                            <span className="flex-1 ml-3 whitespace-nowrap capitalize text-xl hover:font-bold">React</span>
-                            <span className="inline-flex justify-center items-center p-5 ml-3 w-3 h-3 text-sm font-medium text-blue-600 bg-blue-200 rounded-full dark:bg-blue-900 dark:text-blue-200">49</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" className="flex items-center p-2 font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
-                            <span className="flex-1 ml-3 whitespace-nowrap capitalize text-xl hover:font-bold">Vue</span>
-                            <span className="inline-flex justify-center items-center p-5 ml-3 w-3 h-3 text-sm font-medium text-blue-600 bg-blue-200 rounded-full dark:bg-blue-900 dark:text-blue-200">36</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" className="flex items-center p-2 font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
-                            <span className="flex-1 ml-3 whitespace-nowrap capitalize text-xl hover:font-bold">Python</span>
-                            <span className="inline-flex justify-center items-center p-5 ml-3 w-3 h-3 text-sm font-medium text-blue-600 bg-blue-200 rounded-full dark:bg-blue-900 dark:text-blue-200">23</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" className="flex items-center p-2 font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
-                            <span className="flex-1 ml-3 whitespace-nowrap capitalize text-xl hover:font-bold">Java</span>
-                            <span className="inline-flex justify-center items-center p-5 ml-3 w-3 h-3 text-sm font-medium text-blue-600 bg-blue-200 rounded-full dark:bg-blue-900 dark:text-blue-200">13</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" className="flex items-center p-2 font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
-                            <span className="flex-1 ml-3 whitespace-nowrap capitalize text-xl hover:font-bold">Node.js</span>
-                            <span className="inline-flex justify-center items-center p-5 ml-3 w-3 h-3 text-sm font-medium text-blue-600 bg-blue-200 rounded-full dark:bg-blue-900 dark:text-blue-200">62</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" className="flex items-center p-2 font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
-                            <span className="flex-1 ml-3 whitespace-nowrap capitalize text-xl hover:font-bold">Django</span>
-                            <span className="inline-flex justify-center items-center p-5 ml-3 w-3 h-3 text-sm font-medium text-blue-600 bg-blue-200 rounded-full dark:bg-blue-900 dark:text-blue-200">14</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" className="flex items-center p-2 font-normal text-gray-900 hover:text-blue-300 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
+                        <a
+                            data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="true"
+                            aria-controls="collapseExample"
+                            className="flex items-center p-2 font-normal text-gray-900 hover:text-blue-300 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
                             <span className="flex-1 ml-3 whitespace-nowrap capitalize text-xl ">More Topics</span>
                             <BiDownArrow className=" justify-center items-center mr-3 text-sm font-medium dark:bg-blue-900 dark:text-blue-200"/>
                         </a>
                     </li>
                 </ul>
-                <ul className="pt-4 mt-4 space-y-2 border-t border-gray-200 dark:border-gray-700">
+                <ul className="pt-4 mt-4 space-y-2 border-t dark:border-gray-700">
                     <li>
                         <a href="#"
                            className="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg transition duration-75 hover:bg-gray-100 dark:hover:bg-gray-700 dark:text-white group">

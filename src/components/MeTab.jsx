@@ -43,9 +43,8 @@ const MeTab = ()=>
                             </div>
 
                             <div className="mt-2">
-                                <a href="#"
-                                   className="text-2xl font-bold text-gray-700 dark:text-white hover:text-gray-600 dark:hover:text-gray-200 hover:underline">Accessibility
-                                    tools for developers</a>
+                                <a href="/single"
+                                   className="text-2xl font-bold text-gray-700 dark:text-white hover:text-gray-600 dark:hover:text-gray-200 hover:underline">Accessibility tools for developers</a>
                                 <p className="mt-2 text-gray-600 dark:text-gray-300">Lorem ipsum dolor sit, amet consectetur adipisicing
                                     elit. Tempora expedita dicta totam aspernatur doloremque. Excepturi iste iusto eos enim
                                 </p>
