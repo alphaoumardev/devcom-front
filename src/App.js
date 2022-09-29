@@ -14,7 +14,7 @@ const App = ()=>
             <Route path="/login" element={<Longin_/>}/>
             <Route exact path="/" element={<Home/>}/>
             <Route path="/me" element={<Me/>}/>
-            <Route path="/single" element={<SinglePage/>}/>
+            <Route path="/single/:id" element={<SinglePage/>}/>
         </Routes>
         </>
     )

@@ -6,16 +6,16 @@ const Activities = ()=>
 {
     return(
         <>
-        <div className="flex-col sticky top-24 overflow-y-scroll">
+        <div className="flex-col sticky top-24 max-w-xl bg-gray-50 rounded p-5 border-gray-100 hover:shadow">
             <a href="#" className="flex justify-center items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
                 <span className="uppercase px-12 py-3 bg-gray-200 flex justify-center items-center rounded-full">RECENT ACTIVITIES</span>
             </a>
-            <div className="block w-full h-auto rounded-lg shadow hover:shadow-lg bg-white max-w-sm">
-                <div className="py-3  border-b border-gray-300 flex">
+            <div className="block w-full h-auto rounded hover:shadow bg-white max-w-sm">
+                <div className="py-3 pl-3 border-b border-gray-300 flex">
                     <img src="https://diallo.oss-cn-shanghai.aliyuncs.com/photos/diallo.jpg" alt="host"
                          className="h-10 w-10 rounded-full object-cover"/>
                     <span className="ml-5">Alpha Diallo <br/><b className="text-blue-700">@alphaoumar</b></span>
-                    <span className="justify-end">6 days ago</span>
+                    <span className="justify-end">7 days ago</span>
                 </div>
                 <div className="p-6 text-base">
                     <h5 className="text-gray-900 text-xl font-medium mb-2">Special title treatment</h5>
@@ -26,7 +26,7 @@ const Activities = ()=>
             </div>
 
             {/*the trending*/}
-            <div className="p-6 mt-4 max-w-sm bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
+            <div className="p-6 mt-4 max-w-sm bg-white rounded-lg hover:shadow dark:bg-gray-800 dark:border-gray-700">
                 <div className="flex justify-between items-center mb-4">
                     <h5 className="text-xl flex font-bold leading-none text-red-700 dark:text-white">Tranding Topics  <IoMdTrendingUp className="ml-1 text-red-700"/></h5>
                     <a href="#" className="text-sm font-medium text-blue-600 hover:underline dark:text-blue-500"><BsThreeDots/></a>
@@ -42,7 +42,7 @@ const Activities = ()=>
                 <a href="#" className="inline-flex items-center text-blue-600 hover:underline">See more<FiExternalLink className="ml-1"/></a>
             </div>
 
-            <div className="p-4 w-full max-w-md bg-white rounded-lg border shadow mt-4 sm:p-8 hover:shadow-lg dark:bg-gray-800 dark:border-gray-700">
+            <div className="p-4 w-full max-w-md bg-white rounded-lg hover:shadow mt-4 sm:p-8 hover:shadow-lg dark:bg-gray-800 dark:border-gray-700">
                 <div className="flex justify-between items-center mb-4">
                     <h5 className="text-xl font-bold leading-none text-gray-900 dark:text-white">Relevent People</h5>
                     <a href="#" className="text-sm font-medium text-blue-600 hover:underline dark:text-blue-500">See more</a>
@@ -84,7 +84,7 @@ const Activities = ()=>
                 </div>
             </div>
         {/*     copyright*/}
-            <div className=" w-full max-w-md  rounded-lg mt-4 sm:p-8  dark:bg-gray-800 dark:border-gray-700">
+            <div className=" w-full max-w-md  rounded-lg mt-4 sm:p-8  dark:bg-gray-800 ">
                 <div className="flex-1 min-w-0 text-base">
                     <a href="#" className="font-medium text-gray-900 truncate dark:text-white"> Terms of Service</a><br/>
                     <a href="#" className="font-medium text-gray-900 truncate dark:text-white"> About us</a>

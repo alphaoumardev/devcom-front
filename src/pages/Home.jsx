@@ -9,7 +9,7 @@ const Home = ()=>
     return(
         <>
             {/*<Header/>*/}
-            <div className="flex justify-center items-baseline gap-12 min-w-8xl left-5">
+            <div className="flex justify-center items-baseline gap-6  left-5">
                 <Sidebar/>
                 <Feed/>
                 <Activities/>

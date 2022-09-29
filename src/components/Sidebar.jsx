@@ -18,8 +18,8 @@ const Sidebar = ()=>
 
     return(
 
-        <aside className="sticky top-24 overflow-y-scroll w-96 hover:shadow-2xl" aria-label="Sidebar">
-            <div className="overflow-y-auto py-4 px-3 bg-gray-50 rounded dark:bg-gray-800">
+        <aside className="sticky top-24 w-96 hover:shadow-2xl" aria-label="Sidebar">
+            <div className=" py-4 px-3 bg-gray-50 rounded dark:bg-gray-800">
                 <ul className="space-y-2">
                     <li>
                         <a href="#" className="flex justify-center items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
