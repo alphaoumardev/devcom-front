@@ -6,15 +6,17 @@ import {GrLocation} from "react-icons/gr";
 import {useDispatch, useSelector} from "react-redux";
 import {useEffect} from "react";
 import {getFeedAction} from "../redux/Actions/feedActions";
+import {useParams} from "react-router-dom";
 
 const Feed = ()=>
 {
+    let {name} = useParams()
     const dispatch = useDispatch()
     const {feeds} = useSelector(state => state.getFeedsReducer)
 
     useEffect(() =>
     {
-        dispatch(getFeedAction())
+        dispatch(getFeedAction(name))
     }, [dispatch]);
     return(
         <div className="flex-col mt-5 hover:shadow">

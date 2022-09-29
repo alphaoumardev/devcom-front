@@ -37,3 +37,21 @@ export const getOneFeedReducer = (state={feed: []}, action)=>
             return state
     }
 }
+
+export const getFeedByTopicReducer = (state={feed: []}, action)=>
+{
+    switch (action.type)
+    {
+        case S_GET_FEED:
+            return{
+                feed: action.payload
+            }
+        case F_GET_FEED:
+            return{
+                feed: [],
+                error:action.payload
+            }
+        default:
+            return state
+    }
+}

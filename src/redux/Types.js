@@ -7,3 +7,6 @@ export const F_GET_FEEDS = "F_GET_FEEDS"
 
 export const S_GET_FEED = "S_GET_FEED"
 export const F_GET_FEED = "F_GET_FEED"
+
+export const S_GET_FEED_BY_TOPIC = "S_GET_FEED_BY_TOPIC"
+export const F_GET_FEED_BY_TOPIC = "F_GET_FEED_BY_TOPIC"

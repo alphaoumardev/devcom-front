@@ -13,6 +13,8 @@ const App = ()=>
         <Routes>
             <Route path="/login" element={<Longin_/>}/>
             <Route exact path="/" element={<Home/>}/>
+            <Route exact path="/:name" element={<Home/>}/>
+
             <Route path="/me" element={<Me/>}/>
             <Route path="/single/:id" element={<SinglePage/>}/>
         </Routes>

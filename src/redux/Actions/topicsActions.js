@@ -11,7 +11,7 @@ export const getTopicsAction = () => async (dispatch) =>
 {
     try
     {
-        await axios.get("/topic/").then(res =>
+        await axios.get("/topics/").then(res =>
         {
             dispatch(
                 {
