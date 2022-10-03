@@ -4,14 +4,17 @@ import {Route, Routes} from "react-router-dom";
 import Home from "./pages/Home";
 import Me from "./pages/Me";
 import SinglePage from "./pages/SinglePage";
+import Signup from "./components/Signup";
 
 const App = ()=>
 {
     return(
         <>
-        <Header/>
+            {window.location.pathname==="/login" ||
+             window.location.pathname==="/register"? "": <Header/>}
         <Routes>
             <Route path="/login" element={<Longin_/>}/>
+            <Route path="/register" element={<Signup/>}/>
             <Route exact path="/" element={<Home/>}/>
             <Route exact path="/:name" element={<Home/>}/>
 

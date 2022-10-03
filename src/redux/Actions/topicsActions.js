@@ -29,3 +29,26 @@ export const getTopicsAction = () => async (dispatch) =>
             })
     }
 }
+
+export const getOneTopicCountAction = (name) => async (dispatch) =>
+{
+    try
+    {
+        await axios.get(`/topicount/${name}`).then(res =>
+        {
+            dispatch(
+                {
+                    type:S_GET_TOPICS,
+                    payload:res.data
+                })
+        })
+    }
+    catch (error)
+    {
+        dispatch(
+            {
+                type:F_GET_TOPICS,
+                payload: "Something went wrong"
+            })
+    }
+}

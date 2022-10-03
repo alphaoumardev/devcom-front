@@ -1,24 +1,27 @@
 import {BiDownArrow,} from "react-icons/bi";
 import {useDispatch, useSelector} from "react-redux";
-import {useNavigate} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import {useEffect, useState} from "react";
 import {getTopicsAction} from "../redux/Actions/topicsActions";
 import {GrDiamond} from "react-icons/gr";
 import {CgComponents, CgFileDocument} from "react-icons/cg";
 import {GiHelp} from "react-icons/gi"
+import {getFeedAction} from "../redux/Actions/feedActions";
 const Sidebar = ()=>
 {
     const dispatch = useDispatch()
     const navigate = useNavigate()
-    const {topics} = useSelector(state => state.getTopicsReducer)
+    let {name} = useParams()
 
+    const {topics} = useSelector(state => state.getTopicsReducer)
+    const {count} = useSelector(state => state.getFeedsReducer)
     const [loadmore, setLoadmore] = useState(7);
-    // console.log(topics)
     useEffect(() =>
     {
         dispatch(getTopicsAction())
+        dispatch(getFeedAction(name))
     }, [dispatch,]);
-
+    console.log(count)
     return(
 
         <aside className="sticky top-24 w-96 hover:shadow-2xl" aria-label="Sidebar">
@@ -33,7 +36,7 @@ const Sidebar = ()=>
                         <li key={index}>
                             <a href={`/${item?.name}`} className="flex items-center p-2 font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
                                 <span className="flex-1 ml-3 whitespace-nowrap capitalize text-xl hover:font-bold">{item?.name}</span>
-                                <span className="inline-flex justify-center items-center p-5 ml-3 w-3 h-3 text-sm font-medium text-blue-600 bg-blue-200 rounded-full dark:bg-blue-900 dark:text-blue-200">49</span>
+                                <span className="inline-flex justify-center items-center p-5 ml-3 w-3 h-3 text-sm font-medium text-blue-600 bg-blue-200 rounded-full dark:bg-blue-900 dark:text-blue-200">{count}</span>
                             </a>
                         </li>
                     )}

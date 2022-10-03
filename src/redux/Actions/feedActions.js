@@ -35,7 +35,6 @@ export const getFeedAction = (name) => async (dispatch) =>
                     })
             })
         }
-
     }
     catch (error)
     {

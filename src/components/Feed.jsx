@@ -96,7 +96,7 @@ const Feed = ()=>
                     <div className="mt-2">
                         <a href={`/single/${item?.id}`}
                            className="text-2xl font-bold text-gray-700 dark:text-white hover:text-gray-600 dark:hover:text-gray-200 hover:underline">{item?.title}</a>
-                        <p className="mt-2 text-gray-600 dark:text-gray-300">{item?.content}</p>
+                        <p className="mt-2 text-gray-600 dark:text-gray-300">{item?.content?.slice(0, 250)}<a href={`/single/${item?.id}`} className="text-blue-700">...</a></p>
                     </div>
 
                     <div className="flex items-center justify-between mt-4">
