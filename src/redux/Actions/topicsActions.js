@@ -2,9 +2,11 @@ import {F_GET_TOPICS, S_GET_TOPICS} from "../Types";
 import axios from "axios";
 
 const config = {
-    "Content-Type": "application/json",
-    // 'Authorization': ``,
-    "Accept": "application/json"
+    headers: {
+        "Content-Type": "application/json",
+        'Authorization': `Token ${localStorage.getItem('token')}`,
+        "Accept": "application/json"
+    }
 }
 
 export const getTopicsAction = () => async (dispatch) =>

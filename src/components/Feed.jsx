@@ -1,29 +1,44 @@
-import {MdOutlineQuickreply} from "react-icons/md";
+import {MdLibraryAdd, MdOutlineQuickreply} from "react-icons/md";
 import {RiShareForwardLine} from "react-icons/ri";
 import {BsBookmark, BsCodeSlash, BsEmojiHeartEyes, BsHeart, BsImage} from "react-icons/bs";
-import {FiLink, FiSettings} from "react-icons/fi";
+import {FiLink} from "react-icons/fi";
 import {GrLocation} from "react-icons/gr";
 import {useDispatch, useSelector} from "react-redux";
-import {useEffect} from "react";
-import {getFeedAction} from "../redux/Actions/feedActions";
+import {useEffect, useState} from "react";
+import {getFeedAction, postFeedAction} from "../redux/Actions/feedActions";
 import {useParams} from "react-router-dom";
 import {load_user} from "../redux/Actions/authActions";
 import moment from "moment/moment";
+import {getTopicsAction} from "../redux/Actions/topicsActions";
+import {Input} from "@material-tailwind/react";
 
-const Feed = ()=>
+const Feed = () =>
 {
     let {name} = useParams()
     const dispatch = useDispatch()
     const {feeds} = useSelector(state => state.getFeedsReducer)
     const {user} = useSelector(state => state.authReducer)
+    const {topics} = useSelector(state => state.getTopicsReducer)
 
-    useEffect(() => {
+    const [topic, setTopic] = useState('');
+    const [content, setContent] = useState('');
+    const [title, setTitle] = useState('');
+
+
+    useEffect(() =>
+    {
         if (user)
         {
             dispatch(load_user())
+            dispatch(getTopicsAction())
         }
         dispatch(getFeedAction(name))
     }, [dispatch]);
+    const postFeed = (e)=>
+    {
+        e.preventDefault()
+        dispatch(postFeedAction(title, topic, content, user.id))
+    }
     return(
         <div className="flex-col mt-5 hover:shadow">
 
@@ -38,13 +53,15 @@ const Feed = ()=>
                 </div>
                 <div className="mt-2">
                     {/*new article edit*/}
-                    <form>
+                    <form onSubmit={postFeed}>
                         <div className="mb-4 relative w-full bg-gray-50 rounded-lg hover:shadow-lg dark:bg-gray-700 dark:border-gray-600">
                             <div className="py-2 px-4 rounded-full dark:bg-gray-800">
+                                <Input variant="standard" label="Title" onChange={(e)=>setTitle(e.target.value)}/>
                                 <label htmlFor="editor" className="sr-only">Publish</label>
-                                <textarea id="editor" rows="4"
-                                          className="block px-0 w-full text-norma text-gray-800 bg-white border-0 dark:bg-gray-800 focus:ring-0 dark:text-white dark:placeholder-gray-400"
-                                          placeholder="Write an article..." required=""></textarea>
+                                <textarea id="editor" rows="4" disabled={topic===''}
+                                          onChange={(e)=>setContent(e.target.value)}
+                                          className="block px-0 w-full text-normal text-gray-800 bg-white border-0 dark:bg-gray-800 focus:ring-0 dark:text-white dark:placeholder-gray-400"
+                                          placeholder="Write an article..." required/>
                             </div>
                             <div className="flex justify-between items-center py-2 px-3 border-b dark:border-gray-600">
                                 <div className="flex flex-wrap items-center divide-gray-200 sm:divide-x dark:divide-gray-600">
@@ -61,23 +78,24 @@ const Feed = ()=>
                                         <button type="button" className="p-2 text-gray-500 rounded cursor-pointer hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-600">
                                             <BsCodeSlash/>
                                         </button>
-                                        <button type="button"
-                                                className="p-2 text-gray-500 rounded cursor-pointer hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-600">
-                                            <BsEmojiHeartEyes/>
-                                        </button>
-                                    </div>
-                                    <div className="flex flex-wrap items-center space-x-1 sm:pl-4">
-                                        <button type="button"
-                                                className="p-2 text-gray-500 rounded cursor-pointer hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-600">
-                                            <FiSettings/>
-                                        </button>
 
+                                    </div>
+                                    <div className="flex items-center space-x-3 sm:pl-4">
+                                        <button type="button"
+                                                className="p-2 text-gray-500 rounded cursor-pointer hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-600">
+                                            <MdLibraryAdd/>
+                                        </button>
+                                        <select id="underline_select" onChange={(e)=>setTopic(e.target.value)} title="Choose a topic or add one" required={true}
+                                                className="block px-2 pr-8 w-full text-sm text-gray-500 border-b-1 border-0 appearance-none bg-transparent dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer">
+                                            <option> First Choose a Topic</option>
+                                            {topics?.map((item, index)=>
+                                                <option key={index} value={item?.id}>{item?.name}</option>
+                                            )}
+                                        </select>
                                     </div>
                                 </div>
-                                <button type="submit" className="inline-flex float-right mt-1 items-center px-6 py-2 text-sm rounded-full font-bold text-center text-white bg-blue-700 rounded-lg focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-900 hover:bg-blue-800">
-                                    Post
-                                </button>
-
+                                <button type="submit" onClick={()=>window.location.reload()} disabled={topic===''||title===''||content===''}
+                                        className="inline-flex float-right mt-1 items-center px-6 py-2 text-sm rounded-full font-bold text-center text-white bg-blue-700 rounded-lg focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-900 hover:bg-blue-800">Post</button>
                             </div>
                         </div>
                     </form>
@@ -104,7 +122,7 @@ const Feed = ()=>
 
                     <div className="mt-2">
                         <a href={`/single/${item?.id}`}
-                           className="text-2xl font-bold text-gray-700 dark:text-white hover:text-blue-600 dark:hover:text-gray-200 hover:underline">{item?.title}</a>
+                           className="text-2xl font-bold text-gray-700 capitalize dark:text-white hover:text-blue-600 dark:hover:text-gray-200 hover:underline">{item?.title}</a>
                         <p className="mt-2 text-gray-600 dark:text-gray-300">{item?.content?.slice(0, 250)}<a href={`/single/${item?.id}`} className="text-blue-700">...</a></p>
                     </div>
 

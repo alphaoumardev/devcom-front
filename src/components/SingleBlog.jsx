@@ -9,16 +9,20 @@ import {useDispatch, useSelector} from "react-redux";
 import {useEffect} from "react";
 import { getOneFeedAction} from "../redux/Actions/feedActions";
 import SingleLeft from "./SingleLeft";
+import {getRepliesAction} from "../redux/Actions/repliesActions";
+import moment from "moment";
 
 const SingleBlog = ()=>
 {
     const {id} =useParams()
     const dispatch = useDispatch()
     const {feed} = useSelector(state => state.getOneFeedReducer)
+    const {replies} = useSelector(state => state.getRepliesReducer)
 
     useEffect(() =>
     {
         dispatch(getOneFeedAction(id))
+        dispatch(getRepliesAction())
     }, [dispatch, id]);
     return(
         <div>
@@ -52,36 +56,35 @@ const SingleBlog = ()=>
                                         </a>
                                     </p>
                                     {/* the post replies start here*/}
-                                    <div className="max-w-2xl mb-4 h-auto px-8 py-4 bg-white rounded-lg  dark:bg-gray-800 ">
-                                        <div>
-                                            <div className="flex items-center justify-between">
-                                                <div className="flex items-center">
-                                                    <img className="hidden object-cover w-10 h-10 mx-4 rounded-full sm:block"
-                                                         src="https://diallo.oss-cn-shanghai.aliyuncs.com/photos/diallo.jpg" alt="host"/>
-                                                    <a className="font-bold text-gray-700 cursor-pointer dark:text-gray-200">Alpha Oumar <span className="font-thin">@Alphaoumar</span></a>
-                                                </div>
-                                                <span className="text-sm font-light text-gray-600 dark:text-gray-400">Mar 10, 2019</span>
-                                            </div>
+                                    {replies?.map((item, index)=>
+                                        <div key={index} className="max-w-2xl mb-4 h-auto px-8 py-4 bg-white rounded-lg  dark:bg-gray-800 ">
+                                            <div>
+                                                <div className="flex items-center justify-between">
+                                                    <div className="flex items-center">
+                                                        <img className="hidden object-cover w-10 h-10 mx-4 rounded-full sm:block"
+                                                             src="https://diallo.oss-cn-shanghai.aliyuncs.com/photos/diallo.jpg" alt="host"/>
+                                                        <a className="font-bold text-gray-700 cursor-pointer dark:text-gray-200">{item?.commentator?.username}<span className="font-thin">@{item?.commentator?.username} <span className="ml-3 dark:text-gray-400">{moment(item?.commentated?.toString()).startOf().fromNow()}</span></span></a>
+                                                    </div>
 
-                                            <div className="mt-2">
-                                                <p className="mt-2 text-gray-600 dark:text-gray-300">
-                                                    Lorem ipsum dolor sit, amet consectetur adipisicing
-                                                    elit. Tempora expedita dicta totam aspernatur doloremque. Excepturi iste iusto eos enim
-                                                    facere in mo libero!
-                                                </p>
-                                            </div>
-
-                                            <div className="flex items-center justify-between mt-4">
-                                                <div className="flex items-center hover:text-blue-500 cursor-pointer"
-                                                     data-bs-toggle="modal" data-bs-target="#commentModal">
-                                                    <MdOutlineQuickreply  size={25} className="mr-2"/>12
                                                 </div>
-                                                <div className="flex items-center hover:text-red-700">
-                                                    <BsHeart size={25} className="mr-2"/>67
+
+                                                <div className="mt-2">
+                                                    <p className="mt-2 text-gray-600 dark:text-gray-300">{item?.comment}</p>
+                                                </div>
+
+                                                <div className="flex items-center justify-between mt-4">
+                                                    <div className="flex items-center hover:text-blue-500 cursor-pointer"
+                                                         data-bs-toggle="modal" data-bs-target="#commentModal">
+                                                        <MdOutlineQuickreply  size={25} className="mr-2"/>{item?.replies}
+                                                    </div>
+                                                    <div className="flex items-center hover:text-red-700">
+                                                        <BsHeart size={25} className="mr-2"/>{item?.like}
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
+
+                                    )}
                                 </div>
                                 {/*d*/}
                             </div>

@@ -1,36 +1,36 @@
 import {
-     F_GET_FEED, S_GET_FEED,  F_GET_FEEDS, S_GET_FEEDS,F_POST_FEED,S_POST_FEED
+    S_GET_REPLIES, F_GET_REPLIES
 } from '../Types'
 
 
-export const getFeedsReducer = (state={feeds: []}, action)=>
+export const getRepliesReducer = (state={replies: []}, action)=>
 {
     switch (action.type)
     {
-        case S_GET_FEEDS:
+        case S_GET_REPLIES:
             return{
-                feeds: action.payload
+                replies: action.payload
             }
-        case F_GET_FEEDS:
+        case F_GET_REPLIES:
             return{
-                feeds: [],
+                replies: [],
                 error:action.payload
             }
         default:
             return state
     }
 }
-export const getOneFeedReducer = (state={feed: []}, action)=>
+export const getOneFeedReducer = (state={replies: []}, action)=>
 {
     switch (action.type)
     {
         case S_GET_FEED:
             return{
-                feed: action.payload
+                replies: action.payload
             }
         case F_GET_FEED:
             return{
-                feed: [],
+                replies: [],
                 error:action.payload
             }
         default:
@@ -38,18 +38,18 @@ export const getOneFeedReducer = (state={feed: []}, action)=>
     }
 }
 
-export const postFeedReducer = (state={feed: []}, action)=>
+export const postFeedReducer = (state={replies: []}, action)=>
 {
     switch (action.type)
     {
         case S_POST_FEED:
             return{
-                feed: action.payload
+                replies: action.payload
             }
         case F_POST_FEED:
             return{
                 ...state,
-                feed: [],
+                replies: [],
                 error:action.payload
             }
         default:

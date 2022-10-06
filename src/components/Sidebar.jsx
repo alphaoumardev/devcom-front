@@ -10,11 +10,9 @@ import {getFeedAction} from "../redux/Actions/feedActions";
 const Sidebar = ()=>
 {
     const dispatch = useDispatch()
-    const navigate = useNavigate()
     let {name} = useParams()
 
     const {topics} = useSelector(state => state.getTopicsReducer)
-    const {count} = useSelector(state => state.getFeedsReducer)
     const [loadmore, setLoadmore] = useState(7);
     useEffect(() =>
     {

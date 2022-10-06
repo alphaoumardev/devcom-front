@@ -51,8 +51,23 @@ export const F_GET_FEEDS = "F_GET_FEEDS"
 export const S_GET_FEED = "S_GET_FEED"
 export const F_GET_FEED = "F_GET_FEED"
 
-export const S_GET_FEED_BY_TOPIC = "S_GET_FEED_BY_TOPIC"
-export const F_GET_FEED_BY_TOPIC = "F_GET_FEED_BY_TOPIC"
+export const S_GET_REPLIES = "S_GET_REPLIES"
+export const F_GET_REPLIES = "F_GET_REPLIES"
 
 export const F_GET_TOPIC_COUNT = "F_GET_TOPIC_COUNT"
 export const S_GET_TOPIC_COUNT = "S_GET_TOPIC_COUNT"
+
+export const S_POST_TOPICS = "S_POST_TOPICS"
+export const F_POST_TOPICS = "F_POST_TOPICS"
+
+export const S_POST_FEEDS = "S_POST_FEEDS"
+export const F_POST_FEEDS = "F_POST_FEEDS"
+
+export const S_POST_FEED = "S_POST_FEED"
+export const F_POST_FEED = "F_POST_FEED"
+
+export const S_POST_FEED_BY_TOPIC = "S_POST_FEED_BY_TOPIC"
+export const F_POST_FEED_BY_TOPIC = "F_POST_FEED_BY_TOPIC"
+
+export const F_POST_TOPIC_COUNT = "F_POST_TOPIC_COUNT"
+export const S_POST_TOPIC_COUNT = "S_POST_TOPIC_COUNT"

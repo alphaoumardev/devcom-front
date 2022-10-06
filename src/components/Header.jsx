@@ -8,8 +8,8 @@ import {VscSignOut} from "react-icons/vsc";
 import {useDispatch, useSelector} from "react-redux";
 import {useEffect} from "react";
 import {load_user, logout} from "../redux/Actions/authActions";
-import {IoMdLogOut} from "react-icons/io";
-import {Link} from "react-router-dom";
+import {IoMdLogOut, } from "react-icons/io";
+import {IoMdPerson} from "react-icons/io";
 
 const Header =()=>
 {
@@ -182,19 +182,12 @@ const Header =()=>
 
                     <div className=" relative block">
                         {user ?
-                            // <img src="https://res.cloudinary.com/diallo/image/upload/v1653794949/diallo_rjazjs.png"
-                            //          className="peer relative rounded-full  h-12 w-12 object-cover " alt="Logo"/> :
                             <div className="relative peer ">
                                 <img className="relative rounded-full  h-12 w-12 object-contain" src="https://res.cloudinary.com/diallo/image/upload/v1653794949/diallo_rjazjs.png" alt=""/>
                                 <span className="bottom-0 left-7 absolute  w-3.5 h-3.5 bg-green-400 border-2 border-white dark:border-gray-800 rounded-full"></span>
                             </div>:
-                            <a href={"/login"}
-                            className="overflow-hidden relative w-10 h-10 bg-gray-100 rounded-full dark:bg-gray-600">
-                            <svg className="absolute -left-1 w-12 h-12 text-gray-400" fill="currentColor"
-                            viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                            <path fillRule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
-                            clipRule="evenodd"></path>
-                            </svg>
+                            <a href={"/login"} className="overflow-hidden relative w-10 h-10 bg-gray-100 rounded-full dark:bg-gray-600">
+                                <IoMdPerson  className="absolute -left-1 w-12 h-12 text-gray-400"/>
                             </a>
                         }
                         {/*<-- Dropdown menu -->*/}

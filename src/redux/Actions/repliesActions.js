@@ -1,5 +1,4 @@
-import {F_GET_FEED, S_GET_FEED, F_GET_FEEDS, S_GET_FEEDS,S_POST_FEED,
-    F_POST_FEED,
+import {F_GET_REPLIES, S_GET_REPLIES
 } from "../Types";
 import axios from "axios";
 
@@ -10,38 +9,24 @@ const config = {
         "Accept": "application/json"
     }
 }
-export const getFeedAction = (name) => async (dispatch) =>
+export const getRepliesAction = () => async (dispatch) =>
 {
     try
     {
-        if(name)
+        await axios.get("/replies/", ).then(res =>
         {
-            await axios.get(`/feedbytopic/${name}`, ).then(res =>
-            {
-                dispatch(
-                    {
-                        type:S_GET_FEEDS,
-                        payload:res.data
-                    })
-            })
-        }
-        else
-        {
-            await axios.get("/feeds/", ).then(res =>
-            {
-                dispatch(
-                    {
-                        type:S_GET_FEEDS,
-                        payload:res.data
-                    })
-            })
-        }
+            dispatch(
+                {
+                    type:S_GET_REPLIES,
+                    payload:res.data
+                })
+        })
     }
     catch (error)
     {
         dispatch(
             {
-                type:F_GET_FEEDS,
+                type:F_GET_REPLIES,
                 payload: "Something went wrong"
             })
     }

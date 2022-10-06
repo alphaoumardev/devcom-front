@@ -7,7 +7,6 @@ import {login} from "../redux/Actions/authActions";
 
 const Longin = ()=>
 {
-    const navigate = useNavigate()
     const dispatch = useDispatch()
     const token = localStorage.getItem('token')
     const {user, error, isLoading} = useSelector(state => state.authReducer)
@@ -29,7 +28,8 @@ const Longin = ()=>
         }
         if(token)
         {
-            return navigate('/')
+            //navigate("/")
+            return window.location.pathname="/"
         }
     }, [dispatch, user]);
 
