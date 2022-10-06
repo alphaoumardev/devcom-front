@@ -12,7 +12,7 @@ const Activities = ()=>
             </a>
             <div className="block w-full h-auto rounded hover:shadow bg-white max-w-sm">
                 <div className="py-3 pl-3 border-b border-gray-300 flex">
-                    <img src="https://diallo.oss-cn-shanghai.aliyuncs.com/photos/diallo.jpg" alt="host"
+                    <img src="https://res.cloudinary.com/diallo/image/upload/v1653794949/diallo_rjazjs.png" alt="host"
                          className="h-10 w-10 rounded-full object-cover"/>
                     <span className="ml-5">Alpha Diallo <br/><b className="text-blue-700">@alphaoumar</b></span>
                     <span className="justify-end">7 days ago</span>
@@ -53,7 +53,7 @@ const Activities = ()=>
                             <div className="flex items-center space-x-4">
                                 <div className="flex-shrink-0">
                                     <img className="w-8 h-8 rounded-full object-cover"
-                                         src="https://diallo.oss-cn-shanghai.aliyuncs.com/photos/diallo.jpg" alt="Neil image"/>
+                                         src="https://res.cloudinary.com/diallo/image/upload/v1653794949/diallo_rjazjs.png" alt="Neil image"/>
                                 </div>
                                 <div className="flex-1 min-w-0 text-base">
                                     <p className="text-sm font-medium text-gray-900 truncate dark:text-white"> Elizabeth II</p>
@@ -68,7 +68,7 @@ const Activities = ()=>
                             <div className="flex items-center space-x-4">
                                 <div className="flex-shrink-0">
                                     <img className="w-8 h-8 rounded-full object-cover"
-                                         src="https://diallo.oss-cn-shanghai.aliyuncs.com/photos/diallo.jpg" alt="Neil image"/>
+                                         src="https://res.cloudinary.com/diallo/image/upload/v1653794949/diallo_rjazjs.png" alt="Neil image"/>
                                 </div>
                                 <div className="flex-1 min-w-0 text-base">
                                     <p className="text-sm font-medium text-gray-900 truncate dark:text-white"> Elizabeth II</p>

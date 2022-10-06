@@ -1,7 +1,47 @@
 import {BsGithub} from "react-icons/bs";
+import {useEffect, useState} from "react";
+import {useDispatch, useSelector} from "react-redux";
+import {register} from "../redux/Actions/authActions";
+import {useNavigate} from "react-router-dom";
 
 const Signup = () =>
 {
+    const navigate = useNavigate()
+    const dispatch = useDispatch()
+    const {user} = useSelector(state => state.authReducer)
+    const [created, setCreated] = useState(false);
+    const [formData, setFormData] = useState({email:"",username:"", password:"", con:""});
+    const {username, email, password, con} = formData
+    const onChange = (e) => setFormData({...formData, [e.target.name]: e.target.value})
+
+    const onSubmit = (e) =>
+    {
+        e.preventDefault()
+        if(password === con)
+        {
+            dispatch(register(username, email, password))
+            setCreated(true)
+        }
+        else
+            return formData
+    }
+    useEffect(() =>
+    {
+        if(user)
+        {
+            return navigate('/')
+        }
+        else if(created)
+        {
+            return navigate('/login')
+        }
+    }, [user]);
+
+    if(user)
+    {
+
+    }
+
     return(
         <section className="w-screen h-screen ">
             <div className="container px-12 py-12 w-full h-full  lg:ml-52">
@@ -14,22 +54,32 @@ const Signup = () =>
                         />
                     </div>
                     <div className="md:w-8/12 lg:w-3/12 lg:ml-20">
-                        <form>
+                        <form onSubmit={onSubmit}>
                             {/*-- Email input --*/}
                             <div className="mb-6">
                                 <input
-                                    type="text"
+                                    type="email"
                                     className="form-control block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded-3xl transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                                     placeholder="Email address"
+                                    value={email}
+                                    id="email"
+                                    name="email"
+                                    required={true}
+                                    onChange={e=>onChange(e)}
                                 />
                             </div>
 
                             {/*Password input */}
                             <div className="mb-6">
                                 <input
-                                    type="password"
+                                    type="text"
                                     className="form-control block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded-3xl transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-                                    placeholder="Password"
+                                    placeholder="Username"
+                                    value={username}
+                                    id="username"
+                                    name="username"
+                                    required={true}
+                                    onChange={e=>onChange(e)}
                                 />
                             </div>
 
@@ -37,7 +87,24 @@ const Signup = () =>
                                 <input
                                     type="password"
                                     className="form-control block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded-3xl transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-                                    placeholder="Confirm"
+                                    placeholder="Password"
+                                    value={password}
+                                    id="password"
+                                    name="password"
+                                    required={true}
+                                    onChange={e=>onChange(e)}
+                                />
+                            </div>
+                            <div className="mb-6">
+                                <input
+                                    type="password"
+                                    className="form-control block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded-3xl transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                                    placeholder="Comfirm"
+                                    value={con}
+                                    id="con"
+                                    name="con"
+                                    required={true}
+                                    onChange={e=>onChange(e)}
                                 />
                             </div>
                             <div className="flex justify-end mb-6">

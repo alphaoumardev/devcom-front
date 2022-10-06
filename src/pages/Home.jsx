@@ -1,7 +1,5 @@
-import Header from "../components/Header";
 import Sidebar from "../components/Sidebar";
 import Activities from "../components/Activities";
-import Longin_ from "../components/Longin_";
 import Feed from "../components/Feed";
 
 const Home = ()=>

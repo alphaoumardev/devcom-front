@@ -1,21 +1,27 @@
 import {MdOutlineQuickreply} from "react-icons/md";
 import {RiShareForwardLine} from "react-icons/ri";
-import {BsBookmarkPlus, BsCodeSlash, BsEmojiHeartEyes, BsHeart, BsImage} from "react-icons/bs";
+import {BsBookmark, BsCodeSlash, BsEmojiHeartEyes, BsHeart, BsImage} from "react-icons/bs";
 import {FiLink, FiSettings} from "react-icons/fi";
 import {GrLocation} from "react-icons/gr";
 import {useDispatch, useSelector} from "react-redux";
 import {useEffect} from "react";
 import {getFeedAction} from "../redux/Actions/feedActions";
 import {useParams} from "react-router-dom";
+import {load_user} from "../redux/Actions/authActions";
+import moment from "moment/moment";
 
 const Feed = ()=>
 {
     let {name} = useParams()
     const dispatch = useDispatch()
     const {feeds} = useSelector(state => state.getFeedsReducer)
+    const {user} = useSelector(state => state.authReducer)
 
-    useEffect(() =>
-    {
+    useEffect(() => {
+        if (user)
+        {
+            dispatch(load_user())
+        }
         dispatch(getFeedAction(name))
     }, [dispatch]);
     return(
@@ -26,7 +32,7 @@ const Feed = ()=>
                 <div className="flex items-center justify-between">
                     <div className="flex items-center">
                         <img className="hidden object-cover w-10 h-10 mx-4 rounded-full sm:block"
-                             src="https://diallo.oss-cn-shanghai.aliyuncs.com/photos/diallo.jpg" alt="host"/>
+                             src="https://res.cloudinary.com/diallo/image/upload/v1653794949/diallo_rjazjs.png" alt="host"/>
                         <a className="font-bold text-gray-700 cursor-pointer dark:text-gray-200">Alpha Oumar <span className="font-thin">@Alphaoumar</span></a>
                     </div>
                 </div>
@@ -86,16 +92,19 @@ const Feed = ()=>
                     <div className="flex items-center justify-between">
                         <div className="flex items-center">
                             <img className="hidden object-cover w-10 h-10 mx-4 rounded-full sm:block"
-                                 src="https://diallo.oss-cn-shanghai.aliyuncs.com/photos/diallo.jpg" alt="host"/>
-                            <a className="font-bold text-gray-700 cursor-pointer dark:text-gray-200">Alpha Oumar <span className="font-thin">@Alphaoumar</span></a>
+                                 src="https://res.cloudinary.com/diallo/image/upload/v1653794949/diallo_rjazjs.png" alt="host"/>
+                            <a className="font-bold text-gray-700 cursor-pointer dark:text-gray-200 capitalize">{item?.user?.username}<span className="font-thin capitalize ml-1">@{item?.user?.username}
+                            <span className="ml-3">{moment(item?.posted?.toString()).startOf().fromNow()}</span>
+                            </span>
+                            </a>
                         </div>
-                        <span className="text-sm font-light text-gray-600 dark:text-gray-400">Mar 10, 2019</span>
-                        <a className="px-3 py-1 text-sm font-bold text-gray-100 transition-colors duration-300 transform bg-gray-600 rounded cursor-pointer hover:bg-gray-500">{item?.topic?.name}</a>
+                        <span className="text-sm font-light text-gray-600 dark:text-gray-400"></span>
+                        <a href={`/${item?.topic?.name}`} className="px-3 py-1 text-sm font-bold text-gray-100 transition-colors duration-300 transform bg-gray-600 rounded cursor-pointer hover:bg-gray-500">{item?.topic?.name}</a>
                     </div>
 
                     <div className="mt-2">
                         <a href={`/single/${item?.id}`}
-                           className="text-2xl font-bold text-gray-700 dark:text-white hover:text-gray-600 dark:hover:text-gray-200 hover:underline">{item?.title}</a>
+                           className="text-2xl font-bold text-gray-700 dark:text-white hover:text-blue-600 dark:hover:text-gray-200 hover:underline">{item?.title}</a>
                         <p className="mt-2 text-gray-600 dark:text-gray-300">{item?.content?.slice(0, 250)}<a href={`/single/${item?.id}`} className="text-blue-700">...</a></p>
                     </div>
 
@@ -107,7 +116,7 @@ const Feed = ()=>
                             size={25} className="mr-2"/>{item?.replies}
                         </div>
                         <div className="flex items-center hover:text-green-500">
-                            <BsBookmarkPlus size={25} className="mr-2"/>{item?.saves}
+                            <BsBookmark size={25} className="mr-2"/>{item?.saves}
                         </div>
                         <div className="flex items-center hover:text-red-700">
                             <BsHeart size={25} className="mr-2"/>{item?.likes}
@@ -120,9 +129,6 @@ const Feed = ()=>
                 </div>
             </div>
             )}
-            <p className="ml-auto text-xs text-gray-500 dark:text-gray-400">Remember, contributions to this topic should follow our <a href="#" className="text-blue-600 dark:text-blue-500 hover:underline">Community Guidelines</a>.</p>
-
-
 
         {/*    modal replies*/}
             <div

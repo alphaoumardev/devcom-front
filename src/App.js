@@ -1,5 +1,5 @@
 import Header from "./components/Header";
-import Longin_ from "./components/Longin_";
+import Longin from "./components/Longin";
 import {Route, Routes} from "react-router-dom";
 import Home from "./pages/Home";
 import Me from "./pages/Me";
@@ -13,10 +13,12 @@ const App = ()=>
             {window.location.pathname==="/login" ||
              window.location.pathname==="/register"? "": <Header/>}
         <Routes>
-            <Route path="/login" element={<Longin_/>}/>
+            <Route path="/login" element={<Longin/>}/>
             <Route path="/register" element={<Signup/>}/>
             <Route exact path="/" element={<Home/>}/>
             <Route exact path="/:name" element={<Home/>}/>
+
+            {/*<Route path="/ex" element={<Mypage/>}/>*/}
 
             <Route path="/me" element={<Me/>}/>
             <Route path="/single/:id" element={<SinglePage/>}/>
