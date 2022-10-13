@@ -90,7 +90,7 @@ const Activities = ()=>
                     <a href="#" className="font-medium text-gray-900 truncate dark:text-white"> About us</a>
                     <a href="#" className="font-medium text-gray-900 truncate dark:text-white"> Contact us</a><br/>
                     <a href="#" className="font-medium text-gray-900 truncate dark:text-white"> Privacy Policy</a><br/>
-                    <a href="#" className="justify-center flex font-medium text-gray-900 truncate dark:text-white"> © 2022 Devcom, Inc</a>
+                    <a href="#" className="justify-center flex font-medium text-gray-900 truncate dark:text-white"> © 2022 Devco, Inc</a>
                 </div>
             </div>
 

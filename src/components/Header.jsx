@@ -5,23 +5,15 @@ import {FiEye, FiHelpCircle} from "react-icons/fi";
 import {BiCommand} from "react-icons/bi";
 import {RiTeamLine} from "react-icons/ri";
 import {VscSignOut} from "react-icons/vsc";
-import {useDispatch, useSelector} from "react-redux";
-import {useEffect} from "react";
-import {load_user, logout} from "../redux/Actions/authActions";
+import {logout} from "../redux/Actions/authActions";
 import {IoMdLogOut, } from "react-icons/io";
 import {IoMdPerson} from "react-icons/io";
+import {useDispatch} from "react-redux";
 
-const Header =()=>
+
+const Header =({user})=>
 {
     const dispatch = useDispatch()
-    const {user} = useSelector(state => state.authReducer)
-
-    useEffect(() => {
-        if (user)
-        {
-            dispatch(load_user())
-        }
-    }, [dispatch]);
     return (
         <nav className="sticky-top  bg-gray-100 border-gray-200 px-8 shadow-lg sm:px-4 py-4 rounded dark:bg-gray-900">
             <div className=" flex justify-between w-10/12 mx-auto ">
@@ -31,7 +23,7 @@ const Header =()=>
                              className="mr-3 rounded-full  h-14 w-14 object-cover rounded-full  sm:h-14 "
                              alt="Logo"/>
                         <span
-                            className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Devcom</span>
+                            className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Devco</span>
                     </a>
                 </div>
 
@@ -242,7 +234,7 @@ const Header =()=>
                                 <FiHelpCircle size={17}/>
                                 <span className="mx-1">Help</span>
                             </a>
-                            <a href="#"
+                            <a href="/login" onClick={()=>dispatch(logout())}
                                className="flex items-center p-3 text-sm text-gray-600 capitalize transition-colors duration-300 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white">
                                 <VscSignOut size={17}/>
                                 <span className="mx-1"> Sign Out </span>

@@ -9,29 +9,7 @@ const config = {
         "Accept": "application/json"
     }
 }
-export const getRepliesAction = () => async (dispatch) =>
-{
-    try
-    {
-        await axios.get("/replies/", ).then(res =>
-        {
-            dispatch(
-                {
-                    type:S_GET_REPLIES,
-                    payload:res.data
-                })
-        })
-    }
-    catch (error)
-    {
-        dispatch(
-            {
-                type:F_GET_REPLIES,
-                payload: "Something went wrong"
-            })
-    }
-}
-export const getOneFeedAction = (id) => async (dispatch) =>
+export const getFeedAction = (id) => async (dispatch) =>
 {
     try
     {

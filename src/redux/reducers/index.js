@@ -1,19 +1,21 @@
 import {combineReducers} from "redux";
 import {getTopicCountReducer, getTopicsReducer} from './topicsReducer'
-import {getFeedsReducer, getOneFeedReducer,postFeedReducer} from "./feedReducer";
+import {getFeedsReducer, getOneFeedReducer, postFeedReducer, postLikeReducer, postRepliesReducer, postSavesReducer}
+    from "./feedReducer";
 import {authReducer} from "./authReducer";
-import {getRepliesReducer} from "./repliesReducer";
 
 export default combineReducers(
     {
-        getTopicsReducer,
-        getFeedsReducer,
-        getOneFeedReducer,
-        getTopicCountReducer,
-        postFeedReducer,
-        getRepliesReducer,
+            authReducer,
 
-        authReducer,
+            getTopicsReducer,
+            getFeedsReducer,
+            getOneFeedReducer,
+            getTopicCountReducer,
+            postFeedReducer,
+            postRepliesReducer,
+            postLikeReducer,
+            postSavesReducer
     }
 )
 

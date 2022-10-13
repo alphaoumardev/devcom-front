@@ -42,7 +42,7 @@ export const authReducer = (state={
     isAuthenticated: false,
     user: userStorage,
     token: accessToken,
-    profile: [],}, action)=>
+    }, action)=>
 {
     switch (action.type)
     {
@@ -50,11 +50,6 @@ export const authReducer = (state={
         case REGISTER_REQUEST:
             return{
                 isLoading: true,
-            }
-        case USER_PROFILE:
-            return {
-                ...state,
-                profile: action.payload
             }
 
         case S_AUTHENTICATED:
@@ -107,11 +102,7 @@ export const authReducer = (state={
                 user:null,
                 token: null,
             };
-        case LOGOUT_REQUEST:
-            return {
-                ...state,
-                isLoading: true,
-            };
+
         case S_LOGOUT:
         case F_FACEBOOK_AUTH:
         case F_GOOGLE_AUTH:

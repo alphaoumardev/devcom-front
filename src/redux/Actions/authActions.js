@@ -25,7 +25,6 @@ import {
     S_FACEBOOK_AUTH,
     F_FACEBOOK_AUTH,
 
-    LOGOUT_REQUEST,
     S_LOGOUT,
     F_LOGOUT,
     S_UPDATE_PROFILE,
@@ -93,7 +92,7 @@ export const load_user = () => async dispatch =>
         }
         try
         {
-            const res = await axios.get('user/', config)
+            const res = await axios.get('/loaduser/', config)
             dispatch({type: S_LOAD_PROFILE, payload: res.data,})
         }
         catch (error)
@@ -111,7 +110,7 @@ export const logout = () => dispatch =>
     try
     {
         localStorage.removeItem('user')
-        dispatch({type:LOGOUT_REQUEST})
+        localStorage.clear()
         dispatch({type:S_LOGOUT})
     }
     catch (error)

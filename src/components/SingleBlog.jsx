@@ -1,33 +1,31 @@
-import {FiLink, FiSettings} from "react-icons/fi";
+import {FiLink} from "react-icons/fi";
 import {GrLocation} from "react-icons/gr";
 import {BsCodeSlash, BsEmojiHeartEyes, BsHeart, BsImage} from "react-icons/bs";
 import {MdOutlineQuickreply} from "react-icons/md";
-import {AiOutlineRetweet} from "react-icons/ai";
-import {RiShareForwardLine} from "react-icons/ri";
 import {useParams} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
-import {useEffect} from "react";
-import { getOneFeedAction} from "../redux/Actions/feedActions";
+import {useEffect,} from "react";
+import {getOneFeedAction, getLikeAction,} from "../redux/Actions/feedActions";
 import SingleLeft from "./SingleLeft";
-import {getRepliesAction} from "../redux/Actions/repliesActions";
 import moment from "moment";
 
-const SingleBlog = ()=>
+const SingleBlog = ({user})=>
 {
     const {id} =useParams()
     const dispatch = useDispatch()
-    const {feed} = useSelector(state => state.getOneFeedReducer)
-    const {replies} = useSelector(state => state.getRepliesReducer)
+    const {data, comments} = useSelector(state => state.getOneFeedReducer)
 
     useEffect(() =>
     {
         dispatch(getOneFeedAction(id))
-        dispatch(getRepliesAction())
     }, [dispatch, id]);
+
     return(
         <div>
         <div className="flex w-full justify-center gap-4 left-2 mt-3">
-            <SingleLeft feed={feed}/>
+            <div className="">
+                <SingleLeft  data={data} id={id} user={user} />
+            </div>
             <div className="flex-col ">
 
             <div className="max-w-3xl mb-4 p-5 h-auto rounded border">
@@ -44,43 +42,48 @@ const SingleBlog = ()=>
                                         <div className="flex">
                                             <img src="https://diallo.oss-cn-shanghai.aliyuncs.com/photos/diallo.jpg" alt="host"
                                                  className="h-10 w-10 rounded-full object-cover"/>
-                                            <span className="ml-5">Alpha Diallo <br/><b className="text-blue-700">6 days ago</b></span>
+                                            <span className="ml-5">{data?.user?.username}
+                                                <b className="text-blue-700 ml-1">@{data?.user?.username}</b><br/>
+                                                <b className="text-blue-400">{moment(data?.posted?.toString()).startOf().fromNow()}</b>
+                                            </span>
                                         </div>
                                     </div>
-                                    <h1 className="mt-4 font-bold text-3xl text-gray-800 dark:text-white md:mt-0 md:text-3xl">{feed?.title}</h1>
+                                    <h1 className="mt-4 font-bold text-3xl text-gray-800 dark:text-white md:mt-0 md:text-3xl">{data?.title}</h1>
 
                                     <p className="mt-2 ">
-                                        {feed?.content}
+                                        {data?.content}
                                         <a href="#" data-mdb-ripple="true" data-mdb-ripple-color="light">
                                             <img className="rounded h-72 w-full"  src="https://mdbootstrap.com/img/new/standard/nature/182.jpg" alt=""/>
                                         </a>
                                     </p>
                                     {/* the post replies start here*/}
-                                    {replies?.map((item, index)=>
+                                    {comments?.map((item, index)=>
                                         <div key={index} className="max-w-2xl mb-4 h-auto px-8 py-4 bg-white rounded-lg  dark:bg-gray-800 ">
                                             <div>
                                                 <div className="flex items-center justify-between">
                                                     <div className="flex items-center">
                                                         <img className="hidden object-cover w-10 h-10 mx-4 rounded-full sm:block"
                                                              src="https://diallo.oss-cn-shanghai.aliyuncs.com/photos/diallo.jpg" alt="host"/>
-                                                        <a className="font-bold text-gray-700 cursor-pointer dark:text-gray-200">{item?.commentator?.username}<span className="font-thin">@{item?.commentator?.username} <span className="ml-3 dark:text-gray-400">{moment(item?.commentated?.toString()).startOf().fromNow()}</span></span></a>
+                                                        <a className="font-bold text-gray-700 cursor-pointer dark:text-gray-200">{item?.commentator?.username}<span className="font-thin ml-1">@{item?.commentator?.username} <span className="ml-3 dark:text-gray-400">{moment(item?.commentated?.toString()).startOf().fromNow()}</span></span></a>
                                                     </div>
 
                                                 </div>
 
-                                                <div className="mt-2">
-                                                    <p className="mt-2 text-gray-600 dark:text-gray-300">{item?.comment}</p>
+                                                <div className="flex items-center space-x-3">
+                                                    <div className="flex-col items-center  mt-4">
+                                                        <div className="flex items-center mb-3 hover:text-blue-500 cursor-pointer"
+                                                             data-bs-toggle="modal" data-bs-target="#commentModal">
+                                                            <MdOutlineQuickreply  size={25} className="mr-2"/>{item?.replies}
+                                                        </div>
+                                                        <div className="flex items-center hover:text-red-700">
+                                                            <BsHeart size={25} className="mr-2"/>{item?.like}
+                                                        </div>
+                                                    </div>
+                                                    <div className="mt-2">
+                                                        <p className="mt-2 text-gray-600 dark:text-gray-300">{item?.comment}</p>
+                                                    </div>
                                                 </div>
 
-                                                <div className="flex items-center justify-between mt-4">
-                                                    <div className="flex items-center hover:text-blue-500 cursor-pointer"
-                                                         data-bs-toggle="modal" data-bs-target="#commentModal">
-                                                        <MdOutlineQuickreply  size={25} className="mr-2"/>{item?.replies}
-                                                    </div>
-                                                    <div className="flex items-center hover:text-red-700">
-                                                        <BsHeart size={25} className="mr-2"/>{item?.like}
-                                                    </div>
-                                                </div>
                                             </div>
                                         </div>
 

@@ -1,5 +1,7 @@
-import {F_GET_FEED, S_GET_FEED, F_GET_FEEDS, S_GET_FEEDS,S_POST_FEED,
-    F_POST_FEED,
+import {
+    F_GET_FEED, S_GET_FEED, F_GET_FEEDS, S_GET_FEEDS, S_POST_FEED,
+    F_POST_FEED, S_POST_REPLIES, F_POST_REPLIES, S_POST_LIKES,
+    F_POST_LIKES, S_POST_SAVES, F_POST_SAVES
 } from "../Types";
 import axios from "axios";
 
@@ -46,6 +48,7 @@ export const getFeedAction = (name) => async (dispatch) =>
             })
     }
 }
+
 export const getOneFeedAction = (id) => async (dispatch) =>
 {
     try
@@ -88,6 +91,78 @@ export const postFeedAction = (title, topic, content, user) => async (dispatch) 
         dispatch(
             {
                 type:F_POST_FEED,
+                payload: "Something went wrong"
+            })
+    }
+}
+
+export const postRepliesAction = (post, comment, commentator) => async (dispatch) =>
+{
+    try
+    {
+        const body = JSON.stringify({ post, comment, commentator})
+        await axios.post(`/feed/${post}`,body, config ).then(res =>
+        {
+            dispatch(
+                {
+                    type:S_POST_REPLIES,
+                    payload:res.data
+                })
+            console.log(res.data)
+        })
+    }
+    catch (error)
+    {
+        dispatch(
+            {
+                type:F_POST_REPLIES,
+                payload: "Something went wrong"
+            })
+    }
+}
+
+export const postLikeAction = (id) => async (dispatch) =>
+{
+    try
+    {
+        const body = JSON.stringify({})
+        await axios.post(`/likes/${id}`, body, config ).then(res =>
+        {
+            dispatch(
+                {
+                    type:S_POST_LIKES,
+                    payload:res.data
+                })
+        })
+    }
+    catch (error)
+    {
+        dispatch(
+            {
+                type:F_POST_LIKES,
+                payload: "Something went wrong"
+            })
+    }
+}
+export const postSavesAction = (id) => async (dispatch) =>
+{
+    try
+    {
+        const body = JSON.stringify({})
+        await axios.post(`/saves/${id}`, body, config ).then(res =>
+        {
+            dispatch(
+                {
+                    type:S_POST_SAVES,
+                    payload:res.data
+                })
+        })
+    }
+    catch (error)
+    {
+        dispatch(
+            {
+                type:F_POST_SAVES,
                 payload: "Something went wrong"
             })
     }

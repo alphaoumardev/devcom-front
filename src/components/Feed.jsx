@@ -1,11 +1,15 @@
-import {MdLibraryAdd, MdOutlineQuickreply} from "react-icons/md";
-import {RiShareForwardLine} from "react-icons/ri";
-import {BsBookmark, BsCodeSlash, BsEmojiHeartEyes, BsHeart, BsImage} from "react-icons/bs";
+import {MdBookmarkAdded, MdLibraryAdd, MdOutlineBookmarkBorder, MdOutlineQuickreply} from "react-icons/md";
+import {RiHeart2Fill, RiHeart2Line, RiShareForwardLine} from "react-icons/ri";
+import {BsCodeSlash, BsEmojiHeartEyes, BsImage} from "react-icons/bs";
 import {FiLink} from "react-icons/fi";
 import {GrLocation} from "react-icons/gr";
 import {useDispatch, useSelector} from "react-redux";
 import {useEffect, useState} from "react";
-import {getFeedAction, postFeedAction} from "../redux/Actions/feedActions";
+import {
+    getFeedAction,
+    postFeedAction,
+    postLikeAction, postSavesAction
+} from "../redux/Actions/feedActions";
 import {useParams} from "react-router-dom";
 import {load_user} from "../redux/Actions/authActions";
 import moment from "moment/moment";
@@ -17,13 +21,12 @@ const Feed = () =>
     let {name} = useParams()
     const dispatch = useDispatch()
     const {feeds} = useSelector(state => state.getFeedsReducer)
-    const {user} = useSelector(state => state.authReducer)
     const {topics} = useSelector(state => state.getTopicsReducer)
+    const {user} = useSelector(state => state.authReducer)
 
     const [topic, setTopic] = useState('');
     const [content, setContent] = useState('');
     const [title, setTitle] = useState('');
-
 
     useEffect(() =>
     {
@@ -37,7 +40,7 @@ const Feed = () =>
     const postFeed = (e)=>
     {
         e.preventDefault()
-        dispatch(postFeedAction(title, topic, content, user.id))
+        dispatch(postFeedAction(title, topic, content, user?.id))
     }
     return(
         <div className="flex-col mt-5 hover:shadow">
@@ -48,7 +51,7 @@ const Feed = () =>
                     <div className="flex items-center">
                         <img className="hidden object-cover w-10 h-10 mx-4 rounded-full sm:block"
                              src="https://res.cloudinary.com/diallo/image/upload/v1653794949/diallo_rjazjs.png" alt="host"/>
-                        <a className="font-bold text-gray-700 cursor-pointer dark:text-gray-200">Alpha Oumar <span className="font-thin">@Alphaoumar</span></a>
+                        <a className="font-bold text-gray-700 cursor-pointer capitalize dark:text-gray-200">{user?.username} <span className="font-thin">@{user?.username}</span></a>
                     </div>
                 </div>
                 <div className="mt-2">
@@ -106,6 +109,7 @@ const Feed = () =>
 
             {feeds?.map((item, index)=>
                 <div key={index} className="max-w-3xl mb-4 h-auto px-8 py-4 bg-white rounded dark:bg-gray-800 hover:shadow-lg">
+
                 <div>
                     <div className="flex items-center justify-between">
                         <div className="flex items-center">
@@ -131,14 +135,55 @@ const Feed = () =>
                         <div className="flex items-center hover:text-blue-500"
                              data-bs-toggle="modal" data-bs-target="#commentModal">
                             <MdOutlineQuickreply
-                            size={25} className="mr-2"/>{item?.replies}
-                        </div>
-                        <div className="flex items-center hover:text-green-500">
-                            <BsBookmark size={25} className="mr-2"/>{item?.saves}
+                            size={25} className="mr-2"/>{item?.num_replies>0 && <span>{item?.num_replies}</span>}
                         </div>
                         <div className="flex items-center hover:text-red-700">
-                            <BsHeart size={25} className="mr-2"/>{item?.likes}
+                            { user && item?.saves?.includes(user?.id) &&
+                                <MdBookmarkAdded  size={25} color={"green"} type="submit"
+                                               onClick={()=>{
+                                                   if(dispatch(postSavesAction(item?.id)))
+                                                   {
+                                                       dispatch(getFeedAction(name))
+                                                   }
+                                               }}
+
+                                />}
+                            {!item?.saves?.includes(user?.id)&&
+                                <MdOutlineBookmarkBorder size={25}  type="submit"
+                                              onClick={()=>{
+                                                  if(dispatch(postSavesAction(item?.id)))
+                                                  {
+                                                      dispatch(getFeedAction(name))
+                                                  }
+                                              }}
+                                />}
+                            {item?.num_saves>0 &&<span className='ml-2'>{item?.num_saves}</span>}
+
                         </div>
+                        <div className="flex items-center hover:text-red-700">
+                            { user && item?.likes?.includes(user?.id) &&
+                                <RiHeart2Fill  size={25} color={"red"} type="submit"
+                                         onClick={()=>{
+                                             if(dispatch(postLikeAction(item?.id)))
+                                             {
+                                                 dispatch(getFeedAction(name))
+                                             }
+                                         }}
+                                />}
+
+                            {!item?.likes?.includes(user?.id)&&
+                                <RiHeart2Line size={25}  type="submit"
+                                         onClick={()=>{
+                                             if(dispatch(postLikeAction(item?.id)))
+                                             {
+                                                 dispatch(getFeedAction(name))
+                                             }
+                                         }}
+                                />}
+                            {item?.num_likes>0 &&<span className='ml-2'>{item?.num_likes}</span>}
+
+                        </div>
+
                         <div className="flex items-center hover:text-blue-700">
                             <RiShareForwardLine size={25} className="mr-2"/>{item?.shares}
                         </div>
@@ -147,7 +192,6 @@ const Feed = () =>
                 </div>
             </div>
             )}
-
         {/*    modal replies*/}
             <div
                 className="modal fade fixed top-0 left-0 hidden w-full h-full outline-none overflow-x-hidden overflow-y-auto"

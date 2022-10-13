@@ -34,7 +34,6 @@ export  const F_GOOGLE_AUTH = "F_GOOGLE_AUTH"
 export  const S_FACEBOOK_AUTH = "S_FACEBOOK_AUTH"
 export  const F_FACEBOOK_AUTH = "F_FACEBOOK_AUTH"
 
-export  const LOGOUT_REQUEST = "LOGOUT_REQUEST"
 export  const S_LOGOUT = "S_LOGOUT"
 export  const F_LOGOUT = "F_LOGOUT"
 
@@ -54,11 +53,18 @@ export const F_GET_FEED = "F_GET_FEED"
 export const S_GET_REPLIES = "S_GET_REPLIES"
 export const F_GET_REPLIES = "F_GET_REPLIES"
 
+export const S_POST_REPLIES = "S_POST_REPLIES"
+export const F_POST_REPLIES = "F_POST_REPLIES"
+
 export const F_GET_TOPIC_COUNT = "F_GET_TOPIC_COUNT"
 export const S_GET_TOPIC_COUNT = "S_GET_TOPIC_COUNT"
 
-export const S_POST_TOPICS = "S_POST_TOPICS"
-export const F_POST_TOPICS = "F_POST_TOPICS"
+export const S_POST_SAVES = "S_POST_SAVES"
+export const F_POST_SAVES = "F_POST_SAVES"
+
+export const S_POST_LIKES = "S_POST_LIKES"
+export const F_POST_LIKES = "F_POST_LIKES"
+
 
 export const S_POST_FEEDS = "S_POST_FEEDS"
 export const F_POST_FEEDS = "F_POST_FEEDS"
