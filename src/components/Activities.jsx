@@ -6,7 +6,7 @@ const Activities = ()=>
 {
     return(
         <>
-        <div className="flex-col sticky top-24 max-w-xl bg-gray-50 rounded p-5 border-gray-100 hover:shadow">
+        <div className="flex-col sticky top-0 max-w-xl bg-gray-50 rounded p-5 border-gray-100 hover:shadow">
             <a href="#" className="flex justify-center items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
                 <span className="uppercase px-12 py-3 bg-gray-200 flex justify-center items-center rounded-full">RECENT ACTIVITIES</span>
             </a>
@@ -42,7 +42,7 @@ const Activities = ()=>
                 <a href="#" className="inline-flex items-center text-blue-600 hover:underline">See more<FiExternalLink className="ml-1"/></a>
             </div>
 
-            <div className="p-4 w-full max-w-md bg-white rounded-lg hover:shadow mt-4 sm:p-8 hover:shadow-lg dark:bg-gray-800 dark:border-gray-700">
+            <div className="p-4  w-full max-w-md bg-white rounded-lg hover:shadow mt-4 sm:p-8 hover:shadow-lg dark:bg-gray-800 dark:border-gray-700">
                 <div className="flex justify-between items-center mb-4">
                     <h5 className="text-xl font-bold leading-none text-gray-900 dark:text-white">Relevent People</h5>
                     <a href="#" className="text-sm font-medium text-blue-600 hover:underline dark:text-blue-500">See more</a>
@@ -84,7 +84,7 @@ const Activities = ()=>
                 </div>
             </div>
         {/*     copyright*/}
-            <div className=" w-full max-w-md  rounded-lg mt-4 sm:p-8  dark:bg-gray-800 ">
+            <div className="  max-w-xl w-full max-w-md  rounded-lg mt-4 sm:p-8  dark:bg-gray-800 ">
                 <div className="flex-1 min-w-0 text-base">
                     <a href="#" className="font-medium text-gray-900 truncate dark:text-white"> Terms of Service</a><br/>
                     <a href="#" className="font-medium text-gray-900 truncate dark:text-white"> About us</a>
@@ -93,7 +93,6 @@ const Activities = ()=>
                     <a href="#" className="justify-center flex font-medium text-gray-900 truncate dark:text-white"> © 2022 Devco, Inc</a>
                 </div>
             </div>
-
         </div>
         </>
             )

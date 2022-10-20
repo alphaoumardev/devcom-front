@@ -1,4 +1,4 @@
-import {F_GET_TOPICS, S_GET_TOPICS} from "../Types";
+import {F_GET_TOPICS, S_GET_TOPICS, S_POST_TOPICS, F_POST_TOPICS} from "../Types";
 import axios from "axios";
 
 const config = {
@@ -32,24 +32,26 @@ export const getTopicsAction = () => async (dispatch) =>
     }
 }
 
-export const getOneTopicCountAction = (name) => async (dispatch) =>
+export const postTopicAction = (name) => async (dispatch) =>
 {
+    const body = JSON.stringify({name})
     try
     {
-        await axios.get(`/topicount/${name}`).then(res =>
+        await axios.post(`/topics/`, body, config).then(res =>
         {
             dispatch(
                 {
-                    type:S_GET_TOPICS,
+                    type:S_POST_TOPICS,
                     payload:res.data
                 })
+            console.log(res.data)
         })
     }
     catch (error)
     {
         dispatch(
             {
-                type:F_GET_TOPICS,
+                type:F_POST_TOPICS,
                 payload: "Something went wrong"
             })
     }

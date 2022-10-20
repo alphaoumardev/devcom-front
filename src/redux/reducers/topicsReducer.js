@@ -2,7 +2,8 @@ import {
     S_GET_TOPICS,
     F_GET_TOPICS,
     F_GET_TOPIC_COUNT,
-    S_GET_TOPIC_COUNT
+    S_GET_TOPIC_COUNT,
+    S_POST_TOPICS,F_POST_TOPICS
 } from '../Types'
 
 
@@ -33,6 +34,23 @@ export const getTopicCountReducer = (state={topic: [], count: 0}, action)=>
                 topics: action.payload
             }
         case F_GET_TOPIC_COUNT:
+            return{
+                topics: [],
+                error:action.payload
+            }
+        default:
+            return state
+    }
+}
+export const postTopicReducer = (state={topic: []}, action)=>
+{
+    switch (action.type)
+    {
+        case S_POST_TOPICS:
+            return{
+                topics: action.payload
+            }
+        case F_POST_TOPICS:
             return{
                 topics: [],
                 error:action.payload

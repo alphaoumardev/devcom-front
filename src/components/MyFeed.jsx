@@ -1,6 +1,6 @@
 import MeTab from "./MeTab";
 
-const MeFeed =() =>
+const MyFeed =() =>
 {
     return(
         <div className="flex-col">
@@ -44,4 +44,4 @@ const MeFeed =() =>
         </div>
     )
 }
-export default MeFeed
+export default MyFeed

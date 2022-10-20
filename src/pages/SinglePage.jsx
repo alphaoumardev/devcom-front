@@ -6,13 +6,9 @@ const SinglePage = ({user})=>
 {
     return(
         <div className="flex w-full justify-center gap-10 left-2 mt-3 ">
-            <div className="sticky">
-                <Sidebar />
-            </div>
+            <Sidebar />
             <SingleBlog user={user}/>
-            <div className="sticky">
-                <Activities className=""/>
-            </div>
+            <Activities/>
         </div>
     )
 }

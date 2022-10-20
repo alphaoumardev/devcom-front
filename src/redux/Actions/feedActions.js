@@ -7,12 +7,18 @@ import axios from "axios";
 
 const config = {
     headers: {
-        "Content-Type": "application/json",
+        "Content-Type": 'application/json',
         'Authorization': `Token ${localStorage.getItem('token')}`,
         "Accept": "application/json"
     }
 }
-export const getFeedAction = (name) => async (dispatch) =>
+const fe = {
+    headers: {
+        'Authorization': `Token ${localStorage.getItem('token')}`,
+        "Content-Type": 'multipart/form-data',
+    }
+}
+export const getFeedAction = (name, query) => async (dispatch) =>
 {
     try
     {
@@ -29,7 +35,7 @@ export const getFeedAction = (name) => async (dispatch) =>
         }
         else
         {
-            await axios.get("/feeds/", ).then(res =>
+            await axios.get(`/feeds/?query=${query}`, ).then(res =>
             {
                 dispatch(
                     {
@@ -72,18 +78,18 @@ export const getOneFeedAction = (id) => async (dispatch) =>
     }
 }
 
-export const postFeedAction = (title, topic, content, user) => async (dispatch) =>
+export const postFeedAction = (image ) => async (dispatch) =>
 {
     try
     {
-        const body = JSON.stringify({title, topic, content, user})
-        await axios.post(`feeds/`, body, config ).then(res =>
+        await axios.post(`feeds/`, image, fe ).then(res =>
         {
             dispatch(
                 {
                     type:S_POST_FEED,
                     payload: res.data
                 })
+            console.log(res.data)
         })
     }
     catch (error)

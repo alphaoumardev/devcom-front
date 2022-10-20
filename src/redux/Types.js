@@ -44,6 +44,10 @@ export  const USER_PROFILE = "USER_PROFILE"
 export const S_GET_TOPICS = "S_GET_TOPICS"
 export const F_GET_TOPICS = "F_GET_TOPICS"
 
+export const S_POST_TOPICS = "S_POST_TOPICS"
+export const F_POST_TOPICS = "F_POST_TOPICS"
+
+
 export const S_GET_FEEDS = "S_GET_FEEDS"
 export const F_GET_FEEDS = "F_GET_FEEDS"
 

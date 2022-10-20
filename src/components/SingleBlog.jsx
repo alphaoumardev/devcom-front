@@ -5,7 +5,7 @@ import {MdOutlineQuickreply} from "react-icons/md";
 import {useParams} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {useEffect,} from "react";
-import {getOneFeedAction, getLikeAction,} from "../redux/Actions/feedActions";
+import {getOneFeedAction,} from "../redux/Actions/feedActions";
 import SingleLeft from "./SingleLeft";
 import moment from "moment";
 
@@ -53,7 +53,7 @@ const SingleBlog = ({user})=>
                                     <p className="mt-2 ">
                                         {data?.content}
                                         <a href="#" data-mdb-ripple="true" data-mdb-ripple-color="light">
-                                            <img className="rounded h-72 w-full"  src="https://mdbootstrap.com/img/new/standard/nature/182.jpg" alt=""/>
+                                            {data?.cover_image &&<img className="rounded h-72 w-full object-cover"  src={data?.cover_image} alt=""/>}
                                         </a>
                                     </p>
                                     {/* the post replies start here*/}

@@ -1,6 +1,5 @@
 import Activities from "../components/Activities";
-import MeSettings from "../components/MeSettings";
-import MeFeed from "../components/MeFeed";
+import MyFeed from "../components/MyFeed";
 import Sidebar from "../components/Sidebar";
 
 const Me = ()=>
@@ -8,7 +7,7 @@ const Me = ()=>
     return(
         <div className="flex justify-center items-baseline gap-10 min-w-8xl left-5">
             <Sidebar/>
-            <MeFeed/>
+            <MyFeed/>
             <Activities/>
         </div>
     )

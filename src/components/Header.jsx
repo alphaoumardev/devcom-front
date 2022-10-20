@@ -11,9 +11,10 @@ import {IoMdPerson} from "react-icons/io";
 import {useDispatch} from "react-redux";
 
 
-const Header =({user})=>
+const Header =({user, setQuery})=>
 {
     const dispatch = useDispatch()
+
     return (
         <nav className="sticky-top  bg-gray-100 border-gray-200 px-8 shadow-lg sm:px-4 py-4 rounded dark:bg-gray-900">
             <div className=" flex justify-between w-10/12 mx-auto ">
@@ -32,9 +33,10 @@ const Header =({user})=>
                         <BsSearch/>
 
                     </div>
-                    <input type="search" id="search"
-                           className="block p-4 pl-10 w-full text-xl  border-none bg-gray-200 text-sm text-gray-900  rounded-lg focus:ring-blue-200 focus:border-blue-200 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                           placeholder="Search..." required/>
+                        <input type="search" id="search"
+                               className="block p-4 pl-10 w-full text-xl  border-none bg-gray-200 text-sm text-gray-900  rounded-lg focus:ring-blue-200 focus:border-blue-200 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                               placeholder="Search..." required onChange={(e)=>setQuery(e.target.value)}/>
+
                 </div>
 
                 <div className=" flex space-x-3">
