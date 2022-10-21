@@ -3,6 +3,7 @@ import {getTopicCountReducer, getTopicsReducer, postTopicReducer} from './topics
 import {getFeedsReducer, getOneFeedReducer, postFeedReducer, postLikeReducer, postRepliesReducer, postSavesReducer}
     from "./feedReducer";
 import {authReducer} from "./authReducer";
+import {getTrendingReducer} from "./activitiesReducer";
 
 export default combineReducers(
     {
@@ -16,7 +17,9 @@ export default combineReducers(
             postRepliesReducer,
             postLikeReducer,
             postSavesReducer,
-            postTopicReducer
+            postTopicReducer,
+            getTrendingReducer,
+
     }
 )
 

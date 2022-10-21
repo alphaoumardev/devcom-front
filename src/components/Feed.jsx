@@ -20,6 +20,7 @@ import "react-quill/dist/quill.snow.css";
 import "react-quill/dist/quill.bubble.css";
 import {FaExchangeAlt} from "react-icons/fa";
 import parse from 'html-react-parser';
+import {getTrendingAction} from "../redux/Actions/activitiesAction";
 const Feed = ({query}) =>
 {
     let {name} = useParams()
@@ -67,7 +68,7 @@ const Feed = ({query}) =>
         minutes = minutes < 10 ? '0'+minutes : minutes;
 
         let current_date = date.getFullYear()+""+month+""+ day+""+hour+""+minutes
-        if(current_date >=expiration_date)
+        if(parseInt(current_date)>=parseInt(expiration_date))
         {
             localStorage.clear()
         }
@@ -75,7 +76,12 @@ const Feed = ({query}) =>
     let modules={toolbar:toolbarOptions}
     useEffect(() =>
     {
+        // console.log(parseInt(current_date)>=parseInt(expiration_date))
 
+        if(parseInt(current_date)>=parseInt(expiration_date))
+        {
+            localStorage.clear()
+        }
         if (user)
         {
             dispatch(load_user())
@@ -99,6 +105,7 @@ const Feed = ({query}) =>
         e.preventDefault()
         dispatch(postTopicAction(newTopic))
     }
+
     return(
         <div className="flex-col mt-5 hover:shadow">
 

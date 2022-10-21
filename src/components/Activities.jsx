@@ -1,9 +1,19 @@
 import {IoMdTrendingUp} from "react-icons/io";
 import {BsThreeDots} from "react-icons/bs";
 import {FiExternalLink} from "react-icons/fi";
+import {useEffect} from "react";
+import {useDispatch, useSelector} from "react-redux";
+import {getTrendingAction} from "../redux/Actions/activitiesAction";
 
 const Activities = ()=>
 {
+    const dispatch = useDispatch()
+    const {trending_feed} = useSelector(state => state.getTrendingReducer)
+    useEffect(() =>
+    {
+        dispatch(getTrendingAction())
+    }, [dispatch]);
+
     return(
         <>
         <div className="flex-col sticky top-0 max-w-xl bg-gray-50 rounded p-5 border-gray-100 hover:shadow">
@@ -31,14 +41,17 @@ const Activities = ()=>
                     <h5 className="text-xl flex font-bold leading-none text-red-700 dark:text-white">Tranding Topics  <IoMdTrendingUp className="ml-1 text-red-700"/></h5>
                     <a href="#" className="text-sm font-medium text-blue-600 hover:underline dark:text-blue-500"><BsThreeDots/></a>
                 </div>
-                <div className="flex justify-between items-center mb-4">
-                    <a href="#" className="font-normal leading-none text-gray-900 dark:text-white">Cybersecurity</a>
-                    <a href="#" className="text-sm font-thin text-blue-600 p-1 bg-blue-300 rounded-full  dark:text-blue-500">99k+</a>
-                </div>
-                <div className="flex justify-between items-center mb-4">
-                    <a href="#" className="font-normal leading-none text-gray-900 dark:text-white">Artificial Itelligence</a>
-                    <a href="#" className="text-sm font-thin text-blue-600 p-1 bg-blue-300 rounded-full dark:text-blue-500">99k+</a>
-                </div>
+                {trending_feed?.map((item, index)=>
+                    <div key={index} className="flex justify-between items-center mb-4">
+                        <a href={`/single/${item?.id}`} className="font-normal leading-none text-gray-900 dark:text-white">{item?.title?.slice(0,30 )}</a>
+                        <a href={`/single/${item?.id}`} className="text-sm font-thin text-blue-600 px-2 py-1 bg-blue-300 rounded-full  dark:text-blue-500">
+
+                            {item?.views>99&&item?.views<1000 ? 99+'+':item?.views && item?.views>999 ? item?.views/1000+'k': item?.views}
+                        </a>
+                    </div>
+                )}
+
+
                 <a href="#" className="inline-flex items-center text-blue-600 hover:underline">See more<FiExternalLink className="ml-1"/></a>
             </div>
 

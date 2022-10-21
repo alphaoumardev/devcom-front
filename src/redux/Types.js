@@ -47,7 +47,6 @@ export const F_GET_TOPICS = "F_GET_TOPICS"
 export const S_POST_TOPICS = "S_POST_TOPICS"
 export const F_POST_TOPICS = "F_POST_TOPICS"
 
-
 export const S_GET_FEEDS = "S_GET_FEEDS"
 export const F_GET_FEEDS = "F_GET_FEEDS"
 
@@ -69,12 +68,14 @@ export const F_POST_SAVES = "F_POST_SAVES"
 export const S_POST_LIKES = "S_POST_LIKES"
 export const F_POST_LIKES = "F_POST_LIKES"
 
-
-export const S_POST_FEEDS = "S_POST_FEEDS"
-export const F_POST_FEEDS = "F_POST_FEEDS"
-
 export const S_POST_FEED = "S_POST_FEED"
 export const F_POST_FEED = "F_POST_FEED"
+
+export const S_POST_TRENDING = "S_POST_TRENDING"
+export const F_POST_TRENDING = "F_POST_TRENDING"
+
+export const S_GET_TRENDING = "S_GET_TRENDING"
+export const F_GET_TRENDING = "F_GET_TRENDING"
 
 export const S_POST_FEED_BY_TOPIC = "S_POST_FEED_BY_TOPIC"
 export const F_POST_FEED_BY_TOPIC = "F_POST_FEED_BY_TOPIC"
