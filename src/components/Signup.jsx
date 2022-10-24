@@ -8,8 +8,8 @@ const Signup = () =>
 {
     const navigate = useNavigate()
     const dispatch = useDispatch()
-    const {user} = useSelector(state => state.authReducer)
-    const [created, setCreated] = useState(false);
+    const {user, error} = useSelector(state => state.authReducer)
+    const [created, setCreated] = useState('');
     const [formData, setFormData] = useState({email:"",username:"", password:"", con:""});
     const {username, email, password, con} = formData
     const onChange = (e) => setFormData({...formData, [e.target.name]: e.target.value})
@@ -20,7 +20,12 @@ const Signup = () =>
         if(password === con)
         {
             dispatch(register(username, email, password))
-            setCreated(true)
+            setCreated('created')
+            if([created==="created" && error===''])
+            {
+                // window.location.pathname='/login'
+                navigate('/login')
+            }
         }
         else
             return formData
@@ -31,17 +36,8 @@ const Signup = () =>
         {
             return navigate('/')
         }
-        else if(created)
-        {
-            return navigate('/login')
-        }
+
     }, [user]);
-
-    if(user)
-    {
-
-    }
-
     return(
         <section className="w-screen h-screen ">
             <div className="container px-12 py-12 w-full h-full  lg:ml-52">
@@ -54,6 +50,7 @@ const Signup = () =>
                         />
                     </div>
                     <div className="md:w-8/12 lg:w-3/12 lg:ml-20">
+                        {error && <b className="flex text-red-500 text-center mb-2 mt-0">{error}</b>}
                         <form onSubmit={onSubmit}>
                             {/*-- Email input --*/}
                             <div className="mb-6">
@@ -79,6 +76,7 @@ const Signup = () =>
                                     id="username"
                                     name="username"
                                     required={true}
+                                    minLength={3}
                                     onChange={e=>onChange(e)}
                                 />
                             </div>
@@ -92,6 +90,7 @@ const Signup = () =>
                                     id="password"
                                     name="password"
                                     required={true}
+                                    minLength={6}
                                     onChange={e=>onChange(e)}
                                 />
                             </div>
@@ -104,6 +103,7 @@ const Signup = () =>
                                     id="con"
                                     name="con"
                                     required={true}
+                                    minLength={6}
                                     onChange={e=>onChange(e)}
                                 />
                             </div>

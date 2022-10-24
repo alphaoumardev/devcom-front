@@ -16,6 +16,9 @@ export  const F_ACTIVATION = "F_ACTIVATION"
 export  const S_LOAD_PROFILE = "S_LOAD_PROFILE"
 export  const F_LOAD_PROFILE = "F_LOAD_PROFILE"
 
+export  const S_USER_INFO = "S_USER_INFO"
+export  const F_USER_INFO = "F_USER_INFO"
+
 export  const S_UPDATE_PROFILE = 'S_UPDATE_PROFILE'
 export  const F_UPDATE_PROFILE = 'F_UPDATE_PROFILE'
 

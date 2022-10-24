@@ -24,18 +24,18 @@ import {
     S_FACEBOOK_AUTH,
     F_FACEBOOK_AUTH,
 
-    LOGOUT_REQUEST,
     S_LOGOUT,
     F_LOGOUT, F_REFRESH,
     S_UPDATE_PROFILE,
     F_UPDATE_PROFILE,
-    USER_PROFILE,
+    S_USER_INFO,
+    F_USER_INFO
 } from '../Types'
 
 const accessToken = localStorage.getItem('token') ? localStorage.getItem('token') : null;
 const userStorage = localStorage.getItem('user')? JSON.parse(localStorage.getItem('user')):null
 
-export const authReducer = (state={
+export const authReducer = (state= {
 
     error:null,
     isLoading:false,
@@ -57,7 +57,6 @@ export const authReducer = (state={
         case S_GOOGLE_AUTH:
         case S_FACEBOOK_AUTH:
             localStorage.setItem('token', action.payload.token)
-
             return{
                 ...state,
                 token: action.payload.token,
@@ -85,6 +84,7 @@ export const authReducer = (state={
             return{
                 ...state,
                 isAuthenticated: false,
+                error: action.payload
             }
         case F_LOAD_PROFILE:
         case F_UPDATE_PROFILE:
@@ -131,3 +131,22 @@ export const authReducer = (state={
     }
 }
 
+export const getUserInfoReducer = (state={userinfo: [], mypost:[]}, action)=>
+{
+    switch (action.type)
+    {
+        case S_USER_INFO:
+            return{
+                userinfo: action.payload.data,
+                mypost: action.payload.mypost,
+            }
+        case F_USER_INFO:
+            return{
+                userinfo: [],
+                mypost: [],
+                error:action.payload
+            }
+        default:
+            return state
+    }
+}

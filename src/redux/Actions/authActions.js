@@ -29,7 +29,7 @@ import {
     F_LOGOUT,
     S_UPDATE_PROFILE,
     F_UPDATE_PROFILE,
-    USER_PROFILE
+    USER_PROFILE, S_USER_INFO, F_USER_INFO
 } from '../Types'
 import axios from "axios";
 
@@ -51,6 +51,7 @@ export const register = (username, email, password)=> async dispatch =>
             type:S_REGISTER,
             payload: res.data,
         })
+        console.log(res.data)
     }
     catch (error)
     {
@@ -93,11 +94,51 @@ export const load_user = () => async dispatch =>
         try
         {
             const res = await axios.get('/loaduser/', config)
-            dispatch({type: S_LOAD_PROFILE, payload: res.data,})
+            dispatch({
+                type: S_LOAD_PROFILE,
+                payload: res.data,
+            })
+            // console.log(res.data)
         }
         catch (error)
         {
-            dispatch({type: F_LOAD_PROFILE, payload: error})
+            dispatch({
+                type: F_LOAD_PROFILE,
+                payload: error
+            })
+        }
+    }else
+    {
+        dispatch({type: S_LOAD_PROFILE,})
+    }
+}
+
+export const loadUserInfoAction = () => async dispatch =>
+{
+    if(localStorage.getItem('token'))
+    {
+        const config = {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Token ${localStorage.getItem('token')}`,
+                'Accept': 'application/json'
+            }
+        }
+        try
+        {
+            const res = await axios.get('/profile/', config)
+            dispatch({
+                type: S_USER_INFO,
+                payload: res.data,
+            })
+            // console.log(res.data)
+        }
+        catch (error)
+        {
+            dispatch({
+                type: F_USER_INFO,
+                payload: error
+            })
         }
     }else
     {

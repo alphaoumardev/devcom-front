@@ -11,7 +11,7 @@ import {
     postLikeAction, postSavesAction
 } from "../redux/Actions/feedActions";
 import { useParams} from "react-router-dom";
-import {load_user} from "../redux/Actions/authActions";
+import {load_user, loadUserInfoAction} from "../redux/Actions/authActions";
 import moment from "moment/moment";
 import {getTopicsAction, postTopicAction} from "../redux/Actions/topicsActions";
 import {Input} from "@material-tailwind/react";
@@ -20,7 +20,14 @@ import "react-quill/dist/quill.snow.css";
 import "react-quill/dist/quill.bubble.css";
 import {FaExchangeAlt} from "react-icons/fa";
 import parse from 'html-react-parser';
-import {getTrendingAction} from "../redux/Actions/activitiesAction";
+import {
+    Popover,
+    PopoverHandler,
+    PopoverContent,
+    Button,
+} from "@material-tailwind/react";
+import PopoverInfo from "./PopoverInfo";
+
 const Feed = ({query}) =>
 {
     let {name} = useParams()
@@ -30,6 +37,7 @@ const Feed = ({query}) =>
     const {feeds} = useSelector(state => state.getFeedsReducer)
     const {topics} = useSelector(state => state.getTopicsReducer)
     const {user} = useSelector(state => state.authReducer)
+    const {userinfo, mypost} = useSelector(state=> state.getUserInfoReducer)
 
     const [topic, setTopic] = useState('');
     const [content, setContent] = useState('');
@@ -86,6 +94,7 @@ const Feed = ({query}) =>
         {
             dispatch(load_user())
             dispatch(getTopicsAction())
+            dispatch(loadUserInfoAction())
         }
         dispatch(getFeedAction(name, query))
     }, [dispatch, query,]);
@@ -105,10 +114,13 @@ const Feed = ({query}) =>
         e.preventDefault()
         dispatch(postTopicAction(newTopic))
     }
-
+console.log(userinfo)
     return(
         <div className="flex-col mt-5 hover:shadow">
 
+            {/*popover*/}
+
+            {/*end popover*/}
             <div className="max-w-3xl mb-4 h-auto px-8 py-4 bg-white rounded-lg  dark:bg-gray-800">
             <div>
                 <div className="flex items-center justify-between">
@@ -199,9 +211,15 @@ const Feed = ({query}) =>
                 <div>
                     <div className="flex items-center justify-between">
                         <div className="flex items-center">
-                            <img className="hidden object-cover w-10 h-10 mx-4 rounded-full sm:block"
-                                 src="https://res.cloudinary.com/diallo/image/upload/v1653794949/diallo_rjazjs.png" alt="host"/>
-                            <a className="font-bold text-gray-700 cursor-pointer dark:text-gray-200 capitalize">{item?.user?.username}<span className="font-thin capitalize ml-1">@{item?.user?.username}
+                            <Popover>
+                                <PopoverHandler>
+                                    <img  src={userinfo?.avatar} alt="" className="hidden object-cover w-10 h-10 mx-4 rounded-full sm:block" />
+                                </PopoverHandler>
+                                <PopoverContent>
+                                    <PopoverInfo userinfo={userinfo}/>{/* this is the component */}
+                                </PopoverContent>
+                            </Popover>
+                            <a href={`/me`} className="font-bold text-gray-700 cursor-pointer dark:text-gray-200 capitalize">{item?.user?.username}<span className="font-thin capitalize ml-1">@{item?.user?.username}
                             <span className="ml-3">{moment(item?.posted?.toString()).startOf().fromNow()}</span>
                             </span>
                             </a>
@@ -289,6 +307,14 @@ const Feed = ({query}) =>
                 </div>
             </div>
             )}
+            <Popover>
+                <PopoverHandler>
+                    <Button variant="gradient">Show Popover</Button>
+                </PopoverHandler>
+                <PopoverContent>
+                    <PopoverInfo/>{/* this is the component */}
+                </PopoverContent>
+            </Popover>
             <div className="flex justify-center max-w-3xl mb-4 h-auto px-8 py-4 bg-white rounded dark:bg-gray-800">
                 <button onClick={()=>setLoadmore(loadmore+10)}
                     className="px-6 py-3 font-bold text-white capitalize transition-colors

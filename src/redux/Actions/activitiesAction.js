@@ -21,7 +21,6 @@ export const getTrendingAction = () => async (dispatch) =>
                     type: S_GET_TRENDING,
                     payload: res.data
                 })
-            console.log(res.data)
         })
     }
     catch (error)
