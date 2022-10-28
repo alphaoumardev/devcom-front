@@ -20,15 +20,16 @@ import {
 import {useDispatch,} from "react-redux";
 import {useNavigate} from "react-router-dom";
 
-const SingleLeft = ({data, id, user})=>
+const SingleLeft = ({data, id, my_profile})=>
 {
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const [comment, setComment] = useState('');
-    const commentator = user? user.id : null;
+    const commentator = my_profile ? my_profile?.id : null;
     let post = id
-
-    const submitReplies = (e) => {
+    // console.log(my_profile?.id)
+    const submitReplies = (e) =>
+    {
         e.preventDefault()
         dispatch(postRepliesAction(post, comment, commentator))
     }
@@ -46,7 +47,7 @@ const SingleLeft = ({data, id, user})=>
             </div>
             <div className="mb-12 flex-col hover:text-red-700" >
                 <div className="flex justify-center items-center">
-                    {data?.saves?.includes(user?.id)  &&
+                    {data?.saves?.includes(data?.profile?.id)  &&
                         <MdBookmarkAdded  size={25} color={"green"} type="submit"
                                        onClick={()=>{
                                            if(!user)
@@ -60,7 +61,7 @@ const SingleLeft = ({data, id, user})=>
                                            }
                                            // else window.location.reload()
                                        }}/>}
-                    {!data?.saves?.includes(user?.id) &&
+                    {!data?.saves?.includes(data?.profile?.id) &&
                         <MdOutlineBookmarkBorder size={25}  type="submit"
                                       onClick={()=>{
                                           if(!user)
@@ -81,7 +82,7 @@ const SingleLeft = ({data, id, user})=>
 
             <div className="mb-12 flex-col hover:text-red-700" >
                 <div className="flex justify-center items-center">
-                    {data?.likes?.includes(user?.id)  &&
+                    {data?.likes?.includes(data?.profile?.id)  &&
                         <RiHeart2Fill  size={25} color={"red"} type="submit"
                                           onClick={()=>{
                                               if(!user)
@@ -94,7 +95,7 @@ const SingleLeft = ({data, id, user})=>
                                                   dispatch(getOneFeedAction(id))
                                               }else window.location.reload()
                                           }}/>}
-                    {!data?.likes?.includes(user?.id) &&
+                    {!data?.likes?.includes(data?.profile?.id) &&
                         <RiHeart2Line size={25}  type="submit"
                                         onClick={()=>{
                                             if(!user)

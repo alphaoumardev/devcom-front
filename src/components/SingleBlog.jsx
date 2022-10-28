@@ -1,6 +1,6 @@
 import {FiLink} from "react-icons/fi";
 import {GrLocation} from "react-icons/gr";
-import {BsCodeSlash, BsEmojiHeartEyes, BsHeart, BsImage} from "react-icons/bs";
+import {BsCodeSlash, BsEmojiHeartEyes, BsImage} from "react-icons/bs";
 import {MdOutlineQuickreply} from "react-icons/md";
 import {useParams} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
@@ -8,23 +8,26 @@ import {useEffect,} from "react";
 import {getOneFeedAction,} from "../redux/Actions/feedActions";
 import SingleLeft from "./SingleLeft";
 import moment from "moment";
+import {loadMyInfoAction} from "../redux/Actions/authActions";
+import {RiHeart2Line} from "react-icons/ri";
 
-const SingleBlog = ({user})=>
+const SingleBlog = ()=>
 {
     const {id} =useParams()
     const dispatch = useDispatch()
     const {data, comments} = useSelector(state => state.getOneFeedReducer)
-
+    const {my_profile} = useSelector(state => state.getMyInfoReducer)
     useEffect(() =>
     {
+        dispatch(loadMyInfoAction())
         dispatch(getOneFeedAction(id))
     }, [dispatch, id]);
-
+    // console.log(comments)
     return(
         <div>
         <div className="flex w-full justify-center gap-4 left-2 mt-3">
             <div className="">
-                <SingleLeft  data={data} id={id} user={user} />
+                <SingleLeft  data={data} id={id} my_profile={my_profile} />
             </div>
             <div className="flex-col ">
 
@@ -40,10 +43,10 @@ const SingleBlog = ({user})=>
                                 <div className="flex-col mt-5 ">
                                     <div className="py-3 flex">
                                         <div className="flex">
-                                            <img src="https://diallo.oss-cn-shanghai.aliyuncs.com/photos/diallo.jpg" alt="host"
-                                                 className="h-10 w-10 rounded-full object-cover"/>
-                                            <span className="ml-5">{data?.user?.username}
-                                                <b className="text-blue-700 ml-1">@{data?.user?.username}</b><br/>
+                                            <img src={data?.profile?.avatar} alt={data?.profile?.user?.username?.charAt(0)}
+                                                 className="h-10 w-10 rounded-full object-cover capitalize"/>
+                                            <span className="ml-5 capitalize">{data?.profile?.user?.username}
+                                                <b className="text-blue-700 ml-1">@{data?.profile?.user?.username}</b><br/>
                                                 <b className="text-blue-400">{moment(data?.posted?.toString()).startOf().fromNow()}</b>
                                             </span>
                                         </div>
@@ -63,8 +66,10 @@ const SingleBlog = ({user})=>
                                                 <div className="flex items-center justify-between">
                                                     <div className="flex items-center">
                                                         <img className="hidden object-cover w-10 h-10 mx-4 rounded-full sm:block"
-                                                             src="https://diallo.oss-cn-shanghai.aliyuncs.com/photos/diallo.jpg" alt="host"/>
-                                                        <a className="font-bold text-gray-700 cursor-pointer dark:text-gray-200">{item?.commentator?.username}<span className="font-thin ml-1">@{item?.commentator?.username} <span className="ml-3 dark:text-gray-400">{moment(item?.commentated?.toString()).startOf().fromNow()}</span></span></a>
+                                                             src={item?.commentator?.avatar} alt=""/>
+                                                        <a className="font-bold text-gray-700 cursor-pointer capitalize dark:text-gray-200">{item?.commentator?.user?.username}
+                                                            <span className="font-thin ml-1">@{item?.commentator?.user?.username}
+                                                                <span className="ml-3 dark:text-gray-400">{moment(item?.commentated?.toString()).startOf().fromNow()}</span></span></a>
                                                     </div>
 
                                                 </div>
@@ -73,10 +78,10 @@ const SingleBlog = ({user})=>
                                                     <div className="flex-col items-center  mt-4">
                                                         <div className="flex items-center mb-3 hover:text-blue-500 cursor-pointer"
                                                              data-bs-toggle="modal" data-bs-target="#commentModal">
-                                                            <MdOutlineQuickreply  size={25} className="mr-2"/>{item?.replies}
+                                                            <MdOutlineQuickreply  size={15} className="mr-2"/>{item?.replies}
                                                         </div>
                                                         <div className="flex items-center hover:text-red-700">
-                                                            <BsHeart size={25} className="mr-2"/>{item?.like}
+                                                            <RiHeart2Line size={15} className="mr-2"/>{item?.like}
                                                         </div>
                                                     </div>
                                                     <div className="mt-2">
@@ -86,7 +91,6 @@ const SingleBlog = ({user})=>
 
                                             </div>
                                         </div>
-
                                     )}
                                 </div>
                                 {/*d*/}

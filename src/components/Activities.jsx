@@ -3,17 +3,21 @@ import {BsThreeDots} from "react-icons/bs";
 import {FiExternalLink} from "react-icons/fi";
 import {useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {getTrendingAction} from "../redux/Actions/activitiesAction";
+import {getRecommadedProfilesAction, getTrendingAction} from "../redux/Actions/activitiesAction";
 
 const Activities = ()=>
 {
     const dispatch = useDispatch()
     const {trending_feed} = useSelector(state => state.getTrendingReducer)
+    const {recommanded} = useSelector(state => state.getRecommandedProfilesReducer)
+
     useEffect(() =>
     {
         dispatch(getTrendingAction())
+        dispatch(getRecommadedProfilesAction())
     }, [dispatch]);
 
+    console.log(recommanded)
     return(
         <>
         <div className="flex-col sticky top-0 max-w-xl bg-gray-50 rounded p-5 border-gray-100 hover:shadow">
@@ -54,7 +58,7 @@ const Activities = ()=>
 
                 <a href="#" className="inline-flex items-center text-blue-600 hover:underline">See more<FiExternalLink className="ml-1"/></a>
             </div>
-
+            {/*Relevent people*/}
             <div className="p-4  w-full max-w-md bg-white rounded-lg hover:shadow mt-4 sm:p-8 hover:shadow-lg dark:bg-gray-800 dark:border-gray-700">
                 <div className="flex justify-between items-center mb-4">
                     <h5 className="text-xl font-bold leading-none text-gray-900 dark:text-white">Relevent People</h5>
@@ -62,37 +66,23 @@ const Activities = ()=>
                 </div>
                 <div className="flow-root">
                     <ul role="list" className="divide-y divide-gray-200 dark:divide-gray-700">
-                        <li className="py-3 sm:py-4">
-                            <div className="flex items-center space-x-4">
-                                <div className="flex-shrink-0">
-                                    <img className="w-8 h-8 rounded-full object-cover"
-                                         src="https://res.cloudinary.com/diallo/image/upload/v1653794949/diallo_rjazjs.png" alt="Neil image"/>
+                        {recommanded?.map((item, index)=>
+                            <li key={index} className="py-3 sm:py-4">
+                                <div className="flex items-center space-x-4">
+                                    <div className="flex-shrink-0">
+                                        <img className="w-8 h-8 rounded-full object-cover"
+                                             src={item?.avatar} alt=""/>
+                                    </div>
+                                    <div className="flex-1 min-w-0 text-base">
+                                        <p className="text-sm font-medium text-gray-900 truncate dark:text-white capitalize">{item?.user?.username}</p>
+                                        <p className="text-sm text-gray-500 truncate dark:text-gray-400">@{item?.user?.username}</p>
+                                    </div>
+                                    <button type="button"  className="inline-flex bg-blue-300 px-5 py-3 rounded-3xl items-center text-base font-semibold text-gray-900 dark:text-white">
+                                        Follow
+                                    </button>
                                 </div>
-                                <div className="flex-1 min-w-0 text-base">
-                                    <p className="text-sm font-medium text-gray-900 truncate dark:text-white"> Elizabeth II</p>
-                                    <p className="text-sm text-gray-500 truncate dark:text-gray-400">@elizabethtwo</p>
-                                </div>
-                                <button type="button"  className="inline-flex bg-blue-300 px-5 py-3 rounded-3xl items-center text-base font-semibold text-gray-900 dark:text-white">
-                                    Follow
-                                </button>
-                            </div>
-                        </li>
-                        <li className="py-3 sm:py-4">
-                            <div className="flex items-center space-x-4">
-                                <div className="flex-shrink-0">
-                                    <img className="w-8 h-8 rounded-full object-cover"
-                                         src="https://res.cloudinary.com/diallo/image/upload/v1653794949/diallo_rjazjs.png" alt="Neil image"/>
-                                </div>
-                                <div className="flex-1 min-w-0 text-base">
-                                    <p className="text-sm font-medium text-gray-900 truncate dark:text-white"> Elizabeth II</p>
-                                    <p className="text-sm text-gray-500 truncate dark:text-gray-400">@elizabethtwo</p>
-                                </div>
-                                <button type="button"  className="inline-flex bg-blue-300 px-5 py-3 rounded-3xl items-center text-base font-semibold text-gray-900 dark:text-white">
-                                    Follow
-                                </button>
-                            </div>
-                        </li>
-
+                            </li>
+                        )}
                     </ul>
                 </div>
             </div>

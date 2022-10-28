@@ -8,7 +8,7 @@ const Signup = () =>
 {
     const navigate = useNavigate()
     const dispatch = useDispatch()
-    const {user, error} = useSelector(state => state.authReducer)
+    const {error} = useSelector(state => state.authReducer)
     const [created, setCreated] = useState('');
     const [formData, setFormData] = useState({email:"",username:"", password:"", con:""});
     const {username, email, password, con} = formData
@@ -21,23 +21,11 @@ const Signup = () =>
         {
             dispatch(register(username, email, password))
             setCreated('created')
-            if([created==="created" && error===''])
-            {
-                // window.location.pathname='/login'
-                navigate('/login')
-            }
+            if([created==="created" && error==='']){navigate('/login')}
         }
         else
             return formData
     }
-    useEffect(() =>
-    {
-        if(user)
-        {
-            return navigate('/')
-        }
-
-    }, [user]);
     return(
         <section className="w-screen h-screen ">
             <div className="container px-12 py-12 w-full h-full  lg:ml-52">

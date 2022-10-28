@@ -11,10 +11,9 @@ import {IoMdPerson} from "react-icons/io";
 import {useDispatch} from "react-redux";
 
 
-const Header =({user, setQuery})=>
+const Header =({my_profile, setQuery})=>
 {
     const dispatch = useDispatch()
-
     return (
         <nav className="sticky-top  bg-gray-100 border-gray-200 px-8 shadow-lg sm:px-4 py-4 rounded dark:bg-gray-900">
             <div className=" flex justify-between w-10/12 mx-auto ">
@@ -31,7 +30,6 @@ const Header =({user, setQuery})=>
                 <div className="relative flex justify-center w-96">
                     <div className="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
                         <BsSearch/>
-
                     </div>
                         <input type="search" id="search"
                                className="block p-4 pl-10 w-full text-xl  border-none bg-gray-200 text-sm text-gray-900  rounded-lg focus:ring-blue-200 focus:border-blue-200 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
@@ -42,7 +40,7 @@ const Header =({user, setQuery})=>
                 <div className=" flex space-x-3">
                     {/*notification start*/}
                     <div className="flex">
-                        {user&&<button
+                        {my_profile&&<button
                             className="peer relative inline-flex items-center text-sm font-medium text-center text-gray-500 hover:text-gray-900 focus:outline-none dark:hover:text-white dark:text-gray-400"
                             type="button">
                             <BsFillBellFill className="w-5 h-5 text-red-800"/>
@@ -172,12 +170,12 @@ const Header =({user, setQuery})=>
                         </div>
                     </div>
                     {/*notifications end*/}
-                    {/*<-- Dropdown popover me -->*/}
 
+                    {/*<-- Dropdown popover me -->*/}
                     <div className=" relative block">
-                        {user ?
+                        {my_profile ?
                             <div className="relative peer ">
-                                <img className="relative rounded-full  h-12 w-12 object-contain" src="https://res.cloudinary.com/diallo/image/upload/v1653794949/diallo_rjazjs.png" alt=""/>
+                                <img className="relative rounded-full  h-12 w-12 object-contain" src={my_profile?.avatar} alt=""/>
                                 <span className="bottom-0 left-7 absolute  w-3.5 h-3.5 bg-green-400 border-2 border-white dark:border-gray-800 rounded-full"></span>
                             </div>:
                             <a href={"/login"} className="overflow-hidden relative w-10 h-10 bg-gray-100 rounded-full dark:bg-gray-600">
@@ -190,10 +188,10 @@ const Header =({user, setQuery})=>
                             <a href="/me"
                                className="flex items-center p-3 -mt-2 text-sm text-gray-600 transition-colors duration-300 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white">
                                 <img className="flex-shrink-0 object-cover mx-1 rounded-full w-9 h-9"
-                                     src="https://res.cloudinary.com/diallo/image/upload/v1653794949/diallo_rjazjs.png" alt="Me"/>
+                                     src={my_profile?.avatar} alt=""/>
                                 <div className="mx-1">
-                                    <h1 className="text-sm font-semibold text-gray-700 dark:text-gray-200">{user?.username}</h1>
-                                    <p className="text-sm text-gray-500 dark:text-gray-400">{user?.email}</p>
+                                    <h1 className="text-sm font-semibold text-gray-700 dark:text-gray-200">{my_profile?.user?.username}</h1>
+                                    <p className="text-sm text-gray-500 dark:text-gray-400">{my_profile?.user?.email}</p>
                                 </div>
                             </a>
                             <hr className="border-gray-200 dark:border-gray-700 "/>
@@ -207,10 +205,10 @@ const Header =({user, setQuery})=>
                                 <AiOutlineSetting size={17}/>
                                 <span className="mx-1">Settings</span>
                             </a>
-                            <a href="/login" onClick={()=>dispatch(logout())}
+                            <a href=""
                                className="flex items-center p-3 text-sm text-gray-600 capitalize transition-colors duration-300 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white">
                                 <IoMdLogOut size={17}/>
-                                <span className="mx-1">Logout</span>
+                                <span className="mx-1">Details</span>
                             </a>
 
                             <hr className="border-gray-200 dark:border-gray-700 "/>

@@ -2,13 +2,13 @@ import {combineReducers} from "redux";
 import {getTopicCountReducer, getTopicsReducer, postTopicReducer} from './topicsReducer'
 import {getFeedsReducer, getOneFeedReducer, postFeedReducer, postLikeReducer, postRepliesReducer, postSavesReducer}
     from "./feedReducer";
-import {authReducer, getUserInfoReducer} from "./authReducer";
-import {getTrendingReducer} from "./activitiesReducer";
+import {authReducer, getMyInfoReducer} from "./authReducer";
+import {getRecommandedProfilesReducer, getTrendingReducer} from "./activitiesReducer";
 
 export default combineReducers(
     {
             authReducer,
-            getUserInfoReducer,
+            getMyInfoReducer,
 
             getTopicsReducer,
             getFeedsReducer,
@@ -20,6 +20,7 @@ export default combineReducers(
             postSavesReducer,
             postTopicReducer,
             getTrendingReducer,
+            getRecommandedProfilesReducer,
 
 
     }

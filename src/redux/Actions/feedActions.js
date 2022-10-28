@@ -33,7 +33,7 @@ export const getFeedAction = (name, query) => async (dispatch) =>
                     })
             })
         }
-        else
+        else if(query)
         {
             await axios.get(`/feeds/?query=${query}`, ).then(res =>
             {
@@ -44,6 +44,18 @@ export const getFeedAction = (name, query) => async (dispatch) =>
                     })
             })
         }
+        else
+        {
+            await axios.get(`/feeds/`, ).then(res =>
+            {
+                dispatch(
+                    {
+                        type:S_GET_FEEDS,
+                        payload:res.data
+                    })
+            })
+        }
+
     }
     catch (error)
     {

@@ -1,4 +1,4 @@
-import {MdBookmarkAdded, MdLibraryAdd, MdOutlineBookmarkBorder, MdOutlineQuickreply} from "react-icons/md";
+import {MdBookmarkAdded, MdLibraryAdd, MdOutlineBookmarkBorder, MdOutlineQuickreply, MdPersonOff} from "react-icons/md";
 import {RiHeart2Fill, RiHeart2Line, RiShareForwardLine} from "react-icons/ri";
 import {BsCodeSlash, BsEmojiHeartEyes, BsImage} from "react-icons/bs";
 import {FiLink} from "react-icons/fi";
@@ -10,8 +10,8 @@ import {
     postFeedAction,
     postLikeAction, postSavesAction
 } from "../redux/Actions/feedActions";
-import { useParams} from "react-router-dom";
-import {load_user, loadUserInfoAction} from "../redux/Actions/authActions";
+import {useNavigate, useParams} from "react-router-dom";
+import {loadMyInfoAction} from "../redux/Actions/authActions";
 import moment from "moment/moment";
 import {getTopicsAction, postTopicAction} from "../redux/Actions/topicsActions";
 import {Input} from "@material-tailwind/react";
@@ -24,7 +24,6 @@ import {
     Popover,
     PopoverHandler,
     PopoverContent,
-    Button,
 } from "@material-tailwind/react";
 import PopoverInfo from "./PopoverInfo";
 
@@ -34,10 +33,10 @@ const Feed = ({query}) =>
     let date = new Date();
 
     const dispatch = useDispatch()
+    const navigate = useNavigate()
     const {feeds} = useSelector(state => state.getFeedsReducer)
     const {topics} = useSelector(state => state.getTopicsReducer)
-    const {user} = useSelector(state => state.authReducer)
-    const {userinfo, mypost} = useSelector(state=> state.getUserInfoReducer)
+    const {my_profile, my_posts} = useSelector(state=> state.getMyInfoReducer)
 
     const [topic, setTopic] = useState('');
     const [content, setContent] = useState('');
@@ -68,7 +67,7 @@ const Feed = ({query}) =>
         // ['clean']                                         // remove formatting button
     ];
 
-    let dat = JSON.parse(localStorage.getItem('user'));
+    let dat = JSON.parse(localStorage.getItem('profile'));
     let expiration_date = dat?.expiry?.slice(0,17).replaceAll("-","").replaceAll(":",'').replace('T','')
         month = month < 10 ? '0'+month : month;
         day = day < 10 ? '0'+day : day;
@@ -84,51 +83,50 @@ const Feed = ({query}) =>
     let modules={toolbar:toolbarOptions}
     useEffect(() =>
     {
-        // console.log(parseInt(current_date)>=parseInt(expiration_date))
-
+        // console.log(parseInt(current_date)>=parseInt(expiration_date)) //auto logout
         if(parseInt(current_date)>=parseInt(expiration_date))
         {
             localStorage.clear()
         }
-        if (user)
+        if (my_profile)
         {
-            dispatch(load_user())
             dispatch(getTopicsAction())
-            dispatch(loadUserInfoAction())
+            dispatch(loadMyInfoAction())
         }
         dispatch(getFeedAction(name, query))
     }, [dispatch, query,]);
 
-    const postFeed = async (e) => {
-        let image = new FormData()
-        image.append('title', title)
-        image.append('topic', topic)
-        image.append('content', content)
-        image.append('user', user?.id)
-        image.append('cover_image', cover_image)
+    const postFeed = async (e) =>
+    {
+        let newPost = new FormData()
+        newPost.append('title', title)
+        newPost.append('topic', topic)
+        newPost.append('content', content)
+        newPost.append('profile', my_profile?.id)
+        newPost.append('cover_image', cover_image)
         e.preventDefault()
-        dispatch(postFeedAction(image))
+        dispatch(postFeedAction(newPost))
+        window.loacation.reload()
     }
     const postTopic = (e)=>
     {
         e.preventDefault()
         dispatch(postTopicAction(newTopic))
     }
-console.log(userinfo)
+    // console.log(my_profile)
     return(
         <div className="flex-col mt-5 hover:shadow">
 
-            {/*popover*/}
-
-            {/*end popover*/}
             <div className="max-w-3xl mb-4 h-auto px-8 py-4 bg-white rounded-lg  dark:bg-gray-800">
             <div>
                 <div className="flex items-center justify-between">
-                    <div className="flex items-center">
+
+                    {my_profile &&
+                        <div className="flex items-center">
                         <img className="hidden object-cover w-10 h-10 mx-4 rounded-full sm:block"
-                             src="https://res.cloudinary.com/diallo/image/upload/v1653794949/diallo_rjazjs.png" alt="host"/>
-                        <a className="font-bold text-gray-700 cursor-pointer capitalize dark:text-gray-200">{user?.username} <span className="font-thin">@{user?.username}</span></a>
-                    </div>
+                             src={my_profile?.avatar} alt=""/>
+                        <a href={"/me"} className="font-bold text-gray-700 cursor-pointer capitalize dark:text-gray-200">{my_profile?.user?.username} <span className="font-thin">@{my_profile?.user?.username}</span></a>
+                    </div>}
                 </div>
                 <div className="mt-2">
                     {/*new article edit*/}
@@ -194,7 +192,6 @@ console.log(userinfo)
                                     </div>
                                 </div>
                                 <button type="submit"  disabled={topic===''||title===''||content===''}
-                                        onClick={()=>window.location.reload()}
                                         className="inline-flex float-right mt-1 items-center px-6 py-2 text-sm rounded-full font-bold text-center text-white bg-blue-700 rounded-lg focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-900 hover:bg-blue-800">Post</button>
 
                             </div>
@@ -213,13 +210,13 @@ console.log(userinfo)
                         <div className="flex items-center">
                             <Popover>
                                 <PopoverHandler>
-                                    <img  src={userinfo?.avatar} alt="" className="hidden object-cover w-10 h-10 mx-4 rounded-full sm:block" />
+                                    <img  src={item?.profile?.avatar} alt="" className="hidden object-cover w-10 h-10 mx-4 rounded-full sm:block" />
                                 </PopoverHandler>
                                 <PopoverContent>
-                                    <PopoverInfo userinfo={userinfo}/>{/* this is the component */}
+                                    <PopoverInfo item={item}/>{/* this is the component */}
                                 </PopoverContent>
                             </Popover>
-                            <a href={`/me`} className="font-bold text-gray-700 cursor-pointer dark:text-gray-200 capitalize">{item?.user?.username}<span className="font-thin capitalize ml-1">@{item?.user?.username}
+                            <a href={`/me`} className="font-bold text-gray-700 cursor-pointer dark:text-gray-200 capitalize">{item?.profile?.user?.username}<span className="font-thin capitalize ml-1">@{item?.profile?.user?.username}
                             <span className="ml-3">{moment(item?.posted?.toString()).startOf().fromNow()}</span>
                             </span>
                             </a>
@@ -253,7 +250,7 @@ console.log(userinfo)
                             size={25} className="mr-2"/>{item?.num_replies>0 && <span>{item?.num_replies}</span>}
                         </div>
                         <div className="flex items-center hover:text-red-700">
-                            { user && item?.saves?.includes(user?.id) &&
+                            { my_profile && item?.saves?.includes(item?.profile?.id) &&
                                 <MdBookmarkAdded  size={25} color={"green"} type="submit"
                                                onClick={()=>{
                                                    if(dispatch(postSavesAction(item?.id)))
@@ -263,7 +260,7 @@ console.log(userinfo)
                                                }}
 
                                 />}
-                            {!item?.saves?.includes(user?.id)&&
+                            {!item?.saves?.includes(item?.profile?.id)&&
                                 <MdOutlineBookmarkBorder size={25}  type="submit"
                                               onClick={()=>{
                                                   if(dispatch(postSavesAction(item?.id)))
@@ -276,7 +273,7 @@ console.log(userinfo)
 
                         </div>
                         <div className="flex items-center hover:text-red-700">
-                            { user && item?.likes?.includes(user?.id) &&
+                            { my_profile && item?.likes?.includes(item?.profile?.id) &&
                                 <RiHeart2Fill  size={25} color={"red"} type="submit"
                                          onClick={()=>{
                                              if(dispatch(postLikeAction(item?.id)))
@@ -286,7 +283,7 @@ console.log(userinfo)
                                          }}
                                 />}
 
-                            {!item?.likes?.includes(user?.id)&&
+                            {!item?.likes?.includes(item?.profile?.id)&&
                                 <RiHeart2Line size={25}  type="submit"
                                          onClick={()=>{
                                              if(dispatch(postLikeAction(item?.id)))
@@ -307,14 +304,7 @@ console.log(userinfo)
                 </div>
             </div>
             )}
-            <Popover>
-                <PopoverHandler>
-                    <Button variant="gradient">Show Popover</Button>
-                </PopoverHandler>
-                <PopoverContent>
-                    <PopoverInfo/>{/* this is the component */}
-                </PopoverContent>
-            </Popover>
+
             <div className="flex justify-center max-w-3xl mb-4 h-auto px-8 py-4 bg-white rounded dark:bg-gray-800">
                 <button onClick={()=>setLoadmore(loadmore+10)}
                     className="px-6 py-3 font-bold text-white capitalize transition-colors

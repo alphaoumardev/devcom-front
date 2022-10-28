@@ -1,5 +1,6 @@
 import {
-    F_GET_TRENDING, S_GET_TRENDING
+    F_GET_TRENDING, S_GET_TRENDING,
+    S_GET_RECOMMANDED_PROFILES,F_GET_RECOMMANDED_PROFILES
 } from "../Types";
 import axios from "axios";
 
@@ -14,13 +15,14 @@ export const getTrendingAction = () => async (dispatch) =>
 {
     try
     {
-        await axios.get("/trending/").then(res =>
+        await axios.get("trending/", config).then(res =>
         {
             dispatch(
                 {
                     type: S_GET_TRENDING,
                     payload: res.data
                 })
+            // console.log(res.data)
         })
     }
     catch (error)
@@ -28,8 +30,31 @@ export const getTrendingAction = () => async (dispatch) =>
         dispatch(
             {
                 type: F_GET_TRENDING,
-                payload: "Something went wrong"
+                payload: error
             })
     }
 }
 
+export const getRecommadedProfilesAction = () => async (dispatch) =>
+{
+    try
+    {
+        await axios.get("recommanded-profiles/", config).then(res =>
+        {
+            dispatch(
+                {
+                    type: S_GET_RECOMMANDED_PROFILES,
+                    payload: res.data
+                })
+            // console.log(reds.data)
+        })
+    }
+    catch (error)
+    {
+        dispatch(
+            {
+                type: F_GET_RECOMMANDED_PROFILES,
+                payload: error
+            })
+    }
+}

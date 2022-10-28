@@ -4,7 +4,7 @@ import {BsHeart} from "react-icons/bs";
 import {RiShareForwardLine} from "react-icons/ri";
 import moment from "moment";
 
-const MeTab = ({userinfo, mypost})=>
+const MeTab = ({my_profile, my_posts})=>
 {
     return(
         <div>
@@ -30,17 +30,17 @@ const MeTab = ({userinfo, mypost})=>
             </ul>
 
             <div className="tab-content" id="tabs-tabContentJustify">
-                {mypost?.map((item, index)=>
+                {my_posts?.map((item, index)=>
                     <div key={index} className="tab-pane fade show active" id="tabs-homeJustify" role="tabpanel"  aria-labelledby="posts">
                         <div className="max-w-2xl mb-4 h-auto px-8 py-4 rounded-lg shadow-md dark:bg-gray-800 hover:shadow-lg">
                             <div>
                                 <div className="flex items-center justify-between">
                                     <div className="flex items-center">
                                         <img className="hidden object-cover w-10 h-10 mx-4 rounded-full sm:block"
-                                             src={userinfo?.avatar} alt="host"/>
+                                             src={my_profile?.avatar} alt="host"/>
                                         <a className="font-bold text-gray-700 cursor-pointer dark:text-gray-200 capitalize">{item?.user?.username}<span className="font-thin capitalize ml-1">@{item?.user?.username}
                                             <span className="ml-3">{moment(item?.posted?.toString()).startOf().fromNow()}</span>
-                            </span>
+                                            </span>
                                         </a>
                                     </div>
                                     <span className="text-sm font-light text-gray-600 dark:text-gray-400"></span>
@@ -77,7 +77,7 @@ const MeTab = ({userinfo, mypost})=>
                                     <div className="flex items-center hover:text-blue-700">
                                         <RiShareForwardLine size={25} className="mr-2"/> {item?.shares>0 && <span>{item?.shares}</span>}
                                     </div>
-                                    <a href="#" className="text-blue-600 dark:text-blue-400 hover:underline">Read more</a>
+                                    <a href={`/single/${item?.id}`} className="text-blue-600 dark:text-blue-400 hover:underline">Read more</a>
 
                                 </div>
                             </div>

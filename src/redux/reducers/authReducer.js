@@ -1,149 +1,80 @@
 import {
-    LOGIN_REQUEST,
     S_LOGIN,
     F_LOGIN,
-
-    REGISTER_REQUEST,
     F_REGISTER,
     S_REGISTER,
-
-    REFRESH_TOKEN,
-
-    S_LOAD_PROFILE,
-    F_LOAD_PROFILE,
-    S_AUTHENTICATED,
-    F_AUTHENTICATED,
-    S_PASSWORD_RESET,
-    F_PASSWORD_RESET,
-    S_PASSWORD_RESET_CONFIRM,
-    F_PASSWORD_RESET_CONFIRM,
-    S_ACTIVATION,
-    F_ACTIVATION,
     S_GOOGLE_AUTH,
     F_GOOGLE_AUTH,
-    S_FACEBOOK_AUTH,
-    F_FACEBOOK_AUTH,
-
     S_LOGOUT,
-    F_LOGOUT, F_REFRESH,
+    F_LOGOUT,
     S_UPDATE_PROFILE,
-    F_UPDATE_PROFILE,
     S_USER_INFO,
-    F_USER_INFO
+    F_USER_INFO,
 } from '../Types'
 
 const accessToken = localStorage.getItem('token') ? localStorage.getItem('token') : null;
-const userStorage = localStorage.getItem('user')? JSON.parse(localStorage.getItem('user')):null
+const profileStorage = localStorage.getItem('profile')? JSON.parse(localStorage.getItem('profile')):null
 
-export const authReducer = (state= {
-
-    error:null,
-    isLoading:false,
-    isAuthenticated: false,
-    user: userStorage,
-    token: accessToken,
-    }, action)=>
+export const authReducer = (state= {error:null, my_profile: profileStorage, token: accessToken}, action)=>
 {
     switch (action.type)
     {
-        case LOGIN_REQUEST:
-        case REGISTER_REQUEST:
+        case S_REGISTER:
             return{
-                isLoading: true,
+                ...state,
+                error: action.payload
             }
-
-        case S_AUTHENTICATED:
         case S_LOGIN:
-        case S_GOOGLE_AUTH:
-        case S_FACEBOOK_AUTH:
             localStorage.setItem('token', action.payload.token)
             return{
                 ...state,
                 token: action.payload.token,
-                isAuthenticated: true,
-                user: action.payload,
-                isLoading: false,
+                my_profile: action.payload,
             }
         case S_UPDATE_PROFILE:
-        case S_LOAD_PROFILE:
             return{
                 ...state,
-                user:{
+                my_profile:{
                     ...action.payload,
-                    ...state.user
+                    ...state.my_profile
                 }
-            }
-        case REFRESH_TOKEN:
-            localStorage.setItem('token', payload.token)
-            return{
-                ...state,
-                token: action.payload.token,
-            }
-        case F_AUTHENTICATED:
-        case S_REGISTER:
-            return{
-                ...state,
-                isAuthenticated: false,
-                error: action.payload
-            }
-        case F_LOAD_PROFILE:
-        case F_UPDATE_PROFILE:
-            return{
-                ...state,
-                user: null,
             }
         case F_LOGIN:
         case F_LOGOUT:
-        case F_REFRESH:
         case F_REGISTER:
             return {
-                isLoading: false,
                 error: action.payload,
-                user:null,
+                my_profile:null,
                 token: null,
             };
 
         case S_LOGOUT:
-        case F_FACEBOOK_AUTH:
-        case F_GOOGLE_AUTH:
-
             localStorage.clear()
             sessionStorage.clear()
-
             return{
                 ...state,
-                user: null,
+                my_profile: null,
                 token: null,
-                isLoading: false,
-                isAuthenticated: false,
-            }
-        case F_ACTIVATION:
-        case S_ACTIVATION:
-        case F_PASSWORD_RESET:
-        case S_PASSWORD_RESET:
-        case F_PASSWORD_RESET_CONFIRM:
-        case S_PASSWORD_RESET_CONFIRM:
-            return{
-                ...state
+                error: action.payload
             }
         default:
             return state
     }
 }
 
-export const getUserInfoReducer = (state={userinfo: [], mypost:[]}, action)=>
+export const getMyInfoReducer = (state={my_profile: [], my_posts:[]}, action)=>
 {
     switch (action.type)
     {
         case S_USER_INFO:
             return{
-                userinfo: action.payload.data,
-                mypost: action.payload.mypost,
+                my_profile: action.payload.data,
+                my_posts: action.payload.my_posts,
             }
         case F_USER_INFO:
             return{
-                userinfo: [],
-                mypost: [],
+                my_profile: [],
+                my_posts: [],
                 error:action.payload
             }
         default:

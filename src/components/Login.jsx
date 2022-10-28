@@ -5,12 +5,12 @@ import {Fragment, useEffect, useState} from "react";
 import {login} from "../redux/Actions/authActions";
 import {useNavigate} from "react-router-dom";
 
-const Longin = ()=>
+const Login = ()=>
 {
     const navigate = useNavigate()
     const dispatch = useDispatch()
     const token = localStorage.getItem('token')
-    const {user, error, isLoading} = useSelector(state => state.authReducer)
+    const {my_profile, error} = useSelector(state => state.authReducer)
     const [credentialError, setCredentialError] = useState('');
     const [formData, setFormData] = useState({username:"", password:""});
     const {username, password} = formData
@@ -30,9 +30,8 @@ const Longin = ()=>
         if(token)
         {
             navigate("/")
-            // return window.location.pathname="/"
         }
-    }, [dispatch, user]);
+    }, [dispatch, my_profile]);
 
     // if(isLoading){return <Fragment>
     //     <div role="status">
@@ -52,11 +51,14 @@ const Longin = ()=>
             <div className="container px-12 py-12 w-full h-full  lg:ml-52">
                 <div className="flex justify-center items-center flex-wrap h-full  text-gray-800">
                     <div className="md:w-8/12 lg:w-5/12 mb-12 md:mb-0">
+                        <a href="/">
                         <img
+
                             src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.svg"
                             className="w-full"
                             alt="Phone image"
                         />
+                        </a>
                     </div>
                     <div className="md:w-8/12 lg:w-3/12 lg:ml-20">
                         <form onSubmit={onSubmit}>
@@ -139,4 +141,4 @@ const Longin = ()=>
         </section>
     )
 }
-export default Longin
+export default Login
