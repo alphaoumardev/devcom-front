@@ -15,7 +15,7 @@ export const getTrendingAction = () => async (dispatch) =>
 {
     try
     {
-        await axios.get("trending/", config).then(res =>
+        await axios.get("/trending/", config).then(res =>
         {
             dispatch(
                 {
@@ -39,7 +39,7 @@ export const getRecommadedProfilesAction = () => async (dispatch) =>
 {
     try
     {
-        await axios.get("recommanded-profiles/", config).then(res =>
+        await axios.get("/recommanded-profiles/", config).then(res =>
         {
             dispatch(
                 {

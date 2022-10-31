@@ -1,4 +1,4 @@
-import {MdBookmarkAdded, MdLibraryAdd, MdOutlineBookmarkBorder, MdOutlineQuickreply, MdPersonOff} from "react-icons/md";
+import {MdBookmarkAdded, MdLibraryAdd, MdOutlineBookmarkBorder, MdOutlineQuickreply} from "react-icons/md";
 import {RiHeart2Fill, RiHeart2Line, RiShareForwardLine} from "react-icons/ri";
 import {BsCodeSlash, BsEmojiHeartEyes, BsImage} from "react-icons/bs";
 import {FiLink} from "react-icons/fi";
@@ -47,11 +47,6 @@ const Feed = ({query}) =>
     const [loadmore, setLoadmore] = useState(10);
     const [changeEditor, setChangeEditor] = useState(true);
 
-    let [month, setMonth] = useState(date.getMonth()+1);
-    let [day, setDay] = useState(date.getDate());
-    let [hour, setHour] = useState(date.getHours());
-    let [minutes, setMunites] = useState(date.getMinutes());
-
     let toolbarOptions = [
         [{ 'size': ['small', false, 'large', 'huge'] }],  // custom dropdown
         [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
@@ -67,27 +62,9 @@ const Feed = ({query}) =>
         // ['clean']                                         // remove formatting button
     ];
 
-    let dat = JSON.parse(localStorage.getItem('profile'));
-    let expiration_date = dat?.expiry?.slice(0,17).replaceAll("-","").replaceAll(":",'').replace('T','')
-        month = month < 10 ? '0'+month : month;
-        day = day < 10 ? '0'+day : day;
-        hour = hour < 10 ? '0'+hour : hour;
-        minutes = minutes < 10 ? '0'+minutes : minutes;
-
-        let current_date = date.getFullYear()+""+month+""+ day+""+hour+""+minutes
-        if(parseInt(current_date)>=parseInt(expiration_date))
-        {
-            localStorage.clear()
-        }
-
     let modules={toolbar:toolbarOptions}
     useEffect(() =>
     {
-        // console.log(parseInt(current_date)>=parseInt(expiration_date)) //auto logout
-        if(parseInt(current_date)>=parseInt(expiration_date))
-        {
-            localStorage.clear()
-        }
         if (my_profile)
         {
             dispatch(getTopicsAction())
@@ -113,7 +90,6 @@ const Feed = ({query}) =>
         e.preventDefault()
         dispatch(postTopicAction(newTopic))
     }
-    // console.log(my_profile)
     return(
         <div className="flex-col mt-5 hover:shadow">
 

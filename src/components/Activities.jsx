@@ -17,7 +17,7 @@ const Activities = ()=>
         dispatch(getRecommadedProfilesAction())
     }, [dispatch]);
 
-    console.log(recommanded)
+    // console.log(recommanded)
     return(
         <>
         <div className="flex-col sticky top-0 max-w-xl bg-gray-50 rounded p-5 border-gray-100 hover:shadow">
@@ -49,7 +49,6 @@ const Activities = ()=>
                     <div key={index} className="flex justify-between items-center mb-4">
                         <a href={`/single/${item?.id}`} className="font-normal leading-none text-gray-900 dark:text-white">{item?.title?.slice(0,30 )}</a>
                         <a href={`/single/${item?.id}`} className="text-sm font-thin text-blue-600 px-2 py-1 bg-blue-300 rounded-full  dark:text-blue-500">
-
                             {item?.views>99&&item?.views<1000 ? 99+'+':item?.views && item?.views>999 ? item?.views/1000+'k': item?.views}
                         </a>
                     </div>
@@ -77,7 +76,9 @@ const Activities = ()=>
                                         <p className="text-sm font-medium text-gray-900 truncate dark:text-white capitalize">{item?.user?.username}</p>
                                         <p className="text-sm text-gray-500 truncate dark:text-gray-400">@{item?.user?.username}</p>
                                     </div>
-                                    <button type="button"  className="inline-flex bg-blue-300 px-5 py-3 rounded-3xl items-center text-base font-semibold text-gray-900 dark:text-white">
+                                    <button type="button"
+                                            onClick={()=>{}}
+                                            className="inline-flex bg-blue-300 px-5 py-3 rounded-3xl items-center text-base font-semibold text-gray-900 dark:text-white">
                                         Follow
                                     </button>
                                 </div>
