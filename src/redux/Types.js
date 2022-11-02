@@ -71,8 +71,8 @@ export const F_POST_LIKES = "F_POST_LIKES"
 export const S_POST_FEED = "S_POST_FEED"
 export const F_POST_FEED = "F_POST_FEED"
 
-export const S_POST_TRENDING = "S_POST_TRENDING"
-export const F_POST_TRENDING = "F_POST_TRENDING"
+export const S_FOLLOW = "S_FOLLOW"
+export const F_FOLLOW = "F_FOLLOW"
 
 export const S_GET_TRENDING = "S_GET_TRENDING"
 export const F_GET_TRENDING = "F_GET_TRENDING"

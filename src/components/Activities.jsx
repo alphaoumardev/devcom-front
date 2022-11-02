@@ -1,15 +1,16 @@
 import {IoMdTrendingUp} from "react-icons/io";
 import {BsThreeDots} from "react-icons/bs";
 import {FiExternalLink} from "react-icons/fi";
-import {useEffect} from "react";
+import {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {getRecommadedProfilesAction, getTrendingAction} from "../redux/Actions/activitiesAction";
+import {followProfileAction, getRecommadedProfilesAction, getTrendingAction} from "../redux/Actions/activitiesAction";
 
 const Activities = ()=>
 {
     const dispatch = useDispatch()
     const {trending_feed} = useSelector(state => state.getTrendingReducer)
     const {recommanded} = useSelector(state => state.getRecommandedProfilesReducer)
+    const [followed, setFollowed] = useState(false);
 
     useEffect(() =>
     {
@@ -76,18 +77,31 @@ const Activities = ()=>
                                         <p className="text-sm font-medium text-gray-900 truncate dark:text-white capitalize">{item?.user?.username}</p>
                                         <p className="text-sm text-gray-500 truncate dark:text-gray-400">@{item?.user?.username}</p>
                                     </div>
-                                    <button type="button"
-                                            onClick={()=>{}}
-                                            className="inline-flex bg-blue-300 px-5 py-3 rounded-3xl items-center text-base font-semibold text-gray-900 dark:text-white">
-                                        Follow
-                                    </button>
+                                    {!followed?
+                                        <button type="button"
+                                                onClick={()=>{
+                                                    dispatch(followProfileAction(item?.id))
+                                                    setFollowed(!followed)
+                                                }}
+                                                className="inline-flex bg-blue-600 px-5 py-3 rounded-3xl items-center text-base font-semibold text-gray-900 dark:text-white">
+                                            Follow
+                                        </button>:
+                                        <button type="button"
+                                                onClick={()=>{
+                                                    dispatch(followProfileAction(item?.id))
+                                                    // setFollowed(true)
+                                                }}
+                                                className="cursor-pointer inline-flex bg-blue-200 px-5 py-3 rounded-3xl items-center text-base font-semibold text-gray-900 dark:text-white">
+                                            Following
+                                        </button>
+                                    }
                                 </div>
                             </li>
                         )}
                     </ul>
                 </div>
             </div>
-        {/*     copyright*/}
+        {/*copyright*/}
             <div className="  max-w-xl w-full max-w-md  rounded-lg mt-4 sm:p-8  dark:bg-gray-800 ">
                 <div className="flex-1 min-w-0 text-base">
                     <a href="#" className="font-medium text-gray-900 truncate dark:text-white"> Terms of Service</a><br/>

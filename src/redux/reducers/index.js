@@ -3,7 +3,7 @@ import {getTopicCountReducer, getTopicsReducer, postTopicReducer} from './topics
 import {getFeedsReducer, getOneFeedReducer, postFeedReducer, postLikeReducer, postRepliesReducer, postSavesReducer}
     from "./feedReducer";
 import {authReducer, getMyInfoReducer} from "./authReducer";
-import {getRecommandedProfilesReducer, getTrendingReducer} from "./activitiesReducer";
+import {followProfileReducer, getRecommandedProfilesReducer, getTrendingReducer} from "./activitiesReducer";
 
 export default combineReducers(
     {
@@ -21,6 +21,7 @@ export default combineReducers(
             postTopicReducer,
             getTrendingReducer,
             getRecommandedProfilesReducer,
+            followProfileReducer,
 
 
     }

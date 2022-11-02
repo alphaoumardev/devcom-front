@@ -3,7 +3,6 @@ import {
     S_POST_LIKES, F_POST_LIKES, S_POST_SAVES, F_POST_SAVES
 } from '../Types'
 
-
 export const getFeedsReducer = (state={feeds: []}, action)=>
 {
     switch (action.type)

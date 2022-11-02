@@ -6,6 +6,7 @@ import moment from "moment";
 
 const MeTab = ({my_profile, my_posts})=>
 {
+    console.log(my_profile)
     return(
         <div>
             <ul className="nav nav-tabs nav-justified flex flex-col bg-gray-100 mt-2 md:flex-row flex-wrap list-none border-b-0 pl-0 mb-4" id="tabse" role="tablist">
@@ -38,7 +39,7 @@ const MeTab = ({my_profile, my_posts})=>
                                     <div className="flex items-center">
                                         <img className="hidden object-cover w-10 h-10 mx-4 rounded-full sm:block"
                                              src={my_profile?.avatar} alt="host"/>
-                                        <a className="font-bold text-gray-700 cursor-pointer dark:text-gray-200 capitalize">{item?.user?.username}<span className="font-thin capitalize ml-1">@{item?.user?.username}
+                                        <a className="font-bold text-gray-700 cursor-pointer dark:text-gray-200 capitalize">{my_profile?.user?.username}<span className="font-thin capitalize ml-1">@{my_profile?.user?.username}
                                             <span className="ml-3">{moment(item?.posted?.toString()).startOf().fromNow()}</span>
                                             </span>
                                         </a>
@@ -84,46 +85,26 @@ const MeTab = ({my_profile, my_posts})=>
                         </div>
                     </div>
                 )}
+
                 <div className="tab-pane fade" id="follow" role="tabpanel" aria-labelledby="followers">
                     <div className="max-w-2xl mb-4 h-auto px-8 py-4 rounded-lg shadow-md dark:bg-gray-800 hover:shadow-lg">
-                        <div>
-                            <div className="flex items-center justify-between">
-                                <div className="flex items-center">
-                                    <img className="hidden object-cover w-10 h-10 mx-4 rounded-full sm:block"
-                                         src="https://diallo.oss-cn-shanghai.aliyuncs.com/photos/diallo.jpg" alt="host"/>
-                                    <a className="font-bold text-gray-700 cursor-pointer dark:text-gray-200">Alpha Oumar <span className="font-thin">@Alphaoumar</span></a>
-                                </div>
-                                <span className="text-sm font-light text-gray-600 dark:text-gray-400">Mar 10, 2019</span>
-                                <a className="px-3 py-1 text-sm font-bold text-gray-100 transition-colors duration-300 transform bg-gray-600 rounded cursor-pointer hover:bg-gray-500">Design</a>
-                            </div>
-
-                            <div className="mt-2">
-                                <a href="#"
-                                   className="text-2xl font-bold text-gray-700 dark:text-white hover:text-gray-600 dark:hover:text-gray-200 hover:underline">Accessibility
-                                    tools for developers</a>
-                                <p className="mt-2 text-gray-600 dark:text-gray-300">Lorem ipsum dolor sit, amet consectetur adipisicing
-                                    elit. Tempora expedita dicta totam aspernatur doloremque. Excepturi iste iusto eos enim
-                                </p>
-                            </div>
-
-                            <div className="flex items-center justify-between mt-4">
-
-                                <div className="flex items-center hover:text-blue-500">
-                                    <MdOutlineQuickreply size={25} className="mr-2"/>89
-                                </div>
-                                <div className="flex items-center hover:text-green-500">
-                                    <AiOutlineRetweet size={25} className="mr-2"/>90
-                                </div>
-                                <div className="flex items-center hover:text-red-700">
-                                    <BsHeart size={25} className="mr-2"/>67
-                                </div>
-                                <div className="flex items-center hover:text-blue-700">
-                                    <RiShareForwardLine size={25} className="mr-2"/> 43
-                                </div>
-                                <a href="#" className="text-blue-600 dark:text-blue-400 hover:underline">Read more</a>
-
-                            </div>
-                        </div>
+                        <ul role="list" className="divide-y divide-gray-200 dark:divide-gray-700">
+                            <li  className="py-3 sm:py-4">
+                                    <div className="flex items-center space-x-4">
+                                        <div className="flex-shrink-0">
+                                            <img className="w-8 h-8 rounded-full object-cover" src="" alt=""/>
+                                        </div>
+                                        <div className="flex-1 min-w-0 text-base">
+                                            <p className="text-sm font-medium text-gray-900 truncate dark:text-white capitalize">Alpha Oumar</p>
+                                            <p className="text-sm text-gray-500 truncate dark:text-gray-400">@Alphaoumar</p>
+                                        </div>
+                                        <button type="button"
+                                                className="cursor-pointer inline-flex bg-blue-200 px-5 py-3 rounded-3xl items-center text-base font-semibold text-gray-900 dark:text-white">
+                                            Following
+                                        </button>
+                                    </div>
+                                </li>
+                        </ul>
                     </div>
                 </div>
                 <div className="tab-pane fade" id="con" role="tabpanel" aria-labelledby="cons">

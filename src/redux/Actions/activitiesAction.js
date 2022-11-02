@@ -1,6 +1,7 @@
 import {
     F_GET_TRENDING, S_GET_TRENDING,
-    S_GET_RECOMMANDED_PROFILES,F_GET_RECOMMANDED_PROFILES
+    S_GET_RECOMMANDED_PROFILES,F_GET_RECOMMANDED_PROFILES,
+    S_FOLLOW,F_FOLLOW,
 } from "../Types";
 import axios from "axios";
 
@@ -22,7 +23,6 @@ export const getTrendingAction = () => async (dispatch) =>
                     type: S_GET_TRENDING,
                     payload: res.data
                 })
-            // console.log(res.data)
         })
     }
     catch (error)
@@ -54,6 +54,30 @@ export const getRecommadedProfilesAction = () => async (dispatch) =>
         dispatch(
             {
                 type: F_GET_RECOMMANDED_PROFILES,
+                payload: error
+            })
+    }
+}
+export const followProfileAction = (id) => async (dispatch) =>
+{
+    const body = JSON.stringify({})
+    try
+    {
+        await axios.post(`/follow/${id}`, body, config).then(res =>
+        {
+            dispatch(
+                {
+                    type: S_FOLLOW,
+                    payload: res.data
+                })
+            console.log(reds.data)
+        })
+    }
+    catch (error)
+    {
+        dispatch(
+            {
+                type: F_FOLLOW,
                 payload: error
             })
     }

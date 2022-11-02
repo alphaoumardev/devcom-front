@@ -81,7 +81,6 @@ export const loadMyInfoAction = () => async dispatch =>
                         type: S_USER_INFO,
                         payload: res.data,
                     })
-                // console.log(res.data)
             })
         }
         catch (error)
