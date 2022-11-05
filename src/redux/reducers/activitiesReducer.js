@@ -1,10 +1,10 @@
 import {
     S_GET_TRENDING,
     F_GET_TRENDING,
-    S_GET_RECOMMANDED_PROFILES,
-    F_GET_RECOMMANDED_PROFILES,
+    S_GET_RECOMMENDED_PROFILES,
+    F_GET_RECOMMENDED_PROFILES,
     S_FOLLOW,
-    F_FOLLOW
+    F_FOLLOW, F_FOLLOWING_ME,S_FOLLOWING_ME
 } from '../Types'
 
 export const getTrendingReducer = (state={trending_feed: []}, action)=>
@@ -24,15 +24,15 @@ export const getTrendingReducer = (state={trending_feed: []}, action)=>
             return state
     }
 }
-export const getRecommandedProfilesReducer = (state={recommanded: []}, action)=>
+export const getRecommendedProfilesReducer = (state={recommanded: []}, action)=>
 {
     switch (action.type)
     {
-        case S_GET_RECOMMANDED_PROFILES:
+        case S_GET_RECOMMENDED_PROFILES:
             return{
                 recommanded: action.payload
             }
-        case F_GET_RECOMMANDED_PROFILES:
+        case F_GET_RECOMMENDED_PROFILES:
             return{
                 recommanded: [],
                 error:action.payload

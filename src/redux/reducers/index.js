@@ -3,26 +3,39 @@ import {getTopicCountReducer, getTopicsReducer, postTopicReducer} from './topics
 import {getFeedsReducer, getOneFeedReducer, postFeedReducer, postLikeReducer, postRepliesReducer, postSavesReducer}
     from "./feedReducer";
 import {authReducer, getMyInfoReducer} from "./authReducer";
-import {followProfileReducer, getRecommandedProfilesReducer, getTrendingReducer} from "./activitiesReducer";
+import {
+    followProfileReducer,
+    getRecommendedProfilesReducer,
+    getTrendingReducer,
+} from "./activitiesReducer";
+import {
+    getlikedPostsReducer,
+    getprofileFollowingMeReducer,
+    getprofileIFollowReducer,
+    getsavedPostsReducer
+} from "./mineReducer";
 
 export default combineReducers(
     {
-            authReducer,
-            getMyInfoReducer,
+        authReducer,
+        getMyInfoReducer,
 
-            getTopicsReducer,
-            getFeedsReducer,
-            getOneFeedReducer,
-            getTopicCountReducer,
-            postFeedReducer,
-            postRepliesReducer,
-            postLikeReducer,
-            postSavesReducer,
-            postTopicReducer,
-            getTrendingReducer,
-            getRecommandedProfilesReducer,
-            followProfileReducer,
-
+        getTopicsReducer,
+        getFeedsReducer,
+        getOneFeedReducer,
+        getTopicCountReducer,
+        postFeedReducer,
+        postRepliesReducer,
+        postLikeReducer,
+        postSavesReducer,
+        postTopicReducer,
+        getTrendingReducer,
+        getRecommendedProfilesReducer,
+        followProfileReducer,
+        getprofileFollowingMeReducer,
+        getlikedPostsReducer,
+        getsavedPostsReducer,
+        getprofileIFollowReducer
 
     }
 )

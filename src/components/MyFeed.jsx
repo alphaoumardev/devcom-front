@@ -2,24 +2,38 @@ import MeTab from "./MeTab";
 import {useDispatch, useSelector} from "react-redux";
 import {useEffect} from "react";
 import {loadMyInfoAction} from "../redux/Actions/authActions";
+import {
+    getSavedPostsAction,
+    likedPostsAction,
+    profileFollowingMeAction,
+    profileIFollowAction
+} from "../redux/Actions/mineAction";
 
 const MyFeed =() =>
 {
     const dispatch = useDispatch()
     const {my_profile, my_posts} = useSelector(state=> state.getMyInfoReducer)
     const {user} = useSelector(state => state.authReducer)
+    const {following} = useSelector(state => state.getprofileFollowingMeReducer)
+    const {liked_posts}= useSelector(state => state.getlikedPostsReducer)
+    const {saved_posts} = useSelector(state => state.getsavedPostsReducer)
+    const {followers} = useSelector(state => state.getprofileIFollowReducer)
+
     useEffect(() =>
     {
         if (my_profile)
         {
             dispatch(loadMyInfoAction())
+            dispatch(profileFollowingMeAction())
+            dispatch(likedPostsAction())
+            dispatch(getSavedPostsAction())
+            dispatch(profileIFollowAction())
         }
     }, [dispatch]);
-    // console.log(my_posts)
 
     return(
         <div className="flex-col">
-            <div className="max-w-2xl mb-4 h-auto px-8 py-4 bg-white rounded-lg  dark:bg-gray-800">
+            <div className="max-w-3xl mb-4 h-auto px-8 py-4 bg-white rounded-lg  dark:bg-gray-800">
                 <div>
                     <div className="flex items-center justify-between">
                         <div className="flex items-center"> </div>
@@ -48,7 +62,10 @@ const MyFeed =() =>
                                 </div>
                                 {/*d*/}
                             </div>
-                            <MeTab my_profile={my_profile} my_posts={my_posts}/>
+                            <MeTab my_profile={my_profile} my_posts={my_posts} following={following}
+                                   liked_posts={liked_posts} saved_posts={saved_posts}
+                                   followers={followers}
+                            />
                         </div>
                         {/*end*/}
                     </div>

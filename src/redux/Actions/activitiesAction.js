@@ -1,6 +1,6 @@
 import {
     F_GET_TRENDING, S_GET_TRENDING,
-    S_GET_RECOMMANDED_PROFILES,F_GET_RECOMMANDED_PROFILES,
+    S_GET_RECOMMENDED_PROFILES,F_GET_RECOMMENDED_PROFILES,
     S_FOLLOW,F_FOLLOW,
 } from "../Types";
 import axios from "axios";
@@ -43,7 +43,7 @@ export const getRecommadedProfilesAction = () => async (dispatch) =>
         {
             dispatch(
                 {
-                    type: S_GET_RECOMMANDED_PROFILES,
+                    type: S_GET_RECOMMENDED_PROFILES,
                     payload: res.data
                 })
             // console.log(reds.data)
@@ -53,11 +53,12 @@ export const getRecommadedProfilesAction = () => async (dispatch) =>
     {
         dispatch(
             {
-                type: F_GET_RECOMMANDED_PROFILES,
+                type: F_GET_RECOMMENDED_PROFILES,
                 payload: error
             })
     }
 }
+
 export const followProfileAction = (id) => async (dispatch) =>
 {
     const body = JSON.stringify({})
@@ -82,3 +83,4 @@ export const followProfileAction = (id) => async (dispatch) =>
             })
     }
 }
+

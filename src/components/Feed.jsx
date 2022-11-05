@@ -26,6 +26,8 @@ import {
     PopoverContent,
 } from "@material-tailwind/react";
 import PopoverInfo from "./PopoverInfo";
+import {IoMdPerson} from "react-icons/io";
+import {BiLoader} from "react-icons/bi";
 
 const Feed = ({query}) =>
 {
@@ -37,6 +39,7 @@ const Feed = ({query}) =>
     const {feeds} = useSelector(state => state.getFeedsReducer)
     const {topics} = useSelector(state => state.getTopicsReducer)
     const {my_profile, my_posts} = useSelector(state=> state.getMyInfoReducer)
+    const [loadingFeeds, setLoadingFeeds] = useState(false);
 
     const [topic, setTopic] = useState('');
     const [content, setContent] = useState('');
@@ -44,7 +47,7 @@ const Feed = ({query}) =>
     const [newTopic, setNewTopic] = useState('');
     const [cover_image, setCover_image] = useState('');
 
-    const [loadmore, setLoadmore] = useState(10);
+    const [loadmore, setLoadmore] = useState(4);
     const [changeEditor, setChangeEditor] = useState(true);
 
     let toolbarOptions = [
@@ -61,7 +64,15 @@ const Feed = ({query}) =>
         // [{ 'direction': 'rtl' }],
         // ['clean']                                         // remove formatting button
     ];
-
+    const handleInfiniteScroll = ()=>
+    {
+        if(window.innerHeight + document.documentElement.scrollTop + 1 >
+            document.documentElement.scrollHeight)
+        {
+            setLoadingFeeds(true)
+            setLoadmore((loadmore)=>loadmore + 5)
+        }
+    }
     let modules={toolbar:toolbarOptions}
     useEffect(() =>
     {
@@ -71,7 +82,10 @@ const Feed = ({query}) =>
             dispatch(loadMyInfoAction())
         }
         dispatch(getFeedAction(name, query))
-    }, [dispatch, query,]);
+        window.addEventListener('scroll', handleInfiniteScroll)
+        return ()=>window.removeEventListener('scroll', handleInfiniteScroll )
+    }, [dispatch, query, loadmore]);
+
 
     const postFeed = async (e) =>
     {
@@ -83,13 +97,15 @@ const Feed = ({query}) =>
         newPost.append('cover_image', cover_image)
         e.preventDefault()
         dispatch(postFeedAction(newPost))
-        window.loacation.reload()
+        window.location.reload()
     }
     const postTopic = (e)=>
     {
         e.preventDefault()
         dispatch(postTopicAction(newTopic))
+        window.location.reload()
     }
+
     return(
         <div className="flex-col mt-5 hover:shadow">
 
@@ -99,9 +115,10 @@ const Feed = ({query}) =>
 
                     {my_profile &&
                         <div className="flex items-center">
-                        <img className="hidden object-cover w-10 h-10 mx-4 rounded-full sm:block"
-                             src={my_profile?.avatar} alt=""/>
-                        <a href={"/me"} className="font-bold text-gray-700 cursor-pointer capitalize dark:text-gray-200">{my_profile?.user?.username} <span className="font-thin">@{my_profile?.user?.username}</span></a>
+                            {my_profile?.avatar ?
+                                <img className="relative rounded-full  h-10 w-10 object-contain" src={my_profile?.avatar} alt=""/>:
+                                <IoMdPerson  className="relative rounded-full  h-10 w-10 object-contain text-gray-400 mr-2"/>}
+                            <a href={"/me"} className="font-bold text-gray-700 cursor-pointer capitalize dark:text-gray-200">{my_profile?.user?.username} <span className="font-thin">@{my_profile?.user?.username}</span></a>
                     </div>}
                 </div>
                 <div className="mt-2">
@@ -186,7 +203,11 @@ const Feed = ({query}) =>
                         <div className="flex items-center">
                             <Popover>
                                 <PopoverHandler>
-                                    <img  src={item?.profile?.avatar} alt="" className="hidden object-cover w-10 h-10 mx-4 rounded-full sm:block" />
+                                    {item?.profile?.avatar?
+                                    <img  src={item?.profile?.avatar} alt="" className="hidden object-cover w-10 h-10 mx-4 rounded-full sm:block" />:
+                                        <div>
+                                            <IoMdPerson  className="hidden object-cover w-10 h-10 mx-4 rounded-full text-gray-400 sm:block "/>
+                                        </div>}
                                 </PopoverHandler>
                                 <PopoverContent>
                                     <PopoverInfo item={item}/>{/* this is the component */}
@@ -279,14 +300,20 @@ const Feed = ({query}) =>
                     </div>
                 </div>
             </div>
+
             )}
+            {loadingFeeds &&
+                <div role="status" className="flex item-center justify-center">
+                     <BiLoader className="flex items-center justify-center w-8 h-8 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600"/>
+                </div>
+            }
 
             <div className="flex justify-center max-w-3xl mb-4 h-auto px-8 py-4 bg-white rounded dark:bg-gray-800">
-                <button onClick={()=>setLoadmore(loadmore+10)}
-                    className="px-6 py-3 font-bold text-white capitalize transition-colors
-                    duration-300 transform bg-blue-300 rounded-md hover:bg-blue-500 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-80">
-                    Load More Feeds
-                </button>
+                {/*<button onClick={()=>setLoadmore(loadmore+10)}*/}
+                {/*    className="px-6 py-3 font-bold text-white capitalize transition-colors*/}
+                {/*    duration-300 transform bg-blue-300 rounded-md hover:bg-blue-500 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-80">*/}
+                {/*    Load More Feeds*/}
+                {/*</button>*/}
             </div>
 
         {/*    modal replies*/}

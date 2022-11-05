@@ -1,3 +1,8 @@
+// import {IoMdPerson} from "react-icons/io";
+// import {BsPerson} from "react-icons/bs";
+
+import {BsPerson} from "react-icons/bs";
+
 const PopoverInfo = ({item})=>
 {
     // console.log(item)
@@ -5,7 +10,13 @@ const PopoverInfo = ({item})=>
         <div className=" w-56 h-40 pb-3 transition-opacity duration-300 dark:text-gray-400 dark:bg-gray-800 dark:border-gray-600">
             <div className="flex justify-between items-center mb-2">
                 <a href="#">
-                    <img className="object-cover w-10 h-10 rounded-full" src={item?.profile?.avatar}  alt=""/>
+                    {item?.profile?.avatar?
+                        <div>
+                            <img  src={item?.profile?.avatar} alt="" className="hidden object-cover w-10 h-10 mx-4 rounded-full sm:block" />
+                        </div>:
+                        <div>
+                            <BsPerson  className="hidden object-cover w-10 h-10 rounded-full text-gray-400 sm:block "/>
+                        </div>}
                 </a>
                 <div>
                     <a type="button" href={''}  className="focus:ring-4 focus:ring-blue-200 font-medium rounded-lg text-xs px-3 py-1.5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Posts: <span>20k</span> </a>

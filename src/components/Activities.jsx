@@ -9,7 +9,7 @@ const Activities = ()=>
 {
     const dispatch = useDispatch()
     const {trending_feed} = useSelector(state => state.getTrendingReducer)
-    const {recommanded} = useSelector(state => state.getRecommandedProfilesReducer)
+    const {recommanded} = useSelector(state => state.getRecommendedProfilesReducer)
     const [followed, setFollowed] = useState(false);
 
     useEffect(() =>
@@ -18,7 +18,6 @@ const Activities = ()=>
         dispatch(getRecommadedProfilesAction())
     }, [dispatch]);
 
-    // console.log(recommanded)
     return(
         <>
         <div className="flex-col sticky top-0 max-w-xl bg-gray-50 rounded p-5 border-gray-100 hover:shadow">
