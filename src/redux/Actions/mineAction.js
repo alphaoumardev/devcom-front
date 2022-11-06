@@ -1,8 +1,9 @@
 import axios from "axios";
-import {F_FOLLOWING_ME, S_FOLLOWING_ME,
+import {
+    F_FOLLOWING_ME, S_FOLLOWING_ME,
     S_MY_LIKES, F_MY_LIKES,
     S_MY_SAVINGS, F_MY_SAVINGS,
-    S_I_FOLLOW, F_I_FOLLOW
+    S_I_FOLLOW, F_I_FOLLOW, S_DELETE_MY_POST, F_DELETE_MY_POST, F_EDIT_MY_POST,S_EDIT_MY_POST,
 } from "../Types";
 
 const config = {
@@ -58,6 +59,7 @@ export const profileIFollowAction = () => async (dispatch) =>
             })
     }
 }
+
 export const likedPostsAction = () => async (dispatch) =>
 {
     try
@@ -99,6 +101,54 @@ export const getSavedPostsAction = () => async (dispatch) =>
         dispatch(
             {
                 type: F_MY_SAVINGS,
+                payload: error
+            })
+    }
+}
+
+export const editMyPostAction = (id, editedPost) => async (dispatch) =>
+{
+    try
+    {
+        // const body = JSON.stringify({editedPost})
+        await axios.patch(`/edit-my-post/${id}`, editedPost,config).then(res =>
+        {
+            dispatch(
+                {
+                    type: S_EDIT_MY_POST,
+                    payload: res.data
+                })
+            console.log(res.data)
+        })
+    }
+    catch (error)
+    {
+        dispatch(
+            {
+                type: F_EDIT_MY_POST,
+                payload: error
+            })
+    }
+}
+
+export const deleteMyPostAction = (id) => async (dispatch) =>
+{
+    try
+    {
+        await axios.delete(`/edit-my-post/${id}`, config).then(res =>
+        {
+            dispatch(
+                {
+                    type: S_DELETE_MY_POST,
+                    payload: res.data
+                })
+        })
+    }
+    catch (error)
+    {
+        dispatch(
+            {
+                type: F_DELETE_MY_POST,
                 payload: error
             })
     }

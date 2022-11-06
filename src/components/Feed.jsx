@@ -28,6 +28,7 @@ import {
 import PopoverInfo from "./PopoverInfo";
 import {IoMdPerson} from "react-icons/io";
 import {BiLoader} from "react-icons/bi";
+import Loader from "./modals/Loader";
 
 const Feed = ({query}) =>
 {
@@ -39,7 +40,6 @@ const Feed = ({query}) =>
     const {feeds} = useSelector(state => state.getFeedsReducer)
     const {topics} = useSelector(state => state.getTopicsReducer)
     const {my_profile, my_posts} = useSelector(state=> state.getMyInfoReducer)
-    const [loadingFeeds, setLoadingFeeds] = useState(false);
 
     const [topic, setTopic] = useState('');
     const [content, setContent] = useState('');
@@ -48,6 +48,7 @@ const Feed = ({query}) =>
     const [cover_image, setCover_image] = useState('');
 
     const [loadmore, setLoadmore] = useState(4);
+    const [loadingFeeds, setLoadingFeeds] = useState(false);
     const [changeEditor, setChangeEditor] = useState(true);
 
     let toolbarOptions = [
@@ -112,7 +113,6 @@ const Feed = ({query}) =>
             <div className="max-w-3xl mb-4 h-auto px-8 py-4 bg-white rounded-lg  dark:bg-gray-800">
             <div>
                 <div className="flex items-center justify-between">
-
                     {my_profile &&
                         <div className="flex items-center">
                             {my_profile?.avatar ?
@@ -244,11 +244,11 @@ const Feed = ({query}) =>
                         <div className="flex items-center hover:text-blue-500"
                              data-bs-toggle="modal" data-bs-target="#commentModal">
                             <MdOutlineQuickreply
-                            size={25} className="mr-2"/>{item?.num_replies>0 && <span>{item?.num_replies}</span>}
+                            size={20} className="mr-2"/>{item?.num_replies>0 && <span>{item?.num_replies}</span>}
                         </div>
                         <div className="flex items-center hover:text-red-700">
                             { my_profile && item?.saves?.includes(item?.profile?.id) &&
-                                <MdBookmarkAdded  size={25} color={"green"} type="submit"
+                                <MdBookmarkAdded  size={20} color={"green"} type="submit"
                                                onClick={()=>{
                                                    if(dispatch(postSavesAction(item?.id)))
                                                    {
@@ -258,7 +258,7 @@ const Feed = ({query}) =>
 
                                 />}
                             {!item?.saves?.includes(item?.profile?.id)&&
-                                <MdOutlineBookmarkBorder size={25}  type="submit"
+                                <MdOutlineBookmarkBorder size={20}  type="submit"
                                               onClick={()=>{
                                                   if(dispatch(postSavesAction(item?.id)))
                                                   {
@@ -271,7 +271,7 @@ const Feed = ({query}) =>
                         </div>
                         <div className="flex items-center hover:text-red-700">
                             { my_profile && item?.likes?.includes(item?.profile?.id) &&
-                                <RiHeart2Fill  size={25} color={"red"} type="submit"
+                                <RiHeart2Fill  size={20} color={"red"} type="submit"
                                          onClick={()=>{
                                              if(dispatch(postLikeAction(item?.id)))
                                              {
@@ -281,7 +281,7 @@ const Feed = ({query}) =>
                                 />}
 
                             {!item?.likes?.includes(item?.profile?.id)&&
-                                <RiHeart2Line size={25}  type="submit"
+                                <RiHeart2Line size={20}  type="submit"
                                          onClick={()=>{
                                              if(dispatch(postLikeAction(item?.id)))
                                              {
@@ -294,7 +294,7 @@ const Feed = ({query}) =>
                         </div>
 
                         <div className="flex items-center hover:text-blue-700">
-                            <RiShareForwardLine size={25} className="mr-2"/>{item?.shares}
+                            <RiShareForwardLine size={20} className="mr-2"/>{item?.shares}
                         </div>
                         <a href={`/single/${item?.id}`} className="text-blue-600 dark:text-blue-400 hover:underline">Read more</a>
                     </div>
@@ -302,11 +302,7 @@ const Feed = ({query}) =>
             </div>
 
             )}
-            {loadingFeeds &&
-                <div role="status" className="flex item-center justify-center">
-                     <BiLoader className="flex items-center justify-center w-8 h-8 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600"/>
-                </div>
-            }
+            <Loader loadingFeeds={loadingFeeds}/>
 
             <div className="flex justify-center max-w-3xl mb-4 h-auto px-8 py-4 bg-white rounded dark:bg-gray-800">
                 {/*<button onClick={()=>setLoadmore(loadmore+10)}*/}

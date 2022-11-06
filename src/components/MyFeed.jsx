@@ -8,6 +8,7 @@ import {
     profileFollowingMeAction,
     profileIFollowAction
 } from "../redux/Actions/mineAction";
+import {PopoverContent, Popover,PopoverHandler} from "@material-tailwind/react";
 
 const MyFeed =() =>
 {
@@ -56,8 +57,15 @@ const MyFeed =() =>
                                     <span>@{my_profile?.user?.username}</span>
 
                                     <p className="mt-2 text-gray-600 dark:text-gray-200">{my_profile?.bio}</p>
-                                    <div className="flex justify-end mt-4">
-                                        <a href="#" className="text-xl font-medium hover:bg-blue-300 rounded-full p-2 outline text-blue-500 dark:text-blue-300">Edit Profile</a>
+                                    <div className="flex justify-end m-3 text-xl font-medium hover:bg-blue-300 rounded-full px-2 py-1 outline text-blue-500 dark:text-blue-300">
+                                        <Popover>
+                                            <PopoverHandler>
+                                                <button type="button">Show Popover</button>
+                                            </PopoverHandler>
+                                            <PopoverContent>
+                                                This is a very beautiful popover, show some love.
+                                            </PopoverContent>
+                                        </Popover>
                                     </div>
                                 </div>
                                 {/*d*/}

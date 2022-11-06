@@ -92,6 +92,12 @@ export const F_MY_LIKES = "F_MY_LIKES"
 export const S_MY_SAVINGS = "S_MY_SAVINGS"
 export const F_MY_SAVINGS = "F_MY_SAVINGS"
 
+export const S_DELETE_MY_POST = "S_DELETE_MY_POST"
+export const F_DELETE_MY_POST = "F_DELETE_MY_POST"
+
+export const S_EDIT_MY_POST = "S_EDIT_MY_POST"
+export const F_EDIT_MY_POST = "F_EDIT_MY_POST"
+
 export const S_POST_FEED_BY_TOPIC = "S_POST_FEED_BY_TOPIC"
 export const F_POST_FEED_BY_TOPIC = "F_POST_FEED_BY_TOPIC"
 

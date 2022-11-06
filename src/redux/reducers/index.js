@@ -9,6 +9,7 @@ import {
     getTrendingReducer,
 } from "./activitiesReducer";
 import {
+    deleteMyPostReducer, editMyPostReducer,
     getlikedPostsReducer,
     getprofileFollowingMeReducer,
     getprofileIFollowReducer,
@@ -35,7 +36,9 @@ export default combineReducers(
         getprofileFollowingMeReducer,
         getlikedPostsReducer,
         getsavedPostsReducer,
-        getprofileIFollowReducer
+        getprofileIFollowReducer,
+        deleteMyPostReducer,
+        editMyPostReducer,
 
     }
 )

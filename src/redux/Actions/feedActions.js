@@ -90,7 +90,7 @@ export const getOneFeedAction = (id) => async (dispatch) =>
     }
 }
 
-export const postFeedAction = (image ) => async (dispatch) =>
+export const postFeedAction = (image) => async (dispatch) =>
 {
     try
     {
@@ -101,7 +101,7 @@ export const postFeedAction = (image ) => async (dispatch) =>
                     type:S_POST_FEED,
                     payload: res.data
                 })
-            console.log(res.data)
+            // console.log(res.data)
         })
     }
     catch (error)
@@ -126,7 +126,7 @@ export const postRepliesAction = (post, comment, commentator) => async (dispatch
                     type:S_POST_REPLIES,
                     payload:res.data
                 })
-            console.log(res.data)
+            // console.log(res.data)
         })
     }
     catch (error)
