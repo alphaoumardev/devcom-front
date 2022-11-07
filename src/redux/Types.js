@@ -98,6 +98,12 @@ export const F_DELETE_MY_POST = "F_DELETE_MY_POST"
 export const S_EDIT_MY_POST = "S_EDIT_MY_POST"
 export const F_EDIT_MY_POST = "F_EDIT_MY_POST"
 
+export const S_EDIT_MY_PROFILE = "S_EDIT_MY_PROFILE"
+export const F_EDIT_MY_PROFILE = "F_EDIT_MY_PROFILE"
+
+export const S_HIS_PROFILE = "S_HIS_PROFILE"
+export const F_HIS_PROFILE = "F_HIS_PROFILE"
+
 export const S_POST_FEED_BY_TOPIC = "S_POST_FEED_BY_TOPIC"
 export const F_POST_FEED_BY_TOPIC = "F_POST_FEED_BY_TOPIC"
 

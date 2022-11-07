@@ -1,14 +1,15 @@
 import MeTab from "./MeTab";
 import {useDispatch, useSelector} from "react-redux";
 import {useEffect} from "react";
-import {loadMyInfoAction} from "../redux/Actions/authActions";
+import {loadMyInfoAction} from "../../redux/Actions/authActions";
 import {
     getSavedPostsAction,
     likedPostsAction,
     profileFollowingMeAction,
     profileIFollowAction
-} from "../redux/Actions/mineAction";
+} from "../../redux/Actions/mineAction";
 import {PopoverContent, Popover,PopoverHandler} from "@material-tailwind/react";
+import EditMyProfile from "../modals/EditMyProfile";
 
 const MyFeed =() =>
 {
@@ -43,7 +44,7 @@ const MyFeed =() =>
                         {/*mine*/}
                         <div className="w-full flex-col">
                             <div className="rounded relative">
-                                <a href="#" data-mdb-ripple="true" data-mdb-ripple-color="light">
+                                <a href="src/components/me/MyFeed#" data-mdb-ripple="true" data-mdb-ripple-color="light">
                                     <img className="rounded h-72 w-full object-cover"  src={my_profile?.cover_image} alt=""/>
                                 </a>
                                 <div className="w-full">
@@ -57,15 +58,21 @@ const MyFeed =() =>
                                     <span>@{my_profile?.user?.username}</span>
 
                                     <p className="mt-2 text-gray-600 dark:text-gray-200">{my_profile?.bio}</p>
-                                    <div className="flex justify-end m-3 text-xl font-medium hover:bg-blue-300 rounded-full px-2 py-1 outline text-blue-500 dark:text-blue-300">
-                                        <Popover>
-                                            <PopoverHandler>
-                                                <button type="button">Show Popover</button>
-                                            </PopoverHandler>
-                                            <PopoverContent>
-                                                This is a very beautiful popover, show some love.
-                                            </PopoverContent>
-                                        </Popover>
+                                    <div className="flex justify-center justify-content-evenly items-center">
+                                        <div className="flex justify-center justify-content-evenly items-center bg-blue-50 w-6/12 m-3 text-xl font-medium hover:bg-blue-300 rounded-full px-2 py-1 outline text-blue-500 dark:text-blue-300">
+                                            <Popover placement='bottom'>
+                                                <PopoverHandler>
+                                                    <div>
+                                                        <button type="button">Edit My Profile</button>
+                                                    </div>
+                                                </PopoverHandler>
+                                                <PopoverContent className="mt-16 py-3">
+                                                    <div>
+                                                        <EditMyProfile my_profile={my_profile}/>
+                                                    </div>
+                                                </PopoverContent>
+                                            </Popover>
+                                        </div>
                                     </div>
                                 </div>
                                 {/*d*/}

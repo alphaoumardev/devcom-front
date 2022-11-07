@@ -1,6 +1,3 @@
-// import {IoMdPerson} from "react-icons/io";
-// import {BsPerson} from "react-icons/bs";
-
 import {BsPerson} from "react-icons/bs";
 
 const PopoverInfo = ({item})=>
@@ -19,7 +16,10 @@ const PopoverInfo = ({item})=>
                         </div>}
                 </a>
                 <div>
-                    <a type="button" href={''}  className="focus:ring-4 focus:ring-blue-200 font-medium rounded-lg text-xs px-3 py-1.5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Posts: <span>20k</span> </a>
+                    <a type="button" href={''}  className="focus:ring-4 focus:ring-blue-200 font-medium rounded-lg text-xs px-3 py-1.5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Posts:
+                        <span className="ml-1">
+                            {item?.profile?.my_posts_count>99&&item?.profile?.my_posts_count<1000 ? 99+'+':item?.profile?.my_posts_count && item?.profile?.my_posts_count>999 ? item?.profile?.my_posts_count/1000+'k': item?.profile?.my_posts_count}
+                        </span> </a>
                 </div>
                 <div>
                     <button type="button"

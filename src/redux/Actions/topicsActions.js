@@ -44,7 +44,7 @@ export const postTopicAction = (name) => async (dispatch) =>
                     type:S_POST_TOPICS,
                     payload:res.data
                 })
-            console.log(res.data)
+            // console.log(res.data)
         })
     }
     catch (error)

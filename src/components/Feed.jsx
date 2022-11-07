@@ -106,7 +106,7 @@ const Feed = ({query}) =>
         dispatch(postTopicAction(newTopic))
         window.location.reload()
     }
-
+    console.log(feeds)
     return(
         <div className="flex-col mt-5 hover:shadow">
 
@@ -197,7 +197,6 @@ const Feed = ({query}) =>
 
             {feeds?.slice(0,loadmore)?.map((item, index)=>
                 <div key={index} className="max-w-3xl mb-4 h-auto px-8 py-4 bg-white rounded dark:bg-gray-800 hover:shadow-lg">
-
                 <div>
                     <div className="flex items-center justify-between">
                         <div className="flex items-center">
@@ -213,7 +212,7 @@ const Feed = ({query}) =>
                                     <PopoverInfo item={item}/>{/* this is the component */}
                                 </PopoverContent>
                             </Popover>
-                            <a href={`/me`} className="font-bold text-gray-700 cursor-pointer dark:text-gray-200 capitalize">{item?.profile?.user?.username}<span className="font-thin capitalize ml-1">@{item?.profile?.user?.username}
+                            <a href={`/hisprofile/${item?.profile?.id}`} className="font-bold text-gray-700 cursor-pointer dark:text-gray-200 capitalize">{item?.profile?.user?.username}<span className="font-thin capitalize ml-1">@{item?.profile?.user?.username}
                             <span className="ml-3">{moment(item?.posted?.toString()).startOf().fromNow()}</span>
                             </span>
                             </a>

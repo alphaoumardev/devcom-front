@@ -11,11 +11,11 @@ import {
     TabPanel, DialogBody, Input, Popover, DialogFooter, Button, Dialog, DialogHeader, PopoverHandler, PopoverContent,
 } from "@material-tailwind/react";
 import {IoMdPerson} from "react-icons/io";
-import {deleteMyPostAction} from "../redux/Actions/mineAction";
+import {deleteMyPostAction} from "../../redux/Actions/mineAction";
 import {useDispatch} from "react-redux";
 import {useState} from "react";
-import EditPostModal from "./modals/EditPostModal";
-import Loader from "./modals/Loader";
+import EditPostModal from "../modals/EditPostModal";
+import Loader from "../modals/Loader";
 
 const MeTab = ({my_profile, my_posts, following, liked_posts, saved_posts, followers})=>
 {
@@ -142,26 +142,26 @@ const MeTab = ({my_profile, my_posts, following, liked_posts, saved_posts, follo
                     <TabPanel value="following">
                         <div className="max-w-3xl h-auto px-5 py-3 rounded-lg shadow-md dark:bg-gray-800 hover:shadow-lg">
                             <ul role="list" className="divide-y divide-gray-200 dark:divide-gray-700">
-                                {following?.slice(0,loadmore)?.map((item, index)=>
-                                    <li  key={index} className="py-2 sm:py-4">
-                                        <div className="flex items-center space-x-4">
-                                            <div className="flex-shrink-0">
-                                                {item.avatar ?
-                                                    <img className="rounded-full  h-8 w-8 object-cover" src={item.avatar} alt=""/>:
-                                                    <IoMdPerson  className="rounded-full  h-8 w-8 object-contain text-gray-400"/>}
+                                {/*{following?.slice(0,loadmore)?.map((item, index)=>*/}
+                                {/*    <li  key={index} className="py-2 sm:py-4">*/}
+                                {/*        <div className="flex items-center space-x-4">*/}
+                                {/*            <div className="flex-shrink-0">*/}
+                                {/*                {item.avatar ?*/}
+                                {/*                    <img className="rounded-full  h-8 w-8 object-cover" src={item.avatar} alt=""/>:*/}
+                                {/*                    <IoMdPerson  className="rounded-full  h-8 w-8 object-contain text-gray-400"/>}*/}
 
-                                            </div>
-                                            <div className="flex-1 min-w-0 text-base">
-                                                <p className="text-sm font-medium text-gray-900 truncate dark:text-white capitalize">{item?.user?.username}</p>
-                                                <p className="text-sm text-gray-500 truncate dark:text-gray-400">@{item?.user?.username}</p>
-                                            </div>
-                                            <button type="button"
-                                                    className="cursor-pointer inline-flex bg-blue-200 px-4 py-2 rounded-3xl items-center text-base font-semibold text-gray-900 dark:text-white">
-                                                Following
-                                            </button>
-                                        </div>
-                                    </li>
-                                )}
+                                {/*            </div>*/}
+                                {/*            <div className="flex-1 min-w-0 text-base">*/}
+                                {/*                <p className="text-sm font-medium text-gray-900 truncate dark:text-white capitalize">{item?.user?.username}</p>*/}
+                                {/*                <p className="text-sm text-gray-500 truncate dark:text-gray-400">@{item?.user?.username}</p>*/}
+                                {/*            </div>*/}
+                                {/*            <button type="button"*/}
+                                {/*                    className="cursor-pointer inline-flex bg-blue-200 px-4 py-2 rounded-3xl items-center text-base font-semibold text-gray-900 dark:text-white">*/}
+                                {/*                Following*/}
+                                {/*            </button>*/}
+                                {/*        </div>*/}
+                                {/*    </li>*/}
+                                {/*)}*/}
                             </ul>
                         </div>
                         <Loader loadingFeeds={loadingFeeds}/>

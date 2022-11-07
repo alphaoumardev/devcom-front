@@ -16,7 +16,7 @@ const EditPostModal = ({item}) =>
     const [content, setContent] = useState('');
     const [title, setTitle] = useState('');
     const [newTopic, setNewTopic] = useState('');
-    const [cover_image, setCover_image] = useState('');
+    const [cover_image, setCover_image] = useState(null);
 
     const {my_profile, my_posts} = useSelector(state=> state.getMyInfoReducer)
     const {topics} = useSelector(state => state.getTopicsReducer)
@@ -25,7 +25,6 @@ const EditPostModal = ({item}) =>
     const [openEdit, setOpenEdit] = useState(false);
 
     const handleOpen = () => setOpenEdit(!openEdit);
-
     const editPost = async (e) =>
     {
         let editedPost = new FormData()
@@ -33,7 +32,10 @@ const EditPostModal = ({item}) =>
         editedPost.append('topic', topic ? topic : item?.topic?.id)
         editedPost.append('content', content ? content : item?.content)
         editedPost.append('profile', my_profile?.id)
-        editedPost.append('cover_image', cover_image ? cover_image : item?.cover_image)
+        if(cover_image !== null)
+        {
+            editedPost.append('cover_image', cover_image)
+        }
         e.preventDefault()
         dispatch(editMyPostAction(item?.id, editedPost))
         window.location.reload()

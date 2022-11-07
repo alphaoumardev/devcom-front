@@ -9,6 +9,7 @@ import {useEffect, useState} from "react";
 import {loadMyInfoAction} from "./redux/Actions/authActions";
 import Header from "./components/Header";
 import {theme} from "flowbite/tailwind.config";
+import His from "./pages/His";
 
 const App = ()=>
 {
@@ -34,6 +35,7 @@ const App = ()=>
                     <Route path="/register" element={<Signup/>}/>
 
                     <Route exact path="/" element={<Home query={query}/>}/>
+                    <Route exact path="hisprofile/:id" element={<His/>}/>
                     <Route exact path="/:name" element={<Home query={query}/>}/>
                     <Route path="/me" element={<Me/>}/>
                     <Route path="/single/:id" element={<SinglePage my_profile={my_profile}/>}/>

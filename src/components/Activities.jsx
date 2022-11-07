@@ -1,23 +1,27 @@
-import {IoMdTrendingUp} from "react-icons/io";
+import {IoMdPerson, IoMdTrendingUp} from "react-icons/io";
 import {BsThreeDots} from "react-icons/bs";
 import {FiExternalLink} from "react-icons/fi";
 import {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {followProfileAction, getRecommadedProfilesAction, getTrendingAction} from "../redux/Actions/activitiesAction";
+import {loadMyInfoAction} from "../redux/Actions/authActions";
+import {getMyInfoReducer} from "../redux/reducers/authReducer";
 
 const Activities = ()=>
 {
     const dispatch = useDispatch()
     const {trending_feed} = useSelector(state => state.getTrendingReducer)
     const {recommanded} = useSelector(state => state.getRecommendedProfilesReducer)
+    const {my_profile} = useSelector(state => state.getMyInfoReducer)
     const [followed, setFollowed] = useState(false);
 
     useEffect(() =>
     {
         dispatch(getTrendingAction())
         dispatch(getRecommadedProfilesAction())
+        dispatch(loadMyInfoAction)
     }, [dispatch]);
-
+// console.log(my_profile)
     return(
         <>
         <div className="flex-col sticky top-0 max-w-xl bg-gray-50 rounded p-5 border-gray-100 hover:shadow">
@@ -26,16 +30,17 @@ const Activities = ()=>
             </a>
             <div className="block w-full h-auto rounded hover:shadow bg-white max-w-sm">
                 <div className="py-3 pl-3 border-b border-gray-300 flex">
-                    <img src="https://res.cloudinary.com/diallo/image/upload/v1653794949/diallo_rjazjs.png" alt="host"
-                         className="h-10 w-10 rounded-full object-cover"/>
-                    <span className="ml-5">Alpha Diallo <br/><b className="text-blue-700">@alphaoumar</b></span>
-                    <span className="justify-end">7 days ago</span>
+                    {my_profile?.avatar ?
+                        <img className="relative rounded-full  h-10 w-10 object-contain" src={my_profile?.avatar} alt=""/>:
+                        <IoMdPerson  className="relative rounded-full  h-10 w-10 object-contain text-gray-400 mr-2"/>}
+                    {/*<a href={"/me"} className="font-bold text-gray-700 cursor-pointer capitalize dark:text-gray-200">{my_profile?.user?.username} <span className="font-thin">@{my_profile?.user?.username}</span></a>*/}
+
+                    <span className="ml-5 uppercase">{my_profile?.user?.username}<br/><b className="text-blue-700">@{my_profile?.user?.username}</b></span>
+                    <span className="justify-end"></span>
                 </div>
                 <div className="p-6 text-base">
-                    <h5 className="text-gray-900 text-xl font-medium mb-2">Special title treatment</h5>
-                    <p className="text-gray-700 text-base mb-4">
-                        With supporting text below as a natural lead-in to additional content.
-                    </p>
+                    <h5 className="text-gray-900 text-xl font-medium mb-2">About Me</h5>
+                    <p className="text-gray-700 text-base mb-4">{my_profile?.bio}</p>
                 </div>
             </div>
 

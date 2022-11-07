@@ -71,7 +71,7 @@ export const followProfileAction = (id) => async (dispatch) =>
                     type: S_FOLLOW,
                     payload: res.data
                 })
-            console.log(reds.data)
+            // console.log(reds.data)
         })
     }
     catch (error)

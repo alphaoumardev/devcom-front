@@ -1,7 +1,8 @@
 import {
     F_FOLLOWING_ME, S_FOLLOWING_ME, S_MY_LIKES, F_MY_LIKES,
     S_MY_SAVINGS, F_MY_SAVINGS,
-    S_I_FOLLOW, F_I_FOLLOW, F_DELETE_MY_POST, S_DELETE_MY_POST, S_EDIT_MY_POST,  F_EDIT_MY_POST
+    S_I_FOLLOW, F_I_FOLLOW, F_DELETE_MY_POST, S_DELETE_MY_POST, S_EDIT_MY_POST,  F_EDIT_MY_POST,
+    F_EDIT_MY_PROFILE, S_EDIT_MY_PROFILE, S_HIS_PROFILE, F_HIS_PROFILE
 } from '../Types'
 
 export const getprofileFollowingMeReducer = (state={following: []}, action)=>
@@ -105,6 +106,44 @@ export const editMyPostReducer = (state={editedPost: []}, action)=>
         case F_EDIT_MY_POST:
             return{
                 editedPost: [],
+                error:action.payload
+            }
+        default:
+            return state
+    }
+}
+
+export const editMyProfilleReducer = (state={editedProfile: []}, action)=>
+{
+    switch (action.type)
+    {
+        case S_EDIT_MY_PROFILE:
+            return{
+                editedProfile: action.payload
+            }
+        case F_EDIT_MY_PROFILE:
+            return{
+                editedProfile: [],
+                error:action.payload
+            }
+        default:
+            return state
+    }
+}
+
+export const getHisProfileReducer = (state={hisprofile: [], hisposts: []}, action)=>
+{
+    switch (action.type)
+    {
+        case S_HIS_PROFILE:
+            return{
+                hisprofile: action.payload.data,
+                hisposts: action.payload.hisposts
+            }
+        case F_HIS_PROFILE:
+            return{
+                hisProfile: [],
+                hisposts: [],
                 error:action.payload
             }
         default:

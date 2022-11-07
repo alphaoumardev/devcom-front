@@ -1,15 +1,15 @@
-import Activities from "../components/Activities";
-import MyFeed from "../components/me/MyFeed";
 import Sidebar from "../components/Sidebar";
+import Activities from "../components/Activities";
+import HisProfile from "../components/hisprofile/HisProfile";
 
-const Me = ()=>
+const His = ()=>
 {
     return(
         <div className="flex justify-center items-baseline gap-10 min-w-8xl left-5">
             <Sidebar/>
-            <MyFeed/>
+            <HisProfile/>
             <Activities/>
         </div>
     )
 }
-export default Me
+export default His
