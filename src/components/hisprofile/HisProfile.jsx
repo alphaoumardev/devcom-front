@@ -25,7 +25,7 @@ const HisProfile = ()=>
                         <div className="flex items-center"> </div>
                     </div>
                     <div className="">
-                        {/*mine*/}
+                        {/*his*/}
                         <div className="w-full flex-col">
                             <div className="rounded relative">
                                 <a href="#" data-mdb-ripple="true" data-mdb-ripple-color="light">
@@ -39,25 +39,8 @@ const HisProfile = ()=>
                                     </div>
 
                                     <h3 className="mt-2 text-2xl font-semibold text-gray-800 dark:text-white md:mt-0 md:text-3xl uppercase">{hisprofile?.user?.username}</h3>
-                                    <span>@{hisprofile?.user?.username}</span>
-
-                                    <p className="mt-2 text-gray-600 dark:text-gray-200">{hisprofile?.bio}</p>
-                                    <div className="flex justify-center justify-content-evenly items-center">
-                                        <div className="flex justify-center justify-content-evenly items-center bg-blue-50 w-6/12 m-3 text-xl font-medium hover:bg-blue-300 rounded-full px-2 py-1 outline text-blue-500 dark:text-blue-300">
-                                            {/*<Popover placement='bottom'>*/}
-                                            {/*    <PopoverHandler>*/}
-                                            {/*        <div>*/}
-                                            {/*            <button type="button">Edit My Profile</button>*/}
-                                            {/*        </div>*/}
-                                            {/*    </PopoverHandler>*/}
-                                            {/*    <PopoverContent className="mt-16 py-3">*/}
-                                            {/*        <div>*/}
-                                            {/*            <EditMyProfile hisprofile={hisprofile}/>*/}
-                                            {/*        </div>*/}
-                                            {/*    </PopoverContent>*/}
-                                            {/*</Popover>*/}
-                                        </div>
-                                    </div>
+                                    <span className="capitalize">@{hisprofile?.user?.username}</span>
+                                    <p className="mt-2 mb-3 text-gray-600 dark:text-gray-200">{hisprofile?.bio}</p>
                                 </div>
                                 {/*d*/}
                             </div>

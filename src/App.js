@@ -8,8 +8,8 @@ import {useDispatch, useSelector} from "react-redux";
 import {useEffect, useState} from "react";
 import {loadMyInfoAction} from "./redux/Actions/authActions";
 import Header from "./components/Header";
-import {theme} from "flowbite/tailwind.config";
 import His from "./pages/His";
+import MeSettings from "./components/me/MeSettings";
 
 const App = ()=>
 {
@@ -35,6 +35,7 @@ const App = ()=>
                     <Route path="/register" element={<Signup/>}/>
 
                     <Route exact path="/" element={<Home query={query}/>}/>
+                    <Route exact path="/settings" element={<MeSettings/>}/>
                     <Route exact path="hisprofile/:id" element={<His/>}/>
                     <Route exact path="/:name" element={<Home query={query}/>}/>
                     <Route path="/me" element={<Me/>}/>

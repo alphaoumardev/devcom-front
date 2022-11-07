@@ -27,7 +27,6 @@ import {
 } from "@material-tailwind/react";
 import PopoverInfo from "./PopoverInfo";
 import {IoMdPerson} from "react-icons/io";
-import {BiLoader} from "react-icons/bi";
 import Loader from "./modals/Loader";
 
 const Feed = ({query}) =>
@@ -106,7 +105,6 @@ const Feed = ({query}) =>
         dispatch(postTopicAction(newTopic))
         window.location.reload()
     }
-    console.log(feeds)
     return(
         <div className="flex-col mt-5 hover:shadow">
 
