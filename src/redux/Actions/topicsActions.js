@@ -45,6 +45,7 @@ export const postTopicAction = (name) => async (dispatch) =>
                     payload:res.data
                 })
             // console.log(res.data)
+            dispatch(getTopicsAction())
         })
     }
     catch (error)

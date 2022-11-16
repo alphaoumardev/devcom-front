@@ -1,21 +1,38 @@
 import {
     F_FOLLOWING_ME, S_FOLLOWING_ME, S_MY_LIKES, F_MY_LIKES,
     S_MY_SAVINGS, F_MY_SAVINGS,
-    S_I_FOLLOW, F_I_FOLLOW, F_DELETE_MY_POST, S_DELETE_MY_POST, S_EDIT_MY_POST,  F_EDIT_MY_POST,
-    F_EDIT_MY_PROFILE, S_EDIT_MY_PROFILE, S_HIS_PROFILE, F_HIS_PROFILE
+    S_I_FOLLOW, F_I_FOLLOW, F_DELETE_MY_POST, S_DELETE_MY_POST, S_EDIT_MY_POST, F_EDIT_MY_POST,
+    F_EDIT_MY_PROFILE, S_EDIT_MY_PROFILE, S_HIS_PROFILE, F_HIS_PROFILE, S_USER_INFO, F_USER_INFO
 } from '../Types'
-
-export const getprofileFollowingMeReducer = (state={following: []}, action)=>
+export const getMyInfoReducer = (state={
+    my_profile: [],
+    my_posts:[],
+    followedby: [],
+    following: [],
+    liked_posts: [],
+    saved_posts: [],}, action)=>
 {
     switch (action.type)
     {
-        case S_FOLLOWING_ME:
+        case S_USER_INFO:
             return{
-                following: action.payload
+                ...state,
+                my_profile: action.payload.data,
+                my_posts: action.payload.my_posts,
+                following: action.payload.following,
+                followedby: action.payload.followedby,
+                saved_posts: action.payload.saved_posts,
+                liked_posts: action.payload.liked_posts,
             }
-        case F_FOLLOWING_ME:
+        case F_USER_INFO:
             return{
+                ...state,
+                my_profile: [],
+                my_posts: [],
                 following: [],
+                followedby: [],
+                saved_posts: [],
+                liked_posts: [],
                 error:action.payload
             }
         default:
@@ -23,17 +40,35 @@ export const getprofileFollowingMeReducer = (state={following: []}, action)=>
     }
 }
 
-export const getprofileIFollowReducer = (state={followers: []}, action)=>
+export const getprofileFollowingMeReducer = (state={followedby: []}, action)=>
+{
+    switch (action.type)
+    {
+        case S_FOLLOWING_ME:
+            return{
+                followedby: action.payload
+            }
+        case F_FOLLOWING_ME:
+            return{
+                followedby: [],
+                error:action.payload
+            }
+        default:
+            return state
+    }
+}
+
+export const getprofileIFollowReducer = (state={following: []}, action)=>
 {
     switch (action.type)
     {
         case S_I_FOLLOW:
             return{
-                followers: action.payload
+                following: action.payload
             }
         case F_I_FOLLOW:
             return{
-                followers: [],
+                following: [],
                 error:action.payload
             }
         default:
@@ -131,19 +166,27 @@ export const editMyProfilleReducer = (state={editedProfile: []}, action)=>
     }
 }
 
-export const getHisProfileReducer = (state={hisprofile: [], hisposts: []}, action)=>
+export const getHisProfileReducer = (state={hisprofile: [], hisposts: [],
+                                         hisfollowers: [], hisfollowing: []}, action)=>
+
 {
     switch (action.type)
     {
         case S_HIS_PROFILE:
             return{
+                ...state,
                 hisprofile: action.payload.data,
-                hisposts: action.payload.hisposts
+                hisposts: action.payload.hisposts,
+                hisfollowers: action.payload.hisfollowers,
+                hisfollowing: action.payload.hisfollowing,
             }
         case F_HIS_PROFILE:
             return{
+                ...state,
                 hisProfile: [],
                 hisposts: [],
+                hisfollowers: [],
+                hisfollowing: [],
                 error:action.payload
             }
         default:

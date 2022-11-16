@@ -2,7 +2,7 @@ import {combineReducers} from "redux";
 import {getTopicCountReducer, getTopicsReducer, postTopicReducer} from './topicsReducer'
 import {getFeedsReducer, getOneFeedReducer, postFeedReducer, postLikeReducer, postRepliesReducer, postSavesReducer}
     from "./feedReducer";
-import {authReducer, getMyInfoReducer} from "./authReducer";
+import {authReducer,} from "./authReducer";
 import {
     followProfileReducer,
     getRecommendedProfilesReducer,
@@ -13,7 +13,8 @@ import {
     getlikedPostsReducer,
     getprofileFollowingMeReducer,
     getprofileIFollowReducer,
-    getsavedPostsReducer
+    getsavedPostsReducer,
+    getMyInfoReducer,
 } from "./mineReducer";
 
 export default combineReducers(

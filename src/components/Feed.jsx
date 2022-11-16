@@ -11,7 +11,6 @@ import {
     postLikeAction, postSavesAction
 } from "../redux/Actions/feedActions";
 import {useNavigate, useParams} from "react-router-dom";
-import {loadMyInfoAction} from "../redux/Actions/authActions";
 import moment from "moment/moment";
 import {getTopicsAction, postTopicAction} from "../redux/Actions/topicsActions";
 import {Input} from "@material-tailwind/react";
@@ -25,9 +24,10 @@ import {
     PopoverHandler,
     PopoverContent,
 } from "@material-tailwind/react";
-import PopoverInfo from "./PopoverInfo";
+import PopoverInfo from "./modals/PopoverInfo";
 import {IoMdPerson} from "react-icons/io";
 import Loader from "./modals/Loader";
+import {loadMyInfoAction} from "../redux/Actions/mineAction";
 
 const Feed = ({query}) =>
 {
@@ -38,7 +38,7 @@ const Feed = ({query}) =>
     const navigate = useNavigate()
     const {feeds} = useSelector(state => state.getFeedsReducer)
     const {topics} = useSelector(state => state.getTopicsReducer)
-    const {my_profile, my_posts} = useSelector(state=> state.getMyInfoReducer)
+    const {my_profile,} = useSelector(state=> state.getMyInfoReducer)
 
     const [topic, setTopic] = useState('');
     const [content, setContent] = useState('');
@@ -76,16 +76,13 @@ const Feed = ({query}) =>
     let modules={toolbar:toolbarOptions}
     useEffect(() =>
     {
-        if (my_profile)
-        {
-            dispatch(getTopicsAction())
-            dispatch(loadMyInfoAction())
-        }
+        dispatch(getTopicsAction())
+        dispatch(loadMyInfoAction())
         dispatch(getFeedAction(name, query))
-        window.addEventListener('scroll', handleInfiniteScroll)
-        return ()=>window.removeEventListener('scroll', handleInfiniteScroll )
-    }, [dispatch, query, loadmore]);
 
+        window.addEventListener('scroll', handleInfiniteScroll)
+        return ()=> window.removeEventListener('scroll', handleInfiniteScroll )
+    }, [dispatch, query]);
 
     const postFeed = async (e) =>
     {
@@ -97,13 +94,11 @@ const Feed = ({query}) =>
         newPost.append('cover_image', cover_image)
         e.preventDefault()
         dispatch(postFeedAction(newPost))
-        window.location.reload()
     }
     const postTopic = (e)=>
     {
         e.preventDefault()
         dispatch(postTopicAction(newTopic))
-        window.location.reload()
     }
     return(
         <div className="flex-col mt-5 hover:shadow">
@@ -112,12 +107,13 @@ const Feed = ({query}) =>
             <div>
                 <div className="flex items-center justify-between">
                     {my_profile &&
-                        <div className="flex items-center">
+                        <a href={"/me"} className="flex items-center">
                             {my_profile?.avatar ?
                                 <img className="relative rounded-full  h-10 w-10 object-contain" src={my_profile?.avatar} alt=""/>:
                                 <IoMdPerson  className="relative rounded-full  h-10 w-10 object-contain text-gray-400 mr-2"/>}
-                            <a href={"/me"} className="font-bold text-gray-700 cursor-pointer capitalize dark:text-gray-200">{my_profile?.user?.username} <span className="font-thin">@{my_profile?.user?.username}</span></a>
-                    </div>}
+                            <span className="font-bold text-gray-700 cursor-pointer ml-1 capitalize dark:text-gray-200">{my_profile?.user?.username} <span className="font-thin">@{my_profile?.user?.username}</span></span>
+                        </a>
+                    }
                 </div>
                 <div className="mt-2">
                     {/*new article edit*/}
@@ -138,7 +134,6 @@ const Feed = ({query}) =>
                                     value={parse(content)}
                                     onChange={setContent}
                                 />}
-
                             </div>
 
                             <div className="flex justify-between  items-center py-2 px-3 border-b dark:border-gray-600">
@@ -184,7 +179,6 @@ const Feed = ({query}) =>
                                 </div>
                                 <button type="submit"  disabled={topic===''||title===''||content===''}
                                         className="inline-flex float-right mt-1 items-center px-6 py-2 text-sm rounded-full font-bold text-center text-white bg-blue-700 rounded-lg focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-900 hover:bg-blue-800">Post</button>
-
                             </div>
                         </div>
                     </form>
@@ -207,7 +201,7 @@ const Feed = ({query}) =>
                                         </div>}
                                 </PopoverHandler>
                                 <PopoverContent>
-                                    <PopoverInfo item={item}/>{/* this is the component */}
+                                    <PopoverInfo item={item} my_profile={my_profile}/>{/* this is the component */}
                                 </PopoverContent>
                             </Popover>
                             <a href={`/hisprofile/${item?.profile?.id}`} className="font-bold text-gray-700 cursor-pointer dark:text-gray-200 capitalize">{item?.profile?.user?.username}<span className="font-thin capitalize ml-1">@{item?.profile?.user?.username}
@@ -225,7 +219,7 @@ const Feed = ({query}) =>
                            className="text-2xl ml-2 font-bold text-gray-700 capitalize dark:text-white hover:text-blue-600 dark:hover:text-gray-200 hover:underline">{item?.title}</a>
                         <div className="flex">
                             <div>
-                                <p className="mt-2 ml-3 text-gray-600 dark:text-gray-300 ">{item?.content?.slice(0, 250)}<a href={`/single/${item?.id}`} className="text-blue-700">...</a></p>
+                                <p className="mt-2 ml-3 text-gray-600 dark:text-gray-300">{item?.content?.slice(0, 250)}<a href={`/single/${item?.id}`} className="text-blue-700">...</a></p>
                             </div>
                             <div>
                                 <a  href={`/single/${item?.id}`}>
@@ -240,56 +234,23 @@ const Feed = ({query}) =>
 
                         <div className="flex items-center hover:text-blue-500"
                              data-bs-toggle="modal" data-bs-target="#commentModal">
-                            <MdOutlineQuickreply
-                            size={20} className="mr-2"/>{item?.num_replies>0 && <span>{item?.num_replies}</span>}
+                            <MdOutlineQuickreply size={20} className="mr-2"/>
+                            {item?.num_replies>0 && <span>{item?.num_replies}</span>}
                         </div>
                         <div className="flex items-center hover:text-red-700">
-                            { my_profile && item?.saves?.includes(item?.profile?.id) &&
-                                <MdBookmarkAdded  size={20} color={"green"} type="submit"
-                                               onClick={()=>{
-                                                   if(dispatch(postSavesAction(item?.id)))
-                                                   {
-                                                       dispatch(getFeedAction(name))
-                                                   }
-                                               }}
-
-                                />}
+                            {item?.saves?.includes(item?.profile?.id) &&
+                                <MdBookmarkAdded  size={20} color={"green"} type="submit" onClick={()=>dispatch(postSavesAction(item?.id))}/>}
                             {!item?.saves?.includes(item?.profile?.id)&&
-                                <MdOutlineBookmarkBorder size={20}  type="submit"
-                                              onClick={()=>{
-                                                  if(dispatch(postSavesAction(item?.id)))
-                                                  {
-                                                      dispatch(getFeedAction(name))
-                                                  }
-                                              }}
-                                />}
+                                <MdOutlineBookmarkBorder size={20} type="submit" onClick={()=>dispatch(postSavesAction(item?.id))}/>}
                             {item?.num_saves>0 &&<span className='ml-2'>{item?.num_saves}</span>}
-
                         </div>
                         <div className="flex items-center hover:text-red-700">
-                            { my_profile && item?.likes?.includes(item?.profile?.id) &&
-                                <RiHeart2Fill  size={20} color={"red"} type="submit"
-                                         onClick={()=>{
-                                             if(dispatch(postLikeAction(item?.id)))
-                                             {
-                                                 dispatch(getFeedAction(name))
-                                             }
-                                         }}
-                                />}
-
+                            {item?.likes?.includes(item?.profile?.id) &&
+                                <RiHeart2Fill  size={20} color={"red"} type="submit" onClick={()=>dispatch(postLikeAction(item?.id))}/>}
                             {!item?.likes?.includes(item?.profile?.id)&&
-                                <RiHeart2Line size={20}  type="submit"
-                                         onClick={()=>{
-                                             if(dispatch(postLikeAction(item?.id)))
-                                             {
-                                                 dispatch(getFeedAction(name))
-                                             }
-                                         }}
-                                />}
+                                <RiHeart2Line size={20}  type="submit" onClick={()=>dispatch(postLikeAction(item?.id))}/>}
                             {item?.num_likes>0 &&<span className='ml-2'>{item?.num_likes}</span>}
-
                         </div>
-
                         <div className="flex items-center hover:text-blue-700">
                             <RiShareForwardLine size={20} className="mr-2"/>{item?.shares}
                         </div>

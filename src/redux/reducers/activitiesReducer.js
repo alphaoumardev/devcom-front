@@ -13,10 +13,12 @@ export const getTrendingReducer = (state={trending_feed: []}, action)=>
     {
         case S_GET_TRENDING:
             return{
+                ...state,
                 trending_feed: action.payload
             }
         case F_GET_TRENDING:
             return{
+                ...state,
                 trending_feed: [],
                 error:action.payload
             }
@@ -30,10 +32,12 @@ export const getRecommendedProfilesReducer = (state={recommanded: []}, action)=>
     {
         case S_GET_RECOMMENDED_PROFILES:
             return{
+                ...state,
                 recommanded: action.payload
             }
         case F_GET_RECOMMENDED_PROFILES:
             return{
+                ...state,
                 recommanded: [],
                 error:action.payload
             }
@@ -47,10 +51,12 @@ export const followProfileReducer = (state={follow: []}, action)=>
     {
         case S_FOLLOW:
             return{
+                ...state,
                 follow: action.payload
             }
         case F_FOLLOW:
             return{
+                ...state,
                 follow: [],
                 error:action.payload
             }

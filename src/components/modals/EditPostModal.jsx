@@ -1,13 +1,12 @@
 import {useDispatch, useSelector} from "react-redux";
 import {useEffect, useState} from "react";
-import {loadMyInfoAction} from "../../redux/Actions/authActions";
 import {FaExchangeAlt} from "react-icons/fa";
 import {GrLocation} from "react-icons/gr";
 import {BsCodeSlash, BsImage} from "react-icons/bs";
 import {MdLibraryAdd} from "react-icons/md";
 import {Input} from "@material-tailwind/react";
 import {getTopicsAction} from "../../redux/Actions/topicsActions";
-import {editMyPostAction} from "../../redux/Actions/mineAction";
+import {editMyPostAction, loadMyInfoAction} from "../../redux/Actions/mineAction";
 
 const EditPostModal = ({item}) =>
 {
@@ -38,7 +37,6 @@ const EditPostModal = ({item}) =>
         }
         e.preventDefault()
         dispatch(editMyPostAction(item?.id, editedPost))
-        window.location.reload()
     }
     useEffect(() =>
     {
@@ -47,7 +45,7 @@ const EditPostModal = ({item}) =>
             dispatch(getTopicsAction())
             dispatch(loadMyInfoAction())
         }
-    }, [dispatch]);
+    }, [dispatch, ]);
 
     return(
         <div>

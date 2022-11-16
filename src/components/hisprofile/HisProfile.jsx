@@ -1,4 +1,4 @@
-import {getHisProfileAction} from "../../redux/Actions/mineAction";
+import {getHisProfileAction, loadMyInfoAction} from "../../redux/Actions/mineAction";
 import {useDispatch, useSelector} from "react-redux";
 import {useEffect} from "react";
 import {useParams} from "react-router-dom";
@@ -8,15 +8,17 @@ const HisProfile = ()=>
 {
     let {id} = useParams()
     const dispatch = useDispatch()
-    const {hisprofile, hisposts} = useSelector(state =>state.getHisProfileReducer)
+    const {hisprofile, hisposts, hisfollowers, hisfollowing} = useSelector(state =>state.getHisProfileReducer)
+    const {my_profile, } = useSelector(state => state.getMyInfoReducer)
+
     useEffect(() =>
     {
         return () =>
         {
             dispatch(getHisProfileAction(id))
+            dispatch(loadMyInfoAction())
         };
-    }, [dispatch]);
-    // console.log(hisprofile)
+    }, [dispatch, ]);
     return(
         <div className="flex-col">
             <div className="max-w-3xl mb-4 h-auto px-8 py-4 bg-white rounded-lg  dark:bg-gray-800">
@@ -44,10 +46,11 @@ const HisProfile = ()=>
                                 </div>
                                 {/*d*/}
                             </div>
-                            <HisTab hisprofile={hisprofile} hisposts={hisposts}
-                                   //  following={following}
-                                   // liked_posts={liked_posts} saved_posts={saved_posts}
-                                   // followers={followers}
+                            <HisTab hisprofile={hisprofile}
+                                    my_profile={my_profile}
+                                    hisposts={hisposts}
+                                    hisfollowing={hisfollowing}
+                                    hisfollowers={hisfollowers}
                             />
                         </div>
                         {/*end*/}

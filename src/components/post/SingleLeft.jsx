@@ -13,10 +13,9 @@ import {FiLink} from "react-icons/fi";
 import {GrLocation} from "react-icons/gr";
 import {useState} from "react";
 import {
-    getOneFeedAction,
     postLikeAction,
     postRepliesAction, postSavesAction
-} from "../redux/Actions/feedActions";
+} from "../../redux/Actions/feedActions";
 import {useDispatch,} from "react-redux";
 import {useNavigate} from "react-router-dom";
 
@@ -42,38 +41,15 @@ const SingleLeft = ({data, id, my_profile})=>
                     <MdOutlineQuickreply  size={25} className="mr-2"/>
                 </div>
                 <div className="flex justify-center">
-                    {data?.num_replies}
+                    {data?.num_replies>0 &&<span>{data?.num_replies}</span>}
                 </div>
             </div>
             <div className="mb-12 flex-col hover:text-red-700" >
                 <div className="flex justify-center items-center">
                     {data?.saves?.includes(data?.profile?.id)  &&
-                        <MdBookmarkAdded  size={25} color={"green"} type="submit"
-                                       onClick={()=>{
-                                           if(!user)
-                                           {
-                                               navigate('/login')
-                                           }
-                                           if(dispatch(postSavesAction(data?.id)))
-                                           {
-                                               // window.location.redirect('')
-                                               dispatch(getOneFeedAction(id))
-                                           }
-                                           // else window.location.reload()
-                                       }}/>}
+                        <MdBookmarkAdded  size={25} color={"green"} type="submit" onClick={()=>dispatch(postSavesAction(data?.id))}/>}
                     {!data?.saves?.includes(data?.profile?.id) &&
-                        <MdOutlineBookmarkBorder size={25}  type="submit"
-                                      onClick={()=>{
-                                          if(!user)
-                                          {
-                                              navigate('/login')
-                                          }
-                                          if(dispatch(postSavesAction(data?.id)))
-                                          {
-                                              dispatch(getOneFeedAction(id))
-                                          }
-                                          // window.location.reload()
-                                      }}/>}
+                        <MdOutlineBookmarkBorder size={25} type="submit" onClick={()=>dispatch(postSavesAction(data?.id))}/>}
                 </div>
                 <div className="flex justify-center items-center">
                     {data?.num_saves>0 &&<span>{data?.num_saves}</span>}
@@ -83,36 +59,14 @@ const SingleLeft = ({data, id, my_profile})=>
             <div className="mb-12 flex-col hover:text-red-700" >
                 <div className="flex justify-center items-center">
                     {data?.likes?.includes(data?.profile?.id)  &&
-                        <RiHeart2Fill  size={25} color={"red"} type="submit"
-                                          onClick={()=>{
-                                              if(!user)
-                                              {
-                                                  navigate('/login')
-                                              }
-                                              if(dispatch(postLikeAction(data?.id)))
-                                              {
-                                                  // window.location.redirect('')
-                                                  dispatch(getOneFeedAction(id))
-                                              }else window.location.reload()
-                                          }}/>}
+                        <RiHeart2Fill  size={25} color={"red"} type="submit" onClick={()=>dispatch(postLikeAction(data?.id))}/>}
                     {!data?.likes?.includes(data?.profile?.id) &&
-                        <RiHeart2Line size={25}  type="submit"
-                                        onClick={()=>{
-                                            if(!user)
-                                            {
-                                                navigate('/login')
-                                            }
-                                            if(dispatch(postLikeAction(data?.id)))
-                                            {
-                                                dispatch(getOneFeedAction(id))
-                                            }window.location.reload()
-                                        }}/>}
+                        <RiHeart2Line size={25}  type="submit" onClick={()=>dispatch(postLikeAction(data?.id))}/>}
                 </div>
                 <div className="flex justify-center items-center">
                     {data?.num_likes>0 &&<span>{data?.num_likes}</span>}
                 </div>
             </div>
-
             <div className=" relative block">
                 <div className="peer relative  hover:text-blue-700 cursor-pointer">
                     <RiShareForwardLine size={25} className="mr-2"/>{data?.shares}
@@ -120,7 +74,6 @@ const SingleLeft = ({data, id, my_profile})=>
                 {/*<-- Dropdown menu -->*/}
                 <div
                     className="hidden peer-hover:flex absolute hover:flex  m-auto w-56 py-5 mt-2 right-0  bg-white rounded-md shadow-2xl dark:bg-gray-800">
-
                     <a href="#"
                        className="flex cursor-pointer items-center p-3 text-sm text-gray-600 capitalize transition-colors duration-300 transform dark:text-gray-300 hover:bg-gray-100 hover:rounded-full dark:hover:bg-gray-700 dark:hover:text-white">
                         <BsTwitter size={25} className="text-blue-500"/>
@@ -168,7 +121,7 @@ const SingleLeft = ({data, id, my_profile})=>
                                 <textarea aria-required={true} onChange={(e)=>setComment(e.target.value)} id="comment" rows="4" className="px-0 w-full text-sm text-gray-900 bg-white border-0 dark:bg-gray-800 focus:ring-0 dark:text-white dark:placeholder-gray-400" placeholder="Write a comment..." required=""></textarea>
                             </div>
                             <div className="flex justify-between items-center py-2 px-3 border-t dark:border-gray-600">
-                                <button type="submit"  data-bs-dismiss="modal" aria-label="Close" onClick={()=>window.location.reload()}
+                                <button type="submit"  data-bs-dismiss="modal" aria-label="Close"
                                         disabled={commentator===null || comment==='' || post===null}
                                         className="inline-flex items-center py-2.5 px-4 text-xs font-medium text-center text-white bg-blue-700 rounded-lg focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-900 hover:bg-blue-800">
                                     Reply

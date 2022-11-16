@@ -2,6 +2,7 @@ import {BiLoader} from "react-icons/bi";
 
 const Loader = ({loadingFeeds})=>
 {
+    // console.log(loadingFeeds)
     return(
         <div>
             {loadingFeeds &&

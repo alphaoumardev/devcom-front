@@ -4,6 +4,7 @@ import {
     S_FOLLOW,F_FOLLOW,
 } from "../Types";
 import axios from "axios";
+import {loadMyInfoAction} from "./mineAction";
 
 const config = {
     headers: {
@@ -73,6 +74,8 @@ export const followProfileAction = (id) => async (dispatch) =>
                 })
             // console.log(reds.data)
         })
+        dispatch(getRecommadedProfilesAction())
+        dispatch(loadMyInfoAction())
     }
     catch (error)
     {

@@ -6,10 +6,10 @@ import SinglePage from "./pages/SinglePage";
 import Signup from "./components/Signup";
 import {useDispatch, useSelector} from "react-redux";
 import {useEffect, useState} from "react";
-import {loadMyInfoAction} from "./redux/Actions/authActions";
 import Header from "./components/Header";
 import His from "./pages/His";
 import MeSettings from "./components/me/MeSettings";
+import {loadMyInfoAction} from "./redux/Actions/mineAction";
 
 const App = ()=>
 {
@@ -25,6 +25,7 @@ const App = ()=>
             dispatch(loadMyInfoAction())
         }
     }, [dispatch]);
+    // console.log(my_profile)
     return(
         <>
             {window.location.pathname==="/login" ||

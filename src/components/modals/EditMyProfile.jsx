@@ -28,9 +28,7 @@ const EditMyProfile = ({my_profile})=>
         }
         e.preventDefault()
         dispatch(editMyProfileAction(editedProfile))
-        window.location.reload()
     }
-    // console.log(my_profile?.avatar)
     return(
         <div className="rounded-md shadow-xl p-4">
             <form onSubmit={editMyProfile}>

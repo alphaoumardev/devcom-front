@@ -5,24 +5,25 @@ import {MdOutlineQuickreply} from "react-icons/md";
 import {useParams} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {useEffect,} from "react";
-import {getOneFeedAction,} from "../redux/Actions/feedActions";
+import {getOneFeedAction,} from "../../redux/Actions/feedActions";
 import SingleLeft from "./SingleLeft";
 import moment from "moment";
-import {loadMyInfoAction} from "../redux/Actions/authActions";
 import {RiHeart2Line} from "react-icons/ri";
+import RecentPosts from "./RecentPosts";
+import {loadMyInfoAction} from "../../redux/Actions/mineAction";
 
 const SingleBlog = ()=>
 {
     const {id} =useParams()
     const dispatch = useDispatch()
-    const {data, comments} = useSelector(state => state.getOneFeedReducer)
+    const {data, comments,recent_posts} = useSelector(state => state.getOneFeedReducer)
     const {my_profile} = useSelector(state => state.getMyInfoReducer)
     useEffect(() =>
     {
         dispatch(loadMyInfoAction())
         dispatch(getOneFeedAction(id))
-    }, [dispatch, id]);
-    // console.log(comments)
+    }, [dispatch, id,]);
+    // console.log(recent_posts)
     return(
         <div>
         <div className="flex w-full justify-center gap-4 left-2 mt-3">
@@ -55,7 +56,7 @@ const SingleBlog = ()=>
 
                                     <p className="mt-2 ">
                                         {data?.content}
-                                        <a href="#" data-mdb-ripple="true" data-mdb-ripple-color="light">
+                                        <a href="src/components/post/SingleBlog#" data-mdb-ripple="true" data-mdb-ripple-color="light">
                                             {data?.cover_image &&<img className="rounded h-72 w-full object-cover"  src={data?.cover_image} alt=""/>}
                                         </a>
                                     </p>
@@ -71,7 +72,6 @@ const SingleBlog = ()=>
                                                             <span className="font-thin ml-1">@{item?.commentator?.user?.username}
                                                                 <span className="ml-3 dark:text-gray-400">{moment(item?.commentated?.toString()).startOf().fromNow()}</span></span></a>
                                                     </div>
-
                                                 </div>
 
                                                 <div className="flex items-center space-x-3">
@@ -97,6 +97,7 @@ const SingleBlog = ()=>
                             </div>
                         </div>
                         {/*end*/}
+                        <RecentPosts recent_posts={recent_posts} data={data}/>
                     </div>
                 </div>
             </div>

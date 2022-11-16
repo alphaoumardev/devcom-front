@@ -4,6 +4,7 @@ import {
     F_POST_LIKES, S_POST_SAVES, F_POST_SAVES
 } from "../Types";
 import axios from "axios";
+import {loadMyInfoAction} from "./mineAction";
 
 const config = {
     headers: {
@@ -78,6 +79,7 @@ export const getOneFeedAction = (id) => async (dispatch) =>
                     type:S_GET_FEED,
                     payload: res.data
                 })
+            // console.log(res.data)
         })
     }
     catch (error)
@@ -103,6 +105,7 @@ export const postFeedAction = (image) => async (dispatch) =>
                 })
             // console.log(res.data)
         })
+        getFeedAction(null, null)
     }
     catch (error)
     {
@@ -127,6 +130,7 @@ export const postRepliesAction = (post, comment, commentator) => async (dispatch
                     payload:res.data
                 })
             // console.log(res.data)
+
         })
     }
     catch (error)
@@ -151,6 +155,9 @@ export const postLikeAction = (id) => async (dispatch) =>
                     type:S_POST_LIKES,
                     payload:res.data
                 })
+            dispatch(getFeedAction(null, null))
+            dispatch(getOneFeedAction(id))
+            dispatch(loadMyInfoAction())
         })
     }
     catch (error)
@@ -174,6 +181,10 @@ export const postSavesAction = (id) => async (dispatch) =>
                     type:S_POST_SAVES,
                     payload:res.data
                 })
+            dispatch(getFeedAction(null, null))
+            dispatch(getOneFeedAction(id))
+            dispatch(loadMyInfoAction())
+
         })
     }
     catch (error)

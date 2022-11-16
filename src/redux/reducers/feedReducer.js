@@ -20,19 +20,23 @@ export const getFeedsReducer = (state={feeds: []}, action)=>
             return state
     }
 }
-export const getOneFeedReducer = (state={data: [], comments: [], error: [] }, action)=>
+export const getOneFeedReducer = (state={data: [], comments: [], recent_posts: [], error: [] }, action)=>
 {
     switch (action.type)
     {
         case S_GET_FEED:
             return{
+                ...state,
                 data: action.payload.data,
-                comments: action.payload.comments
+                comments: action.payload.comments,
+                recent_posts: action.payload.recent_posts
             }
         case F_GET_FEED:
             return{
+                ...state,
                 data: [],
                 comments: [],
+                recent_posts: [],
                 error:action.payload
             }
         default:
@@ -46,6 +50,7 @@ export const postFeedReducer = (state={feed: []}, action)=>
     {
         case S_POST_FEED:
             return{
+                ...state,
                 feed: action.payload
             }
         case F_POST_FEED:
@@ -65,6 +70,7 @@ export const postRepliesReducer = (state={comment: []}, action)=>
     {
         case S_POST_FEED:
             return{
+                ...state,
                 comment: action.payload
             }
         case F_POST_FEED:

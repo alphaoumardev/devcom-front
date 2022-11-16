@@ -1,17 +1,13 @@
 import {
-    LOGIN_REQUEST,
     S_LOGIN,
     F_LOGIN,
-    REGISTER_REQUEST,
     F_REGISTER,
     S_REGISTER,
-    S_LOAD_PROFILE,
-    F_LOAD_PROFILE,
     S_LOGOUT,
     F_LOGOUT,
-    S_USER_INFO, F_USER_INFO,
 } from '../Types'
 import axios from "axios";
+import {loadMyInfoAction} from "./mineAction";
 
 export const postActionPayloadError = (type, error) => ({
     type: type,
@@ -50,8 +46,6 @@ export const login = (username, password) => async dispatch =>
             type:S_LOGIN,
             payload: res.data,
         })
-        // console.log(res.data)
-
         dispatch(loadMyInfoAction())
         localStorage.setItem('my_profile', JSON.stringify(res.data))
     }
@@ -61,43 +55,10 @@ export const login = (username, password) => async dispatch =>
     }
 }
 
-export const loadMyInfoAction = () => async dispatch =>
-{
-    if(localStorage.getItem('token'))
-    {
-        const config = {
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Token ${localStorage.getItem('token')}`,
-                'Accept': 'application/json'
-            }
-        }
-        try
-        {
-            await axios.get('/my-profile/', config).then((res)=>
-            {
-                dispatch(
-                    {
-                        type: S_USER_INFO,
-                        payload: res.data,
-                    })
-            })
-        }
-        catch (error)
-        {
-            dispatch({
-                type: F_USER_INFO,
-                payload: error
-            })
-        }
-    }
-}
-
 export const logout = () => dispatch =>
 {
     try
     {
-        // localStorage.removeItem('profile')
         localStorage.clear()
         dispatch({type:S_LOGOUT})
     }

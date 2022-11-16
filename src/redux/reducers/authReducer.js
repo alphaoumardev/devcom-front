@@ -3,13 +3,9 @@ import {
     F_LOGIN,
     F_REGISTER,
     S_REGISTER,
-    S_GOOGLE_AUTH,
-    F_GOOGLE_AUTH,
     S_LOGOUT,
     F_LOGOUT,
     S_UPDATE_PROFILE,
-    S_USER_INFO,
-    F_USER_INFO,
 } from '../Types'
 
 const accessToken = localStorage.getItem('token') ? localStorage.getItem('token') : null;
@@ -43,6 +39,7 @@ export const authReducer = (state= {error:null, my_profile: profileStorage, toke
         case F_LOGOUT:
         case F_REGISTER:
             return {
+                ...state,
                 error: action.payload,
                 my_profile:null,
                 token: null,
@@ -62,22 +59,3 @@ export const authReducer = (state= {error:null, my_profile: profileStorage, toke
     }
 }
 
-export const getMyInfoReducer = (state={my_profile: [], my_posts:[]}, action)=>
-{
-    switch (action.type)
-    {
-        case S_USER_INFO:
-            return{
-                my_profile: action.payload.data,
-                my_posts: action.payload.my_posts,
-            }
-        case F_USER_INFO:
-            return{
-                my_profile: [],
-                my_posts: [],
-                error:action.payload
-            }
-        default:
-            return state
-    }
-}

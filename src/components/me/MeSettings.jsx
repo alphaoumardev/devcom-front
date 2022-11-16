@@ -1,13 +1,5 @@
 import {useDispatch, useSelector} from "react-redux";
 import {useEffect, useState} from "react";
-import {loadMyInfoAction} from "../../redux/Actions/authActions";
-import {
-    deleteMyPostAction,
-    getSavedPostsAction,
-    likedPostsAction,
-    profileFollowingMeAction,
-    profileIFollowAction
-} from "../../redux/Actions/mineAction";
 import {PopoverContent, Popover,PopoverHandler} from "@material-tailwind/react";
 import EditMyProfile from "../modals/EditMyProfile";
 import {IoMdPerson} from "react-icons/io";
@@ -20,16 +12,12 @@ import {RiDeleteBin6Line} from "react-icons/ri";
 import Loader from "../modals/Loader";
 import Sidebar from "../Sidebar";
 import Activities from "../Activities";
+import {deleteMyPostAction, loadMyInfoAction} from "../../redux/Actions/mineAction";
 
 const MeSettings =() =>
 {
     const dispatch = useDispatch()
-    const {my_profile, my_posts} = useSelector(state=> state.getMyInfoReducer)
-    const {user} = useSelector(state => state.authReducer)
-    const {following} = useSelector(state => state.getprofileFollowingMeReducer)
-    const {liked_posts}= useSelector(state => state.getlikedPostsReducer)
-    const {saved_posts} = useSelector(state => state.getsavedPostsReducer)
-    const {followers} = useSelector(state => state.getprofileIFollowReducer)
+    const {my_profile, my_posts, following, liked_posts, saved_posts, followers} = useSelector(state=> state.getMyInfoReducer)
     const [loadmore, setLoadmore] = useState(4);
     const [loadingFeeds, setLoadingFeeds] = useState(false);
 
@@ -44,15 +32,8 @@ const MeSettings =() =>
     }
     useEffect(() =>
     {
-        if (my_profile)
-        {
-            dispatch(loadMyInfoAction())
-            dispatch(profileFollowingMeAction())
-            dispatch(likedPostsAction())
-            dispatch(getSavedPostsAction())
-            dispatch(profileIFollowAction())
-        }
-    }, [dispatch]);
+        dispatch(loadMyInfoAction())
+    }, [dispatch,]);
 
     return(
         <div className="flex">
@@ -67,7 +48,7 @@ const MeSettings =() =>
                             {/*mine*/}
                             <div className="w-full flex-col">
                                 <div className="rounded relative">
-                                    <a href="src/components/me/MeSettings#" data-mdb-ripple="true" data-mdb-ripple-color="light">
+                                    <a href="#" data-mdb-ripple="true" data-mdb-ripple-color="light">
                                         <img className="rounded h-72 w-full object-cover"  src={my_profile?.cover_image} alt=""/>
                                     </a>
                                     <div className="w-full">
@@ -166,8 +147,7 @@ const MeSettings =() =>
                                                 </div>
                                                 <div className="flex items-center text-red-600 hover:text-red-800">
                                                     <RiDeleteBin6Line
-                                                        onClick={()=>{dispatch(deleteMyPostAction(item?.id))
-                                                            window.location.reload()}}
+                                                        onClick={()=>{dispatch(deleteMyPostAction(item?.id))}}
                                                         size={20} className="mr-2"/> {item?.shares>0 && <span>{item?.shares}</span>}
                                                 </div>
                                                 <a href={`/single/${item?.id}`} className="text-blue-600 dark:text-blue-400 hover:underline">Read more</a>

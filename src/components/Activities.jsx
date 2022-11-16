@@ -4,8 +4,9 @@ import {FiExternalLink} from "react-icons/fi";
 import {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {followProfileAction, getRecommadedProfilesAction, getTrendingAction} from "../redux/Actions/activitiesAction";
-import {loadMyInfoAction} from "../redux/Actions/authActions";
-import {getMyInfoReducer} from "../redux/reducers/authReducer";
+import {loadMyInfoAction} from "../redux/Actions/mineAction";
+import {Popover, PopoverContent, PopoverHandler} from "@material-tailwind/react";
+import PopoverFollow from "./modals/PopoverFollow";
 
 const Activities = ()=>
 {
@@ -19,9 +20,17 @@ const Activities = ()=>
     {
         dispatch(getTrendingAction())
         dispatch(getRecommadedProfilesAction())
-        dispatch(loadMyInfoAction)
-    }, [dispatch]);
-// console.log(my_profile)
+        dispatch(loadMyInfoAction())
+    }, [dispatch,]);
+
+    // console.log(recommanded)
+    // useCallback(
+    //     () => {
+    //         dispatch(getRecommadedProfilesAction())
+    //     },
+    //     [recommanded],
+    // );
+    // console.log(recommanded)
     return(
         <>
         <div className="flex-col sticky top-0 max-w-xl bg-gray-50 rounded p-5 border-gray-100 hover:shadow">
@@ -35,13 +44,14 @@ const Activities = ()=>
                         <IoMdPerson  className="relative rounded-full  h-10 w-10 object-contain text-gray-400 mr-2"/>}
                     {/*<a href={"/me"} className="font-bold text-gray-700 cursor-pointer capitalize dark:text-gray-200">{my_profile?.user?.username} <span className="font-thin">@{my_profile?.user?.username}</span></a>*/}
 
-                    <span className="ml-5 uppercase">{my_profile?.user?.username}<br/><b className="text-blue-700">@{my_profile?.user?.username}</b></span>
+                    <a href={'/me'} className="ml-5 uppercase">{my_profile?.user?.username}<br/><b className="text-blue-700">@{my_profile?.user?.username}</b></a>
                     <span className="justify-end"></span>
                 </div>
+                {my_profile?.bio &&
                 <div className="p-6 text-base">
                     <h5 className="text-gray-900 text-xl font-medium mb-2">About Me</h5>
                     <p className="text-gray-700 text-base mb-4">{my_profile?.bio}</p>
-                </div>
+                </div>}
             </div>
 
             {/*the trending*/}
@@ -63,50 +73,54 @@ const Activities = ()=>
                 <a href="#" className="inline-flex items-center text-blue-600 hover:underline">See more<FiExternalLink className="ml-1"/></a>
             </div>
             {/*Relevent people*/}
-            <div className="p-4  w-full max-w-md bg-white rounded-lg hover:shadow mt-4 sm:p-8 hover:shadow-lg dark:bg-gray-800 dark:border-gray-700">
-                <div className="flex justify-between items-center mb-4">
+            {recommanded &&
+            <div className="py-1 px-3  w-full max-w-md bg-white rounded-lg hover:shadow mt-2 sm:p-2 hover:shadow-lg dark:bg-gray-800 dark:border-gray-700">
+                <div className="flex justify-between items-center mb-3">
                     <h5 className="text-xl font-bold leading-none text-gray-900 dark:text-white">Relevent People</h5>
                     <a href="#" className="text-sm font-medium text-blue-600 hover:underline dark:text-blue-500">See more</a>
                 </div>
                 <div className="flow-root">
                     <ul role="list" className="divide-y divide-gray-200 dark:divide-gray-700">
                         {recommanded?.map((item, index)=>
-                            <li key={index} className="py-3 sm:py-4">
+                            <div key={index}>
+                                {!my_profile?.following?.includes(item?.id)&&
+
+                                <li className="py-1 sm:py-4">
                                 <div className="flex items-center space-x-4">
                                     <div className="flex-shrink-0">
-                                        <img className="w-8 h-8 rounded-full object-cover"
-                                             src={item?.avatar} alt=""/>
+                                        <Popover>
+                                            <PopoverHandler>
+                                                {item?.avatar ?
+                                                <img className="w-8 h-8 rounded-full object-cover" src={item?.avatar} alt=""/>:
+                                                <div><IoMdPerson  className="relative rounded-full  h-10 w-10 object-contain text-gray-400 mr-2"/></div>}
+                                            </PopoverHandler>
+                                            <PopoverContent>
+                                                <PopoverFollow item={item} my_profile={my_profile}/>{/* this is the component */}
+                                            </PopoverContent>
+                                        </Popover>
+                                        {/*{item?.avatar ?*/}
+                                        {/*<img className="w-8 h-8 rounded-full object-cover" src={item?.avatar} alt=""/>:*/}
+                                        {/*<IoMdPerson  className="relative rounded-full  h-10 w-10 object-contain text-gray-400 mr-2"/>}*/}
                                     </div>
                                     <div className="flex-1 min-w-0 text-base">
                                         <p className="text-sm font-medium text-gray-900 truncate dark:text-white capitalize">{item?.user?.username}</p>
                                         <p className="text-sm text-gray-500 truncate dark:text-gray-400">@{item?.user?.username}</p>
                                     </div>
-                                    {!followed?
-                                        <button type="button"
-                                                onClick={()=>{
-                                                    dispatch(followProfileAction(item?.id))
-                                                    setFollowed(!followed)
-                                                }}
-                                                className="inline-flex bg-blue-600 px-5 py-3 rounded-3xl items-center text-base font-semibold text-gray-900 dark:text-white">
-                                            Follow
-                                        </button>:
-                                        <button type="button"
-                                                onClick={()=>{
-                                                    dispatch(followProfileAction(item?.id))
-                                                    // setFollowed(true)
-                                                }}
-                                                className="cursor-pointer inline-flex bg-blue-200 px-5 py-3 rounded-3xl items-center text-base font-semibold text-gray-900 dark:text-white">
-                                            Following
-                                        </button>
-                                    }
+                                    <button type="button"
+                                            onClick={()=>dispatch(followProfileAction(item?.id))}
+                                            className="inline-flex bg-blue-400 px-5 py-2 rounded-3xl items-center text-base font-semibold text-gray-900 dark:text-white">
+                                        Follow
+                                    </button>
                                 </div>
-                            </li>
+                                </li>}
+                            </div>
                         )}
                     </ul>
                 </div>
-            </div>
-        {/*copyright*/}
-            <div className="  max-w-xl w-full max-w-md  rounded-lg mt-4 sm:p-8  dark:bg-gray-800 ">
+            </div>}
+
+            {/*copyright*/}
+            <div className="  max-w-xl w-full max-w-md  rounded-lg mt-1 sm:p-8  dark:bg-gray-800 ">
                 <div className="flex-1 min-w-0 text-base">
                     <a href="#" className="font-medium text-gray-900 truncate dark:text-white"> Terms of Service</a><br/>
                     <a href="#" className="font-medium text-gray-900 truncate dark:text-white"> About us</a>
