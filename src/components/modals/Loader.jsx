@@ -11,6 +11,8 @@ const Loader = ({loadingFeeds})=>
                 </div>
             }
 
+
+
         </div>
     )
 }

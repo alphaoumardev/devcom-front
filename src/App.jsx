@@ -1,5 +1,5 @@
 import Login from "./components/Login";
-import {Route, Routes, useNavigate} from "react-router-dom";
+import {Route, Routes} from "react-router-dom";
 import Home from "./pages/Home";
 import Me from "./pages/Me";
 import SinglePage from "./pages/SinglePage";
@@ -34,7 +34,7 @@ const App = ()=>
                     <Route path="/login" element={<Login/>}/>
                     <Route path="/register" element={<Signup/>}/>
 
-                    <Route exact path="/" element={<Home query={query}/>}/>
+                    <Route exact path="/" element={<Home query={query} my_profile={my_profile}/>}/>
                     <Route exact path="/settings" element={<MeSettings/>}/>
                     <Route exact path="hisprofile/:id" element={<His/>}/>
                     <Route exact path="/:name" element={<Home query={query}/>}/>

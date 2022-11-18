@@ -1,6 +1,14 @@
 import {combineReducers} from "redux";
 import {getTopicCountReducer, getTopicsReducer, postTopicReducer} from './topicsReducer'
-import {getFeedsReducer, getOneFeedReducer, postFeedReducer, postLikeReducer, postRepliesReducer, postSavesReducer}
+import {
+    getFeedsReducer,
+    getOneFeedReducer,
+    postFeedReducer,
+    postLikeCommentReducer,
+    postLikeReducer,
+    postRepliesReducer,
+    postSavesReducer
+}
     from "./feedReducer";
 import {authReducer,} from "./authReducer";
 import {
@@ -42,6 +50,7 @@ export default combineReducers(
         editMyPostReducer,
         editMyProfilleReducer,
         getHisProfileReducer,
+        postLikeCommentReducer,
 
     }
 )

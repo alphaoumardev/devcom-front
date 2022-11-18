@@ -19,6 +19,7 @@ const HisProfile = ()=>
             dispatch(loadMyInfoAction())
         };
     }, [dispatch, ]);
+
     return(
         <div className="flex-col">
             <div className="max-w-3xl mb-4 h-auto px-8 py-4 bg-white rounded-lg  dark:bg-gray-800">

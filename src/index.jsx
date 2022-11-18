@@ -3,6 +3,7 @@ import ReactDOM from "react-dom/client";
 import App from "./App";
 import "./index.css";
 import 'tw-elements';
+import 'antd/dist/antd.css';
 
 import {BrowserRouter} from "react-router-dom";
 import store from "./redux/store";

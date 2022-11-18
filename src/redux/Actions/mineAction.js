@@ -42,6 +42,7 @@ export const loadMyInfoAction = () => async dispatch =>
                         type: S_USER_INFO,
                         payload: res.data,
                     })
+                // console.log(res.data)
             })
         }
         catch (error)
@@ -50,6 +51,7 @@ export const loadMyInfoAction = () => async dispatch =>
                 type: F_USER_INFO,
                 payload: error
             })
+            console.log(error)
         }
     }
 }

@@ -53,8 +53,8 @@ export const F_GET_FEEDS = "F_GET_FEEDS"
 export const S_GET_FEED = "S_GET_FEED"
 export const F_GET_FEED = "F_GET_FEED"
 
-export const S_GET_REPLIES = "S_GET_REPLIES"
-export const F_GET_REPLIES = "F_GET_REPLIES"
+export const S_POST_LIKE_COMMENT = "S_POST_LIKE_COMMENT"
+export const F_POST_LIKE_COMMENT = "F_POST_LIKE_COMMENT"
 
 export const S_POST_REPLIES = "S_POST_REPLIES"
 export const F_POST_REPLIES = "F_POST_REPLIES"

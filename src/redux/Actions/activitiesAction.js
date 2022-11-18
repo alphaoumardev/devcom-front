@@ -4,7 +4,7 @@ import {
     S_FOLLOW,F_FOLLOW,
 } from "../Types";
 import axios from "axios";
-import {loadMyInfoAction} from "./mineAction";
+import {getHisProfileAction, loadMyInfoAction} from "./mineAction";
 
 const config = {
     headers: {
@@ -60,7 +60,7 @@ export const getRecommadedProfilesAction = () => async (dispatch) =>
     }
 }
 
-export const followProfileAction = (id) => async (dispatch) =>
+export const followProfileAction = (id, his_id=null) => async (dispatch) =>
 {
     const body = JSON.stringify({})
     try
@@ -72,10 +72,15 @@ export const followProfileAction = (id) => async (dispatch) =>
                     type: S_FOLLOW,
                     payload: res.data
                 })
-            // console.log(reds.data)
+            // console.log(res.data)
+            dispatch(getRecommadedProfilesAction())
+            dispatch(loadMyInfoAction())
+            if (his_id)
+            {
+                dispatch(getHisProfileAction(his_id))
+            }
         })
-        dispatch(getRecommadedProfilesAction())
-        dispatch(loadMyInfoAction())
+
     }
     catch (error)
     {
@@ -84,6 +89,7 @@ export const followProfileAction = (id) => async (dispatch) =>
                 type: F_FOLLOW,
                 payload: error
             })
+        // console.log(error)
     }
 }
 
