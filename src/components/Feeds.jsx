@@ -102,6 +102,7 @@ const Feeds = ({query, my_profile}) =>
         e.preventDefault()
         dispatch(postTopicAction(newTopic))
     }
+    console.log(feeds)
     return(
         <div className="flex-col mt-5 hover:shadow">
 
@@ -202,7 +203,6 @@ const Feeds = ({query, my_profile}) =>
                                 <span className="text-sm font-light text-gray-600 dark:text-gray-400"></span>
                                 <a href={`/${item?.topic?.name}`} className="px-3 py-1 text-sm font-bold text-gray-100 transition-colors duration-300 transform bg-gray-600 rounded cursor-pointer hover:bg-gray-500">{item?.topic?.name}</a>
                             </div>
-
                             <div className="mt-2 ">
                                 <a href={`/single/${item?.id}`}
                                    className="text-2xl ml-2 font-bold text-gray-700 capitalize dark:text-white hover:text-blue-600 dark:hover:text-gray-200 hover:underline">{item?.title}</a>
@@ -217,9 +217,7 @@ const Feeds = ({query, my_profile}) =>
                                     </div>
                                 </div>
                             </div>
-
                             <div className="flex items-center justify-between mt-4">
-
                                 <div className="flex items-center hover:text-blue-500"
                                      data-bs-toggle="modal" data-bs-target="#feedCommentModal">
                                     <MdOutlineQuickreply size={20} className="mr-2" onMouseOver={()=>setPost(item?.id)}/>
@@ -233,8 +231,8 @@ const Feeds = ({query, my_profile}) =>
                                 </div>
                                 <div className="flex items-center hover:text-red-700">
                                     {item?.likes?.find((index)=>index ===my_profile?.id) ?
-                                        <RiHeart2Fill  size={20} color="red" type="submit" onClick={()=>dispatch(postLikeAction(item?.id))}/>:
-                                        <RiHeart2Line size={20}  type="submit" onClick={()=>dispatch(postLikeAction(item?.id))}/>}
+                                        <RiHeart2Fill size={20} color="red" type="submit" onClick={()=>dispatch(postLikeAction(item?.id))}/>:
+                                        <RiHeart2Line size={20} type="submit" onClick={()=>dispatch(postLikeAction(item?.id))}/>}
                                     {item?.num_likes>0 &&<span className='ml-2'>{item?.num_likes}</span>}
                                 </div>
                                 <div className="flex items-center hover:text-blue-700">

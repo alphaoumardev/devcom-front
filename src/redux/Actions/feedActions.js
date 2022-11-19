@@ -105,8 +105,8 @@ export const postFeedAction = (image) => async (dispatch) =>
                     payload: res.data
                 })
             // console.log(res.data)
+            dispatch(getFeedAction(null, null))
         })
-        getFeedAction(null, null)
     }
     catch (error)
     {
@@ -152,7 +152,8 @@ export const postLikeAction = (id, his_id=null) => async (dispatch) =>
         const body = JSON.stringify({})
         await axios.post(`/api/likes/${id}`, body, config ).then(res =>
         {
-            dispatch({
+            dispatch(
+                {
                     type:S_POST_LIKES,
                     payload:res.data
                 })
@@ -193,7 +194,6 @@ export const postSavesAction = (id, his_id=null) => async (dispatch) =>
                 })
             dispatch(getFeedAction(null, null))
             dispatch(loadMyInfoAction())
-
             if(id)
             {
                 dispatch(getOneFeedAction(id))
