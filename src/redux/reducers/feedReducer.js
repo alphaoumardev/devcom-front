@@ -10,7 +10,7 @@ export const getFeedsReducer = (state={feeds: []}, action)=>
         case S_GET_FEEDS:
             return{
                 ...state,
-                feeds: [...state.feeds, ...action.payload]
+                feeds: action.payload
             }
         case F_GET_FEEDS:
             return{

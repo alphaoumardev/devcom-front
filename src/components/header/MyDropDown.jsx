@@ -16,7 +16,7 @@ const MyDropDown = ({my_profile})=>
             <div className="block w-60 p-5  bg-white rounded-md shadow-xl dark:bg-gray-800">
 
                 <a href="/me"  className="flex items-center p-3 -mt-2 text-sm text-gray-600 transition-colors duration-300 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white">
-                    <img className="relative rounded-full  h-10 w-10 object-cover" src={my_profile?.avatar} alt=""/>:
+                    <img className="relative rounded-full  h-10 w-10 object-cover" src={my_profile?.avatar} alt=""/>
                     <div className="mx-1">
                         <h1 className="text-sm font-semibold text-gray-700 dark:text-gray-200">{my_profile?.user?.username}</h1>
                         <p className="text-sm text-gray-500 dark:text-gray-400">{my_profile?.user?.email}</p>

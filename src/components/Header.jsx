@@ -1,10 +1,11 @@
 import {BsFillBellFill, BsSearch} from "react-icons/bs";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import MyDropDown from "./header/MyDropDown";
 import {Popover} from "antd";
 import Notifications from "./header/Notifications";
+import {getNotificationsAction} from "../redux/Actions/notificationAction";
 
 const Header =({my_profile, setQuery})=>
 {
@@ -25,13 +26,15 @@ const Header =({my_profile, setQuery})=>
     minutes = minutes < 10 ? '0'+minutes : minutes;
 
     let current_date = date.getFullYear()+""+month+""+ day+""+hour+""+minutes
+    const {notification} = useSelector(state => state.getNotificationsReducer)
+
     useEffect(() =>
     {
+        dispatch(getNotificationsAction())
         if((parseInt(current_date)>=parseInt(expiration_date)) || (token_===null))
         {
             localStorage.clear()
             navigate('/login')
-
         }
     }, [dispatch]);
     return (
@@ -58,16 +61,17 @@ const Header =({my_profile, setQuery})=>
                 <div className="flex space-x-3 items-center">
                     {/*notification start*/}
                     <div className="relative block">
-                        <Popover content={<Notifications/>} placement="bottom">
-                            <div className="relative peer ">
+                        <Popover content={<Notifications notification={notification}/>} placement="bottom">
+                            <div className="relative peer mr-2" title="Notifications">
                                     {my_profile&&
                                         <button
                                             className="peer relative inline-flex items-center text-sm font-medium text-center text-gray-500 hover:text-gray-900 focus:outline-none dark:hover:text-white dark:text-gray-400"
                                             type="button">
-                                            <BsFillBellFill className="w-5 h-5 text-red-800"/>
+                                            <BsFillBellFill className="w-6 h-6 text-blue-500 hover:bg-gray-300 rounded-full"/>
+                                            {notification?.length>0 &&
                                             <div className="flex relative">
-                                                <div  className=" relative top-1 right-3 w-3 h-3 bg-red-500 rounded-full border-2 border-white dark:border-gray-900"></div>
-                                            </div>
+                                                <div  className=" relative top-1 right-3 w-3 h-3 bg-red-600 rounded-full border-2 border-white dark:border-gray-900"></div>
+                                            </div>}
                                         </button>
                                     }
                                 </div>

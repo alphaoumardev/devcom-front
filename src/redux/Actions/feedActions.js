@@ -25,7 +25,7 @@ export const getFeedAction = (name, query) => async (dispatch) =>
     {
         if(name)
         {
-            await axios.get(`/api/feedbytopic/${name}`, ).then(res =>
+            await axios.get(`/api/feedbytopic/${name}`, config).then(res =>
             {
                 dispatch(
                     {
@@ -36,7 +36,7 @@ export const getFeedAction = (name, query) => async (dispatch) =>
         }
         else if(query)
         {
-            await axios.get(`/api/feeds/?query=${query}`, ).then(res =>
+            await axios.get(`/api/feeds/?query=${query}`, config).then(res =>
             {
                 dispatch(
                     {
@@ -47,7 +47,7 @@ export const getFeedAction = (name, query) => async (dispatch) =>
         }
         else
         {
-            await axios.get(`/api/feeds/`, ).then(res =>
+            await axios.get(`/api/feeds/`, config).then(res =>
             {
                 dispatch(
                     {
@@ -73,7 +73,7 @@ export const getOneFeedAction = (id) => async (dispatch) =>
 {
     try
     {
-        await axios.get(`/api/feed/${id}` ).then(res =>
+        await axios.get(`/api/feed/${id}`, config ).then(res =>
         {
             dispatch(
                 {

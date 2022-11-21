@@ -13,7 +13,7 @@ const Sidebar = ()=>
     let {name} = useParams()
 
     const {topics} = useSelector(state => state.getTopicsReducer)
-    const [loadmore, setLoadmore] = useState(7);
+    const [loadmore, setLoadmore] = useState(8);
     useEffect(() =>
     {
         dispatch(getTopicsAction())

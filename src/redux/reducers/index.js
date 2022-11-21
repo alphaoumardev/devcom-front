@@ -24,6 +24,7 @@ import {
     getsavedPostsReducer,
     getMyInfoReducer,
 } from "./mineReducer";
+import {deleteMyNotificationReducer, getNotificationsReducer} from "./notificationReducer";
 
 export default combineReducers(
     {
@@ -51,6 +52,9 @@ export default combineReducers(
         editMyProfilleReducer,
         getHisProfileReducer,
         postLikeCommentReducer,
+
+        getNotificationsReducer,
+        deleteMyNotificationReducer,
 
     }
 )

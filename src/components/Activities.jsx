@@ -1,7 +1,7 @@
 import {IoMdTrendingUp} from "react-icons/io";
 import {BsThreeDots} from "react-icons/bs";
 import {FiExternalLink} from "react-icons/fi";
-import {useEffect} from "react";
+import {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {followProfileAction, getRecommadedProfilesAction, getTrendingAction} from "../redux/Actions/activitiesAction";
 import {loadMyInfoAction} from "../redux/Actions/mineAction";
@@ -14,7 +14,8 @@ const Activities = ()=>
     const {trending_feed} = useSelector(state => state.getTrendingReducer)
     const {recommanded} = useSelector(state => state.getRecommendedProfilesReducer)
     const {my_profile} = useSelector(state => state.getMyInfoReducer)
-
+    const [moreTrending, setMoreTrending] = useState(4);
+    const [moreToFollow, setMoreToFollow] = useState(4);
     useEffect(() =>
     {
         dispatch(getTrendingAction())
@@ -22,14 +23,6 @@ const Activities = ()=>
         dispatch(loadMyInfoAction())
     }, [dispatch,]);
 
-    // console.log(recommanded)
-    // useCallback(
-    //     () => {
-    //         dispatch(getRecommadedProfilesAction())
-    //     },
-    //     [recommanded],
-    // );
-    // console.log(recommanded)
     return(
         <>
         <div className="flex-col  sticky top-0 max-w-xl  rounded p-5 border-gray-100 hover:shadow">
@@ -55,7 +48,7 @@ const Activities = ()=>
                     <h5 className="text-xl flex font-bold leading-none text-red-700 dark:text-white">Tranding Topics  <IoMdTrendingUp className="ml-1 text-red-700"/></h5>
                     <a href="#" className="text-sm font-medium text-blue-600 hover:underline dark:text-blue-500"><BsThreeDots/></a>
                 </div>
-                {trending_feed?.map((item, index)=>
+                {trending_feed?.slice(0,moreTrending)?.map((item, index)=>
                     <div key={index} className="flex justify-between items-center mb-4">
                         <a href={`/single/${item?.id}`} className="font-normal leading-none text-gray-900 dark:text-white">{item?.title?.slice(0,30 )}</a>
                         <a href={`/single/${item?.id}`} className="text-sm font-normal text-black px-2 w-10 py-1 bg-blue-300 rounded-full  dark:text-blue-500">
@@ -63,19 +56,20 @@ const Activities = ()=>
                         </a>
                     </div>
                 )}
-
-
-                <a href="#" className="inline-flex items-center text-blue-600 hover:underline">See more<FiExternalLink className="ml-1"/></a>
+                <div className="inline-flex items-center text-blue-600 hover:underline cursor-pointer"
+                     onClick={()=>setMoreTrending(moreTrending =>moreTrending === 4? moreTrending+4:moreTrending-4)}>See more
+                    <FiExternalLink className="ml-1" />
+                </div>
             </div>
             {/*Relevent people*/}
-            {recommanded &&
+            {recommanded?.length>0 &&
             <div className="py-1 px-3  w-full max-w-md bg-white rounded-lg hover:shadow mt-2 sm:p-2 hover:shadow-lg dark:bg-gray-800 dark:border-gray-700">
                 <div className="flex justify-between items-center mb-3">
                     <h5 className="text-xl font-bold leading-none text-gray-900 dark:text-white">Relevent People</h5>
-                    <a href="#" className="text-sm font-medium text-blue-600 hover:underline dark:text-blue-500">See more</a>
+                    <div  onClick={()=>setMoreToFollow(moreToFollow===4?moreToFollow+4:moreToFollow-4)} className="text-sm font-medium text-blue-600 hover:underline dark:text-blue-500 cursor-pointer">See more</div>
                 </div>
                 <div className="flow-root">
-                    {recommanded?.map((item, index)=>
+                    {recommanded?.slice(0, moreToFollow)?.map((item, index)=>
                         <div key={index}>
                             {!my_profile?.following?.includes(item?.id)&&
                             <div className="flex items-center justify-between space-x-4">
