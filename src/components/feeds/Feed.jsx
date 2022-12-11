@@ -22,7 +22,6 @@ const Feed = ({feeds, my_profile, loadmore}) =>
         e.preventDefault()
         dispatch(postRepliesAction(post, comment, commentator, null))
     }
-    // console.log(feeds)
     return(
         <div>
             {feeds?.slice(0,loadmore)?.map((item, index)=>
