@@ -65,7 +65,7 @@ export const getFeedAction = (name, query) => async (dispatch) =>
                 type:F_GET_FEEDS,
                 payload: "Something went wrong"
             })
-        console.log(error)
+        // console.log(error)
     }
 }
 

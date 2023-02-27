@@ -21,7 +21,7 @@ const Sidebar = ()=>
     }, [dispatch,]);
     return(
 
-        <aside className="sticky top-0 max-w-xl w-96 hover:shadow-2xl" aria-label="Sidebar">
+        <aside className="hidden md:block sticky top-0 max-w-xl w-96 hover:shadow-2xl" aria-label="Sidebar">
             <div className=" py-4 px-3 bg-gray-50 rounded dark:bg-gray-800">
                 <ul className="space-y-2">
                     <li>

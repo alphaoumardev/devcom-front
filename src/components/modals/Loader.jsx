@@ -10,9 +10,6 @@ const Loader = ({loadingFeeds})=>
                     <BiLoader className="flex items-center justify-center w-8 h-8 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600"/>
                 </div>
             }
-
-
-
         </div>
     )
 }

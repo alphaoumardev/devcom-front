@@ -3,7 +3,8 @@ import {followProfileAction} from "../../redux/Actions/activitiesAction";
 import {useDispatch} from "react-redux";
 
 const MyFollowers = ({followedby, my_profile})=>
-{const dispatch = useDispatch()
+{
+    const dispatch = useDispatch()
     return(
         <div>
             {followedby?.length>0 ?

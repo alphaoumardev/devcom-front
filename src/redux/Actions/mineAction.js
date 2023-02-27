@@ -42,7 +42,7 @@ export const loadMyInfoAction = () => async dispatch =>
                         type: S_USER_INFO,
                         payload: res.data,
                     })
-                // console.log(res.data)
+                console.log(res.data)
             })
         }
         catch (error)
@@ -51,7 +51,7 @@ export const loadMyInfoAction = () => async dispatch =>
                 type: F_USER_INFO,
                 payload: error
             })
-            console.log(error)
+            // console.log(error)
         }
     }
 }
@@ -67,7 +67,7 @@ export const editMyPostAction = (id, editedPost) => async (dispatch) =>
                     type: S_EDIT_MY_POST,
                     payload: res.data
                 })
-            // console.log(res.data)
+            console.log(res.data)
             dispatch(getFeedAction(null, null))
             dispatch(loadMyInfoAction())
         })

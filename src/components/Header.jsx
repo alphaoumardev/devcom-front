@@ -37,6 +37,8 @@ const Header =({my_profile, setQuery})=>
             navigate('/login')
         }
     }, [dispatch]);
+    // console.log(notification)
+
     return (
         <nav className="sticky-top  bg-gray-100 border-gray-200 px-8 shadow-lg sm:px-4 py-4 rounded dark:bg-gray-900">
             <div className=" flex justify-between w-10/12 mx-auto ">

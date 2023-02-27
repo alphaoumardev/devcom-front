@@ -25,7 +25,7 @@ const Activities = ()=>
 
     return(
         <>
-        <div className="flex-col  sticky top-0 max-w-xl  rounded p-5 border-gray-100 hover:shadow">
+        <div className="hidden md:block flex-col  sticky top-0 max-w-xl  rounded p-5 border-gray-100 hover:shadow">
             <a href="#" className="flex justify-center items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
                 <span className="uppercase px-12 py-3 bg-gray-200 flex justify-center items-center rounded-full">RECENT ACTIVITIES</span>
             </a>
