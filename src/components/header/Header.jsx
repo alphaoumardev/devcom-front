@@ -2,10 +2,10 @@ import {BsFillBellFill, BsSearch} from "react-icons/bs";
 import {useDispatch, useSelector} from "react-redux";
 import {useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
-import MyDropDown from "./header/MyDropDown";
+import MyDropDown from "./MyDropDown";
 import {Popover} from "antd";
-import Notifications from "./header/Notifications";
-import {getNotificationsAction} from "../redux/Actions/notificationAction";
+import Notifications from "./Notifications";
+import {getNotificationsAction} from "../../redux/Actions/notificationAction";
 
 const Header =({my_profile, setQuery})=>
 {
@@ -28,41 +28,39 @@ const Header =({my_profile, setQuery})=>
     let current_date = date.getFullYear()+""+month+""+ day+""+hour+""+minutes
     const {notification} = useSelector(state => state.getNotificationsReducer)
 
+    if((parseInt(current_date)>=parseInt(expiration_date)) || (token_===null))
+    {
+        localStorage.clear()
+        navigate('/login')
+    }
     useEffect(() =>
     {
         dispatch(getNotificationsAction())
-        if((parseInt(current_date)>=parseInt(expiration_date)) || (token_===null))
-        {
-            localStorage.clear()
-            navigate('/login')
-        }
     }, [dispatch]);
-    // console.log(notification)
 
     return (
         <nav className="sticky-top  bg-gray-100 border-gray-200 px-8 shadow-lg sm:px-4 py-4 rounded dark:bg-gray-900">
-            <div className=" flex justify-between w-10/12 mx-auto ">
+            <div className="flex justify-between w-10/12 mx-auto ">
                 <div>
-                    <a href="/" className="flex">
+                    <a href="/" className="hidden md:flex">
                         <img src="https://res.cloudinary.com/diallo/image/upload/v1662517794/devcom_qxhwcj.jpg"
                              className="mr-3 rounded-full  h-14 w-14 object-cover rounded-full  sm:h-14 " alt="Logo"/>
-
                         <span className="self-center text-2xl font-bold whitespace-nowrap dark:text-white">Devco</span>
                     </a>
                 </div>
 
-                <div className="relative flex justify-center items-center w-96">
+                <div className="relative flex justify-center items-center w-8/12 md:w-6/12">
                     <div className="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
                         <BsSearch/>
                     </div>
                         <input type="search" id="search"
-                               className="block p-4 pl-10 w-full text-xl  border-none bg-gray-200 text-sm text-gray-900  rounded-lg focus:ring-blue-200 focus:border-blue-200 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                               className="block p-2 pl-10 w-full text-xl  border-none bg-gray-200 text-sm text-gray-900  rounded-lg focus:ring-blue-200 focus:border-blue-200 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                placeholder="Search..." required onChange={(e)=>setQuery(e.target.value)}/>
                 </div>
 
                 <div className="flex space-x-3 items-center">
                     {/*notification start*/}
-                    <div className="relative block">
+                    <div className="relative hidden md:block">
                         <Popover content={<Notifications notification={notification}/>} placement="bottom">
                             <div className="relative peer mr-2" title="Notifications">
                                     {my_profile&&

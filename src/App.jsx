@@ -6,7 +6,7 @@ import SinglePage from "./pages/SinglePage";
 import Signup from "./components/Signup";
 import {useDispatch, useSelector} from "react-redux";
 import {useEffect, useState} from "react";
-import Header from "./components/Header";
+import Header from "./components/header/Header";
 import His from "./pages/His";
 import MeSettings from "./components/me/MeSettings";
 import {loadMyInfoAction} from "./redux/Actions/mineAction";
