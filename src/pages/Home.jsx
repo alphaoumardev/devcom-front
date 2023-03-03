@@ -1,6 +1,7 @@
 import Sidebar from "../components/Sidebar";
 import Activities from "../components/Activities";
 import Feeds from "../components/Feeds";
+import BottomNavigation from "../components/feeds/BottomNavigation";
 
 const Home = ({query, my_profile})=>
 {
@@ -12,6 +13,7 @@ const Home = ({query, my_profile})=>
                 <Feeds query={query} my_profile={my_profile}/>
                 <Activities/>
             </div>
+            <BottomNavigation/>
         </>
     )
 }
