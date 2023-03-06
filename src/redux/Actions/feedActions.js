@@ -177,7 +177,7 @@ export const postLikeAction = (id, his_id=null) => async (dispatch) =>
                 type:F_POST_LIKES,
                 payload: "Something went wrong"
             })
-        console.log(error)
+        // console.log(error)
     }
 }
 export const postSavesAction = (id, his_id=null) => async (dispatch) =>

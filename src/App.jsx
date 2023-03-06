@@ -10,6 +10,8 @@ import Header from "./components/header/Header";
 import His from "./pages/His";
 import MeSettings from "./components/me/MeSettings";
 import {loadMyInfoAction} from "./redux/Actions/mineAction";
+import Main from "./components/feeds/Main";
+import Sidebar from "./components/Sidebar";
 
 const App = ()=>
 {
@@ -28,7 +30,7 @@ const App = ()=>
     return(
         <>
             {window.location.pathname==="/login" ||
-             window.location.pathname==="/register"? "": <Header my_profile={my_profile} setQuery={setQuery}/>}
+             window.location.pathname==="/register"? "": <Main my_profile={my_profile} setQuery={setQuery}/>}
             {my_profile &&
                 <Routes>
                     <Route path="/login" element={<Login/>}/>
@@ -40,6 +42,10 @@ const App = ()=>
                     <Route exact path="/:name" element={<Home query={query}/>}/>
                     <Route path="/me" element={<Me/>}/>
                     <Route path="/single/:id" element={<SinglePage my_profile={my_profile}/>}/>
+
+                    {/*<Route path="/nav" element={<Main/>}/>*/}
+                    {/*<Route path="/navs" element={<Sidebar/>}/>*/}
+
                 </Routes>
             }
         </>

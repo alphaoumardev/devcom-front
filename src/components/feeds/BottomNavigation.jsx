@@ -12,7 +12,7 @@ function BottomNavigation()
     };
 
     return (
-        <div className="fixed bottom-0 left-0 w-full bg-white border-t border-gray-200">
+        <div className="sm:hidden fixed bottom-0 left-0 w-full bg-white border-t border-gray-200">
             <div className="mx-auto max-w-screen-lg px-4 sm:px-6 lg:px-8">
                 <div className="flex justify-between h-14">
                     <button

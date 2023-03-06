@@ -90,7 +90,6 @@ const Feeds = ({query}) =>
         e.preventDefault()
         dispatch(postTopicAction(newTopic))
     }
-    // console.log(feeds.length)
     return(
         <div className="flex-col mt-5 hover:shadow">
 

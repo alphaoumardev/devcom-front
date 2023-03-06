@@ -18,7 +18,8 @@ const Sidebar = ()=>
     {
         dispatch(getTopicsAction())
         dispatch(getFeedAction(name))
-    }, [dispatch,]);
+    }, [dispatch]);
+    // console.log(topics)
     return(
 
         <aside className="hidden md:block sticky top-0 max-w-xl w-96 hover:shadow-2xl" aria-label="Sidebar">

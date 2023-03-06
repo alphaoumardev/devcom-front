@@ -79,6 +79,6 @@ export const logout = () => async dispatch =>
     } catch (error)
     {
         dispatch(postActionPayloadError(F_LOGOUT, error))
-        console.log(error)
+        // console.log(error)
     }
 }

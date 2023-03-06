@@ -22,9 +22,10 @@ const fig = {
     }
 }
 
+const localToken = localStorage.getItem('token')
 export const loadMyInfoAction = () => async dispatch =>
 {
-    if(localStorage.getItem('token'))
+    if(localToken)
     {
         const config = {
             headers: {
@@ -42,7 +43,7 @@ export const loadMyInfoAction = () => async dispatch =>
                         type: S_USER_INFO,
                         payload: res.data,
                     })
-                console.log(res.data)
+                // console.log(res.data)
             })
         }
         catch (error)
@@ -67,7 +68,7 @@ export const editMyPostAction = (id, editedPost) => async (dispatch) =>
                     type: S_EDIT_MY_POST,
                     payload: res.data
                 })
-            console.log(res.data)
+            // console.log(res.data)
             dispatch(getFeedAction(null, null))
             dispatch(loadMyInfoAction())
         })
