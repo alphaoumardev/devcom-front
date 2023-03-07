@@ -20,13 +20,13 @@ const HisTab = ({hisprofile, hisposts, hisfollowers, hisfollowing, my_profile})=
         <div>
             <Tabs id="custom-animation" value="posts">
                 <TabsHeader>
-                    <Tab  value="posts" className="font-bold text-xl" >
+                    <Tab  value="posts" className="font-bold sm:text-xl text-sm" >
                         Posts(<span className="text-blue-500">{hisposts?.length}</span>)
                     </Tab>
-                    <Tab  value="following" className="font-bold text-xl">
+                    <Tab  value="following" className="font-bold sm:text-xl text-sm">
                         Followers(<span className="text-blue-500">{hisfollowers?.length}</span>)
                     </Tab>
-                    <Tab  value="followers" className="font-bold text-xl">
+                    <Tab  value="followers" className="font-bold sm:text-xl text-sm">
                         Following(<span className="text-blue-500">{hisfollowing?.length}</span>)
                     </Tab>
                 </TabsHeader>
@@ -37,9 +37,9 @@ const HisTab = ({hisprofile, hisposts, hisfollowers, hisfollowing, my_profile})=
                 >
                 <TabPanel value="posts">
                     {hisposts?.length>0 ?
-                        <div>
+                        <div className={"mb-8 w-full"}>
                             {hisposts?.map((item, index)=>
-                                <div key={index} className="w-full mb-4 h-auto px-5 py-4 rounded-lg shadow-md dark:bg-gray-800 hover:shadow-lg">
+                                <div key={index} className="w-full mb-4 h-auto p-2 sm:px-5 sm:py-4 rounded-lg shadow-md dark:bg-gray-800 hover:shadow-lg">
                                     <div>
                                         <div className="flex items-center justify-between">
                                             <div className="flex items-center">
@@ -56,10 +56,10 @@ const HisTab = ({hisprofile, hisposts, hisfollowers, hisfollowing, my_profile})=
 
                                         <div className="mt-2 ">
                                             <a href={`/single/${item?.id}`}
-                                               className="text-2xl ml-2 font-bold text-gray-700 capitalize dark:text-white hover:text-blue-600 dark:hover:text-gray-200 hover:underline">{item?.title}</a>
+                                               className="sm:text-2xl text-xl ml-2 font-bold text-gray-700 capitalize dark:text-white hover:text-blue-600 dark:hover:text-gray-200 hover:underline">{item?.title}</a>
                                             <div className="flex">
                                                 <div>
-                                                    <p className="mt-2 ml-3 text-gray-600 dark:text-gray-300 ">{item?.content?.slice(0, 250)}<a href={`/single/${item?.id}`} className="text-blue-700">...</a></p>
+                                                    <p className="mt-2 font-normal ml-3 text-gray-600 dark:text-gray-300 ">{item?.content?.slice(0, 250)}<a href={`/single/${item?.id}`} className="text-blue-700">...</a></p>
                                                 </div>
                                                 <div>
                                                     <a  href={`/single/${item?.id}`}>
@@ -89,7 +89,7 @@ const HisTab = ({hisprofile, hisposts, hisfollowers, hisfollowing, my_profile})=
                                             <div className="flex items-center text-gray-500 hover:text-blue-800">
                                                 <RiShareForwardLine size={20} className="mr-2"/>{item?.shares>0 && <span>{item?.shares}</span>}
                                             </div>
-                                            <a href={`/single/${item?.id}`} className="text-blue-600 dark:text-blue-400 hover:underline">Read more</a>
+                                            <a href={`/single/${item?.id}`} className="hidden sm:flex text-blue-600 dark:text-blue-400 hover:underline">Read more</a>
                                         </div>
                                     </div>
                                 </div>

@@ -45,7 +45,6 @@ export const deleteMyNotification = (id) => async (dispatch) =>
                     payload: res.data
                 })
             dispatch(getNotificationsAction())
-            // console.log(res.data)
         })
     }
     catch (error)

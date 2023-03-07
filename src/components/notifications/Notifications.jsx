@@ -72,12 +72,12 @@ const Notifications =({notification})=>
                     </div>
                 )}
                 {notification?.length>0?
-                <a href="#" className="block py-2 text-sm font-medium text-center text-gray-900 bg-gray-50 hover:bg-gray-100 dark:bg-gray-800 dark:hover:bg-gray-700 dark:text-white">
+                <a href="src/components/header#" className="block py-2 text-sm font-medium text-center text-gray-900 bg-gray-50 hover:bg-gray-100 dark:bg-gray-800 dark:hover:bg-gray-700 dark:text-white">
                     <div className="inline-flex items-center ">
                         <FiEye size={20}/>View All
                     </div>
                 </a>:
-                <a href="#" className="block py-2 text-sm font-medium text-center text-gray-900 bg-gray-50 hover:bg-gray-100 dark:bg-gray-800 dark:hover:bg-gray-700 dark:text-white">
+                <a href="src/components/header#" className="block py-2 text-sm font-medium text-center text-gray-900 bg-gray-50 hover:bg-gray-100 dark:bg-gray-800 dark:hover:bg-gray-700 dark:text-white">
                     <div className="inline-flex items-center ">
                         <FiEye className="mr-2 text-red-500" size={20}/>None!
                     </div>

@@ -14,7 +14,7 @@ const MyLikes = ({liked_posts}) =>
             {liked_posts?.length>0 ?
                 <div>
                     {liked_posts?.map((value, index)=>
-                        <div key={index} className="w-full mb-4 h-auto px-5 py-4 rounded-lg shadow-md dark:bg-gray-800 hover:shadow-lg">
+                        <div key={index} className="w-full mb-4 h-auto p-2 sm:px-5 sm:py-4 rounded-lg shadow-md dark:bg-gray-800 hover:shadow-lg">
                             <div>
                                 <div className="flex items-center justify-between">
                                     <div className="flex items-center">

@@ -1,5 +1,5 @@
 import Sidebar from "../components/Sidebar";
-import Activities from "../components/Activities";
+import Activities from "../components/activities/Activities";
 import HisProfile from "../components/hisprofile/HisProfile";
 
 const His = ()=>

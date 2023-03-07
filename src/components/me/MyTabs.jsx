@@ -7,11 +7,11 @@ import MySaved from "../mytabs/MySaved";
 const MyTabs = ({my_profile, following, liked_posts, saved_posts, followedby})=>
 {
     const tabs = {
-        myPosts: <div>Posts (<span className="text-blue-500">{my_profile?.my_posts_count}</span>)</div>,
-        flow: <div>Followers (<span className="text-blue-500">{my_profile?.followedby_count}</span>)</div>,
-        foll: <div> Following (<span className="text-blue-500">{my_profile?.follow_count}</span>)</div>,
-        like: <div>Liked (<span className="text-blue-500">{liked_posts?.length}</span>)</div>,
-        sav: <div>Saved (<span className="text-blue-500">{saved_posts?.length}</span>)</div>,
+        myPosts: <div>Posts (<span className="text-blue-500 ">{my_profile?.my_posts_count}</span>)</div>,
+        flow: <div>Followers (<span className="text-blue-500 ">{my_profile?.followedby_count}</span>)</div>,
+        foll: <div> Following (<span className="text-blue-500 ">{my_profile?.follow_count}</span>)</div>,
+        like: <div>Liked (<span className="text-blue-500 ">{liked_posts?.length}</span>)</div>,
+        sav: <div>Saved (<span className="text-blue-500 ">{saved_posts?.length}</span>)</div>,
     }
     const items = [
         {label: tabs?.myPosts, key:"1", children: <MyPosts />},
@@ -22,7 +22,7 @@ const MyTabs = ({my_profile, following, liked_posts, saved_posts, followedby})=>
     ]
     return(
         <div>
-            <Tabs key={items.key} items={items} centered size="large" animated/>
+            <Tabs key={items.key} items={items} centered size="middle" animated  type="card" />
         </div>
     )
 }

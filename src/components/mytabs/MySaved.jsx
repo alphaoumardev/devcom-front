@@ -14,7 +14,7 @@ const MySaved = ({saved_posts})=>
             {saved_posts?.length>0 ?
                 <div>
             {saved_posts?.map((value, index)=>
-                <div  key={index} className="w-full mb-4 h-auto px-5 py-4 rounded-lg shadow-md dark:bg-gray-800 hover:shadow-lg">
+                <div  key={index} className="w-full mb-4 h-auto p-2 sm:px-5 sm:py-4 rounded-lg shadow-md dark:bg-gray-800 hover:shadow-lg">
                     <div>
                         <div className="flex items-center justify-between">
                             <div className="flex items-center">
@@ -70,7 +70,7 @@ const MySaved = ({saved_posts})=>
                             <div className="flex items-center hover:text-blue-700">
                                 <RiShareForwardLine size={20} className="mr-2"/> {value?.shares>0 && <span>{value?.shares}</span>}
                             </div>
-                            <a href={`/single/${value?.id}`} className="text-blue-600 dark:text-blue-400 hover:underline">Read more</a>
+                            <a href={`/single/${value?.id}`} className="hidden sm:flex text-blue-600 dark:text-blue-400 hover:underline">Read more</a>
                         </div>
                     </div>
                 </div>

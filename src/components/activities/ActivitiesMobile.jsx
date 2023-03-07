@@ -3,12 +3,16 @@ import {BsThreeDots} from "react-icons/bs";
 import {FiExternalLink} from "react-icons/fi";
 import {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {followProfileAction, getRecommadedProfilesAction, getTrendingAction} from "../redux/Actions/activitiesAction";
-import {loadMyInfoAction} from "../redux/Actions/mineAction";
-import PopoverFollow from "./modals/PopoverFollow";
 import {Popover} from "antd";
+import {
+    followProfileAction,
+    getRecommadedProfilesAction,
+    getTrendingAction
+} from "../../redux/Actions/activitiesAction";
+import {loadMyInfoAction} from "../../redux/Actions/mineAction";
+import PopoverFollow from "../modals/PopoverFollow";
 
-const Activities = ()=>
+const ActivitiesMobile = ()=>
 {
     const dispatch = useDispatch()
     const {trending_feed} = useSelector(state => state.getTrendingReducer)
@@ -25,10 +29,8 @@ const Activities = ()=>
 
     return(
         <>
-        <div className="hidden md:block flex-col  sticky top-0 max-w-xl  rounded p-5 border-gray-100 hover:shadow">
-            <a href="#" className="flex justify-center items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
-                <span className="uppercase px-12 py-3 bg-gray-200 flex justify-center items-center rounded-full">RECENT ACTIVITIES</span>
-            </a>
+        <div className="md:hidden  flex-col max-w-xl  rounded p-5 border-gray-100 hover:shadow">
+            <span className="uppercase px-12 py-3 bg-gray-100 flex justify-center items-center rounded-full">RECENT ACTIVITIES</span>
             <div className="block w-full h-auto rounded hover:shadow bg-white max-w-sm">
                 <div className="py-3 pl-3 border-b border-gray-300 flex">
                     <img className="relative rounded-full  h-10 w-10 object-cover" src={my_profile?.avatar} alt=""/>
@@ -97,7 +99,7 @@ const Activities = ()=>
             </div>}
 
             {/*copyright*/}
-            <div className="  max-w-xl w-full max-w-md  rounded-lg mt-1 sm:p-8  dark:bg-gray-800 ">
+            <div className="mb-12  max-w-xl w-full max-w-md  rounded-lg mt-1 sm:p-8  dark:bg-gray-800 ">
                 <div className="flex-1 min-w-0 text-base">
                     <a href="#" className="font-medium text-gray-900 truncate dark:text-white"> Terms of Service</a><br/>
                     <a href="#" className="font-medium text-gray-900 truncate dark:text-white"> About us</a>
@@ -110,4 +112,4 @@ const Activities = ()=>
         </>
             )
 }
-export default Activities
+export default ActivitiesMobile

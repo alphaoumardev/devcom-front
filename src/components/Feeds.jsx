@@ -91,7 +91,7 @@ const Feeds = ({query}) =>
         dispatch(postTopicAction(newTopic))
     }
     return(
-        <div className="flex-col mt-5 hover:shadow">
+        <div className="flex-col mt-5 hover:shadow mb-16">
 
             <div className="max-w-3xl mb-4 h-auto px-8 py-4 bg-white rounded-lg  dark:bg-gray-800">
             <div>
@@ -173,33 +173,34 @@ const Feeds = ({query}) =>
                 </div>
             </div>
         </div>
-            <Feed feeds={feeds} my_profile={my_profile} loadmore={loadmore}/>
-            <Loader loadingFeeds={loadingFeeds}/>
 
-            {/*    modal add new topic*/}
-            <div
-                className="modal fade fixed top-0 left-0 hidden w-full h-full outline-none overflow-x-hidden overflow-y-auto"
-                id="addTopicModal" tabIndex="-1" aria-labelledby="addTopicModal"
-                aria-modal="true" role="dialog">
-                <div className="modal-dialog modal-dialog-centered modal-dialog-scrollable relative w-auto pointer-events-none">
-                    <div  className="modal-content border-none shadow-lg relative flex flex-col w-full pointer-events-auto bg-white rounded-md outline-none text-current">
-                        <div className="modal-body relative p-4">
-                            <form onSubmit={postTopic}>
-                                <div className="mb-4 w-full bg-gray-50  dark:bg-gray-700 dark:border-gray-600">
-                                    <div className="flex justify-between items-center py-2 px-3">
-                                        <Input variant="standard" label="Add New Topic" onChange={(e)=>setNewTopic(e.target.value)}/>
-                                        <button type="submit" data-bs-dismiss="modal" aria-label="Close"
-                                                className="inline-flex items-center py-2.5 px-4 text-xs font-medium text-center text-white bg-blue-700 rounded-lg focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-900 hover:bg-blue-800">
-                                            Add
-                                        </button>
-                                    </div>
+        <Feed feeds={feeds} my_profile={my_profile} loadmore={loadmore}/>
+        <Loader loadingFeeds={loadingFeeds}/>
+
+        {/*    modal add new topic*/}
+        <div
+            className="modal fade fixed top-0 left-0 hidden w-full h-full outline-none overflow-x-hidden overflow-y-auto"
+            id="addTopicModal" tabIndex="-1" aria-labelledby="addTopicModal"
+            aria-modal="true" role="dialog">
+            <div className="modal-dialog modal-dialog-centered modal-dialog-scrollable relative w-auto pointer-events-none">
+                <div  className="modal-content border-none shadow-lg relative flex flex-col w-full pointer-events-auto bg-white rounded-md outline-none text-current">
+                    <div className="modal-body relative p-4">
+                        <form onSubmit={postTopic}>
+                            <div className="mb-4 w-full bg-gray-50  dark:bg-gray-700 dark:border-gray-600">
+                                <div className="flex justify-between items-center py-2 px-3">
+                                    <Input variant="standard" label="Add New Topic" onChange={(e)=>setNewTopic(e.target.value)}/>
+                                    <button type="submit" data-bs-dismiss="modal" aria-label="Close"
+                                            className="inline-flex items-center py-2.5 px-4 text-xs font-medium text-center text-white bg-blue-700 rounded-lg focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-900 hover:bg-blue-800">
+                                        Add
+                                    </button>
                                 </div>
-                            </form>
-                        </div>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
-            {/*end modal*/}
+        </div>
+        {/*end modal*/}
         </div>
     )
 }

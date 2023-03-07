@@ -8,6 +8,7 @@ import {
 } from '../Types'
 import axios from "axios";
 import {loadMyInfoAction} from "./mineAction";
+import {useNavigate} from "react-router-dom";
 
 export const postActionPayloadError = (type, error) => ({
     type: type,
@@ -58,6 +59,8 @@ export const login = (username, password) => async dispatch =>
 
 export const logout = () => async dispatch =>
 {
+    // const navigate = useNavigate()
+
     try
     {
         const config = {
@@ -74,7 +77,9 @@ export const logout = () => async dispatch =>
         {
             dispatch({type: S_LOGOUT})
             localStorage.clear()
+            // navigate('/login')
             window.location.pathname="/login"
+            // window.location.replace("", "/login")
         })
     } catch (error)
     {

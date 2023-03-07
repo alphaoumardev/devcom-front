@@ -6,12 +6,13 @@ import SinglePage from "./pages/SinglePage";
 import Signup from "./components/Signup";
 import {useDispatch, useSelector} from "react-redux";
 import {useEffect, useState} from "react";
-import Header from "./components/header/Header";
 import His from "./pages/His";
-import MeSettings from "./components/me/MeSettings";
+import MeSettings from "./pages/MeSettings";
 import {loadMyInfoAction} from "./redux/Actions/mineAction";
-import Main from "./components/feeds/Main";
-import Sidebar from "./components/Sidebar";
+import MainHeader from "./components/feeds/MainHeader";
+import BottomNavigation from "./components/feeds/BottomNavigation";
+import ActivitiesMobile from "./components/activities/ActivitiesMobile";
+import NotificationsMobile from "./components/notifications/NotificationsMobile";
 
 const App = ()=>
 {
@@ -30,24 +31,29 @@ const App = ()=>
     return(
         <>
             {window.location.pathname==="/login" ||
-             window.location.pathname==="/register"? "": <Main my_profile={my_profile} setQuery={setQuery}/>}
+             window.location.pathname==="/register"? "": <MainHeader my_profile={my_profile} setQuery={setQuery}/>}
             {my_profile &&
                 <Routes>
                     <Route path="/login" element={<Login/>}/>
                     <Route path="/register" element={<Signup/>}/>
 
                     <Route exact path="/" element={<Home query={query} my_profile={my_profile}/>}/>
+                    <Route exact path="/:name" element={<Home query={query}/>}/>
+
+                    <Route path="/me" element={<Me/>}/>
+
                     <Route exact path="/settings" element={<MeSettings/>}/>
                     <Route exact path="hisprofile/:id" element={<His/>}/>
-                    <Route exact path="/:name" element={<Home query={query}/>}/>
-                    <Route path="/me" element={<Me/>}/>
                     <Route path="/single/:id" element={<SinglePage my_profile={my_profile}/>}/>
 
-                    {/*<Route path="/nav" element={<Main/>}/>*/}
-                    {/*<Route path="/navs" element={<Sidebar/>}/>*/}
+                    <Route path="/activities" element={<ActivitiesMobile/>}/>
+                    <Route path="/notifications" element={<NotificationsMobile/>}/>
 
                 </Routes>
             }
+            {window.location.pathname==="/login" ||
+            window.location.pathname==="/register"? "": <BottomNavigation my_profile={my_profile} setQuery={setQuery}/>}
+
         </>
     )
 }

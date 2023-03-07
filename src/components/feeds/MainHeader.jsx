@@ -1,19 +1,22 @@
 import {Fragment, useEffect, useState} from 'react'
-import { Dialog, Popover, Transition } from '@headlessui/react'
+import { Dialog, Transition } from '@headlessui/react'
 import {AiOutlineMenu, AiOutlinePlus} from "react-icons/ai";
 import {BiDownArrow} from "react-icons/bi";
 import {GrDiamond} from "react-icons/gr";
 import {CgComponents, CgFileDocument} from "react-icons/cg";
 import {GiHelp} from "react-icons/gi";
 import {useDispatch, useSelector} from "react-redux";
-import {useNavigate, useParams} from "react-router-dom";
+import {useParams} from "react-router-dom";
 import {getTopicsAction} from "../../redux/Actions/topicsActions";
 import {getFeedAction} from "../../redux/Actions/feedActions";
 import {BsFillBellFill, BsSearch} from "react-icons/bs";
-import Notifications from "../header/Notifications";
+import Notifications from "../notifications/Notifications";
 import MyDropDown from "../header/MyDropDown";
+import {Popover} from "antd";
+import {getNotificationsAction} from "../../redux/Actions/notificationAction";
 
-export default function Main({my_profile, setQuery})
+
+export default function MainHeader({my_profile, setQuery})
 {
     const [open, setOpen] = useState(false)
 
@@ -24,7 +27,6 @@ export default function Main({my_profile, setQuery})
     const [loadmore, setLoadmore] = useState(8);
 
     let date = new Date();
-    const navigate = useNavigate()
     let [month] = useState(date.getMonth()+1);
     let [day] = useState(date.getDate());
     let [hour] = useState(date.getHours());
@@ -44,12 +46,15 @@ export default function Main({my_profile, setQuery})
     if((parseInt(current_date)>=parseInt(expiration_date)) || (token_===null))
     {
         localStorage.clear()
-        navigate('/login')
+        // navigate('/login')
+        window.location.pathname = "/login"
     }
     useEffect(() =>
     {
         dispatch(getTopicsAction())
         dispatch(getFeedAction(name))
+        dispatch(getNotificationsAction())
+
     }, [dispatch]);
 
     return (
@@ -80,11 +85,7 @@ export default function Main({my_profile, setQuery})
                     >
                         <div className="relative max-w-xs w-full bg-white shadow-xl pb-12 flex flex-col overflow-y-auto">
                             <div className="px-4 pt-5 pb-2 flex">
-                                <button
-                                    type="button"
-                                    className="-m-2 p-2 rounded-md inline-flex items-center justify-center text-gray-400"
-                                    onClick={() => setOpen(false)}
-                                >
+                                <button type="button" onClick={() => setOpen(false)} className="-m-2 p-2 rounded-md inline-flex items-center justify-center text-gray-400">
                                     <span className="sr-only">Close menu</span>
                                     <AiOutlinePlus className="h-6 w-6 rotate-45" aria-hidden="true" />
                                 </button>
@@ -159,64 +160,62 @@ export default function Main({my_profile, setQuery})
             <div className="relative overflow-hidden">
                 {/* Top navigation */}
                 <nav className="  bg-gray-100 border-gray-200 px-8 shadow-lg sm:px-4 py-4 rounded dark:bg-gray-900">
-                    <div className="">
-                        <div className="h-10 flex">
-                            <button
-                                type="button"
-                                className="p-2 -ml-4 rounded-md text-gray-400 lg:hidden"
-                                onClick={() => setOpen(true)}
-                            >
-                                <AiOutlineMenu className="h-6 w-6" aria-hidden="true" />
-                            </button>
+                    <div className="h-10 flex">
+                        {!open?
+                        <button type="button" onClick={() => setOpen(true)} className="p-2 -ml-4 rounded-md text-gray-400 lg:hidden">
+                            <AiOutlineMenu className="h-6 w-6" aria-hidden="true" />
+                        </button>:
+                        <button type="button" onClick={() => setOpen(false)} className="p-2 -ml-4 rounded-md text-gray-400 lg:hidden">
+                            <AiOutlinePlus className="h-6 w-6 rotate-45 text-red-600" aria-hidden="true" />
+                        </button>}
 
-                            <div className="flex justify-between w-full md:w-10/12 mx-auto ">
-                                <div>
-                                    <a href="/" className="hidden md:flex">
-                                        <img src="https://res.cloudinary.com/diallo/image/upload/v1662517794/devcom_qxhwcj.jpg"
-                                             className="mr-3 rounded-full  h-14 w-14 object-cover rounded-full  sm:h-14 " alt="Logo"/>
-                                        <span className="self-center text-2xl font-bold whitespace-nowrap dark:text-white">Devco</span>
-                                    </a>
+                        <div className="flex justify-between w-full md:w-10/12 mx-auto ">
+                            <div>
+                                <a href="/" className="hidden md:flex">
+                                    <img src="https://res.cloudinary.com/diallo/image/upload/v1662517794/devcom_qxhwcj.jpg"
+                                         className="mr-3 rounded-full  h-14 w-14 object-cover rounded-full  sm:h-14 " alt="Logo"/>
+                                    <span className="self-center text-2xl font-bold whitespace-nowrap dark:text-white">Devco</span>
+                                </a>
+                            </div>
+
+                            <div className="relative flex justify-center items-center w-8/12 md:w-6/12">
+                                <div className="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
+                                    <BsSearch/>
                                 </div>
+                                <input type="search" id="search"
+                                       className="block p-2 pl-10 w-full text-xl border-none bg-gray-200 text-sm text-gray-900  rounded-full focus:ring-blue-200 focus:border-blue-200 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                       placeholder="Search..." required onChange={(e)=>setQuery(e.target.value)}/>
+                            </div>
 
-                                <div className="relative flex justify-center items-center w-8/12 md:w-6/12">
-                                    <div className="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
-                                        <BsSearch/>
-                                    </div>
-                                    <input type="search" id="search"
-                                           className="block p-2 pl-10 w-full text-xl border-none bg-gray-200 text-sm text-gray-900  rounded-full focus:ring-blue-200 focus:border-blue-200 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                           placeholder="Search..." required onChange={(e)=>setQuery(e.target.value)}/>
+                            <div className="flex space-x-3 items-center">
+                                {/*notification start*/}
+                                <div className="relative hidden md:block">
+                                    <Popover content={<Notifications notification={notification}/>} placement="bottom">
+                                        <div className="relative peer mr-2" title="Notifications">
+                                            {my_profile&&
+                                                <button
+                                                    className="peer relative inline-flex items-center text-sm font-medium text-center text-gray-500 hover:text-gray-900 focus:outline-none dark:hover:text-white dark:text-gray-400"
+                                                    type="button">
+                                                    <BsFillBellFill className="w-6 h-6 text-blue-500 hover:bg-gray-300 rounded-full"/>
+                                                    {notification?.length>0 &&
+                                                        <div className="flex relative">
+                                                            <div  className=" relative top-1 right-3 w-3 h-3 bg-red-600 rounded-full border-2 border-white dark:border-gray-900"></div>
+                                                        </div>}
+                                                </button>
+                                            }
+                                        </div>
+                                    </Popover>
                                 </div>
+                                {/*notifications end*/}
 
-                                <div className="flex space-x-3 items-center">
-                                    {/*notification start*/}
-                                    <div className="relative hidden md:block">
-                                        <Popover content={<Notifications notification={notification}/>} placement="bottom">
-                                            <div className="relative peer mr-2" title="Notifications">
-                                                {my_profile&&
-                                                    <button
-                                                        className="peer relative inline-flex items-center text-sm font-medium text-center text-gray-500 hover:text-gray-900 focus:outline-none dark:hover:text-white dark:text-gray-400"
-                                                        type="button">
-                                                        <BsFillBellFill className="w-6 h-6 text-blue-500 hover:bg-gray-300 rounded-full"/>
-                                                        {notification?.length>0 &&
-                                                            <div className="flex relative">
-                                                                <div  className=" relative top-1 right-3 w-3 h-3 bg-red-600 rounded-full border-2 border-white dark:border-gray-900"></div>
-                                                            </div>}
-                                                    </button>
-                                                }
-                                            </div>
-                                        </Popover>
-                                    </div>
-                                    {/*notifications end*/}
-
-                                    {/*<-- Dropdown popover me -->*/}
-                                    <div className=" relative block">
-                                        <Popover content={<MyDropDown my_profile={my_profile}/>} placement="bottom">
-                                            <div className="relative peer ">
-                                                <img className="relative rounded-full  h-12 w-12 object-cover" src={my_profile?.avatar} alt=""/>
-                                                <span className="bottom-0 left-8 absolute  w-3 h-3 bg-green-400 border-2 border-white dark:border-gray-800 rounded-full"></span>
-                                            </div>
-                                        </Popover>
-                                    </div>
+                                {/*<-- Dropdown popover me -->*/}
+                                <div className=" relative block">
+                                    <Popover content={<MyDropDown my_profile={my_profile}/>} placement="bottom">
+                                        <div className="relative peer ">
+                                            <img className="relative rounded-full  h-12 w-12 object-cover" src={my_profile?.avatar} alt=""/>
+                                            <span className="bottom-0 left-8 absolute  w-3 h-3 bg-green-400 border-2 border-white dark:border-gray-800 rounded-full"></span>
+                                        </div>
+                                    </Popover>
                                 </div>
                             </div>
                         </div>

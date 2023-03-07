@@ -44,16 +44,21 @@ const Feed = ({feeds, my_profile, loadmore}) =>
                         <div className="mt-2 ">
                             <a href={`/single/${item?.id}`}
                                className="text-2xl ml-2 font-bold text-gray-700 capitalize dark:text-white hover:text-blue-600 dark:hover:text-gray-200 hover:underline">{item?.title}</a>
-                            <div className="flex">
+                            <div className="flex space-x-3">
                                 <div>
-                                    <p className="mt-2 ml-3 text-gray-600 dark:text-gray-300">{item?.content?.slice(0, 250)}<a href={`/single/${item?.id}`} className="text-blue-700">...</a></p>
+                                    <p className="mt-2 ml-3 text-gray-600 dark:text-gray-300 indent-3">{item?.content?.slice(0, 250)}<a href={`/single/${item?.id}`} className="text-blue-700">...</a></p>
                                 </div>
-                                <div>
+                                <div className="hidden sm:block">
                                     <a href={`/single/${item?.id}`}>
-                                        {item?.cover_image &&<img src={item?.cover_image} className="object-contain w-56 h-56 rounded-lg md:h-28  md:w-64 md:rounded md:rounded-lg" alt=""/>}
+                                        {item?.cover_image &&<img src={item?.cover_image} className="object-cover  rounded-lg md:h-28  md:w-96 md:rounded md:rounded-lg" alt=""/>}
                                     </a>
                                 </div>
                             </div>
+                        </div>
+                        <div className="sm:hidden">
+                            <a href={`/single/${item?.id}`}>
+                                {item?.cover_image &&<img src={item?.cover_image} className="object-cover w-full h-40 rounded-lg md:h-28  md:w-64 md:rounded md:rounded-lg" alt=""/>}
+                            </a>
                         </div>
 
                         <div className="flex items-center justify-between mt-4">

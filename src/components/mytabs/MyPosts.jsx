@@ -11,6 +11,29 @@ import {AiFillEdit, AiOutlineQuestionCircle} from "react-icons/ai";
 import {Empty, Popconfirm} from 'antd';
 import EditPostModal from "../modals/EditPostModal";
 import Loader from "../modals/Loader";
+
+//TODO: spliting the words
+// const paragraph = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed luctus lacus in risus varius, eget tincidunt odio posuere. Aliquam vel leo ut odio finibus lacinia.";
+//
+// const words = paragraph.split(" ");
+// const [showAll, setShowAll] = useState(false);
+// const visibleWords = showAll ? words : words.slice(0, 10);
+//
+// const toggleShowAll = () => {
+//     setShowAll(!showAll);
+// };
+//
+// return (
+//     <div>
+//         {visibleWords.map((word, index) => (
+//             <span key={index}>{word} </span>
+//         ))}
+//         {!showAll && words.length > 10 && (
+//             <button onClick={toggleShowAll}>See more</button>
+//         )}
+//     </div>
+// );
+
 const MyPosts = () =>
 {
     const dispatch = useDispatch()
@@ -44,42 +67,43 @@ const MyPosts = () =>
                 <div>
                     {my_posts?.slice(0, loadmore)?.map((item, index) =>
                         <div key={index}
-                             className="w-full mb-4 h-auto px-5 py-4 rounded-lg shadow-md dark:bg-gray-800 hover:shadow-lg">
+                             className="w-full mb-4 h-auto p-2 sm:px-5 sm:py-4 rounded-lg shadow-md dark:bg-gray-800 hover:shadow-lg">
                             <div>
                                 <div className="flex items-center justify-between">
                                     <div className="flex items-center">
                                         {my_profile.avatar ?
                                             <img className="rounded-full  h-10 w-10 object-cover"
                                                  src={my_profile.avatar} alt=""/> :
-                                            <IoMdPerson
-                                                className="rounded-full  h-10 w-10 object-contain text-gray-400"/>}
+                                                <IoMdPerson className="rounded-full h-10 w-10 object-contain text-gray-400"/>}
 
-                                        <a className="font-bold text-gray-700 cursor-pointer dark:text-gray-200 ml-1 capitalize">{my_profile?.user?.username}
-                                            <span className="font-thin capitalize ml-1">@{my_profile?.user?.username}
-                                                <span
-                                                    className="ml-3">{moment(item?.posted?.toString()).startOf().fromNow()}</span>
-                                                    </span>
-                                        </a>
+                                        <div className={"flex-col ml-2 mr-2 mb-1 sm:flex sm:items-center"}>
+                                            <div className="font-bold text-gray-700 cursor-pointer dark:text-gray-200 ml-1 capitalize">{my_profile?.user?.username}</div>
+                                            <div className="font-thin capitalize ml-1 text-blue-500 ">@{my_profile?.user?.username}</div>
+                                        </div>
+                                        <span className="ml-3">{moment(item?.posted?.toString()).startOf().fromNow()}</span>
                                     </div>
-                                    <span className="text-sm font-light text-gray-600 dark:text-gray-400"></span>
-                                    <a href={`/${item?.topic?.name}`}
-                                       className="px-3 py-1 text-sm font-bold text-gray-100 transition-colors duration-300 transform bg-gray-600 rounded cursor-pointer hover:bg-gray-500">{item?.topic?.name}</a>
+                                    {/*<span className="text-sm font-light text-gray-600 dark:text-gray-400"></span>*/}
+                                    <a href={`/${item?.topic?.name}`} className="px-3 py-1 text-sm font-bold text-gray-100 transition-colors duration-300 transform bg-gray-600 rounded cursor-pointer hover:bg-gray-500">{item?.topic?.name}</a>
                                 </div>
                                 <div className="mt-2 ">
-                                    <a href={`/single/${item?.id}`}
-                                       className="text-2xl ml-2 font-bold text-gray-700 capitalize dark:text-white hover:text-blue-600 dark:hover:text-gray-200 hover:underline">{item?.title}</a>
+                                    <a href={`/single/${item?.id}`}  className="text-xl sm:text-2xl ml-2 font-bold text-gray-700 capitalize dark:text-white hover:text-blue-600 dark:hover:text-gray-200 hover:underline">{item?.title}</a>
                                     <div className="flex">
                                         <div>
-                                            <p className="mt-2 ml-3 text-gray-600 dark:text-gray-300 ">{item?.content?.slice(0, 250)}<a
-                                                href={`/single/${item?.id}`} className="text-blue-700">...</a></p>
+
+                                            <p className="hidden sm:block mt-2 ml-3 text-gray-600 dark:text-gray-300 ">{item?.content?.slice(0, 210)}<a href={`/single/${item?.id}`} className="text-blue-700">...</a></p>
+                                            <p className="sm:hidden mt-2 ml-3 text-gray-600 dark:text-gray-300 ">{item?.content?.slice(0, 110)}<a href={`/single/${item?.id}`} className="text-blue-700">...</a></p>
                                         </div>
-                                        <div>
+                                        <div className={"hidden sm:block"}>
                                             <a href={`/single/${item?.id}`}>
-                                                {item?.cover_image && <img
-                                                    className="object-contain w-56 h-56 rounded-lg md:h-28  md:w-64 md:rounded md:rounded-lg"
-                                                    src={item?.cover_image} alt=""/>}
+                                                {item?.cover_image && <img className="object-contain w-56 h-56 rounded-lg md:h-28  md:w-64 md:rounded md:rounded-lg" src={item?.cover_image} alt=""/>}
                                             </a>
                                         </div>
+
+                                    </div>
+                                    <div className="sm:hidden">
+                                        <a href={`/single/${item?.id}`}>
+                                            {item?.cover_image && <img className="object-cover w-full h-40 rounded-lg md:h-28  md:w-64 md:rounded md:rounded-lg" src={item?.cover_image} alt=""/>}
+                                        </a>
                                     </div>
                                 </div>
                                 <div className="flex items-center justify-between mt-4">
@@ -118,7 +142,7 @@ const MyPosts = () =>
                                         </Popconfirm>
                                     </div>
                                     <a href={`/single/${item?.id}`}
-                                       className="text-blue-600 dark:text-blue-400 hover:underline">Read more</a>
+                                       className="hidden sm:flex text-blue-600 dark:text-blue-400 hover:underline">Read more</a>
                                 </div>
                             </div>
                         </div>
