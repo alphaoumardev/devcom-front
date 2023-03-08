@@ -18,7 +18,7 @@ import {
 } from "../../redux/Actions/feedActions";
 import {useDispatch,} from "react-redux";
 
-const SingleLeft = ({data, id, my_profile})=>
+const CommentLeft = ({data, id, my_profile})=>
 {
     const dispatch = useDispatch()
     const [comment, setComment] = useState('');
@@ -32,7 +32,7 @@ const SingleLeft = ({data, id, my_profile})=>
     }
     return(
         <>
-        <div className="flex-col sticky top-36 max-w-xl  mt-12">
+        <div className="hidden sm:block sm:flex-col sticky top-36 max-w-xl  mt-12">
             <div className="mb-12 flex-col  hover:text-green-500 cursor-pointer"
                  data-bs-toggle="modal" data-bs-target="#commentModal">
                 <div className="flex justify-center items-center">
@@ -139,4 +139,4 @@ const SingleLeft = ({data, id, my_profile})=>
     </>
     )
 }
-export default SingleLeft
+export default CommentLeft

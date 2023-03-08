@@ -12,6 +12,7 @@ import {useDispatch} from "react-redux";
 import {followProfileAction} from "../../redux/Actions/activitiesAction";
 import {postLikeAction, postSavesAction} from "../../redux/Actions/feedActions";
 import {Empty} from "antd";
+import {IoMdPerson} from "react-icons/io";
 
 const HisTab = ({hisprofile, hisposts, hisfollowers, hisfollowing, my_profile})=>
 {
@@ -43,10 +44,20 @@ const HisTab = ({hisprofile, hisposts, hisfollowers, hisfollowing, my_profile})=
                                     <div>
                                         <div className="flex items-center justify-between">
                                             <div className="flex items-center">
-                                                <img className="rounded-full  h-10 w-10 object-cover" src={hisprofile.avatar} alt=""/>
-                                                <div className="font-bold text-gray-700 cursor-pointer dark:text-gray-200 capitalize ml-1">{hisprofile?.user?.username}
+                                                {hisprofile.avatar ?
+                                                    <img className="rounded-full  h-10 w-10 object-cover"
+                                                         src={hisprofile.avatar} alt=""/> :
+                                                    <IoMdPerson className="rounded-full h-10 w-10 object-contain text-gray-400"/>}
+
+                                                <div className={"sm:hidden flex-col ml-2 mr-2 mb-1"}>
+                                                    <div className="font-bold text-gray-700 cursor-pointer dark:text-gray-200 ml-1 capitalize">{hisprofile?.user?.username}</div>
+                                                    <div className="font-thin capitalize ml-1 text-blue-500 ">@{hisprofile?.user?.username}</div>
+                                                </div>
+                                                <span className="sm:hidden ml-3">{moment(item?.posted?.toString()).startOf().fromNow()}</span>
+
+                                                <div className="hidden sm:flex font-bold text-gray-700 cursor-pointer dark:text-gray-200 capitalize ml-2">{hisprofile?.user?.username}
                                                     <span className="font-thin capitalize ml-1 text-blue-500">@{hisprofile?.user?.username}
-                                                        <span className="ml-3 text-black">{moment(item?.posted?.toString()).startOf().fromNow()}</span>
+                                                        <span className="ml-4 text-black">{moment(item?.posted?.toString()).startOf().fromNow()}</span>
                                                     </span>
                                                 </div>
                                             </div>

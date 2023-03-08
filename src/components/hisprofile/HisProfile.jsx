@@ -32,7 +32,7 @@ const HisProfile = ()=>
                         {/*his*/}
                         <div className="w-full flex-col">
                             <div className="rounded relative">
-                                <img className="rounded-t-lg h-72 w-full object-cover"  src={hisprofile?.cover_image} alt={<IoMdPerson className="rounded-full h-10 w-10 object-contain text-gray-400"/>}/>
+                                <img className="rounded-t-lg h-72 w-full object-cover"  src={hisprofile?.cover_image} alt={""}/>
                                 <div className="w-full">
                                     <div className="flex justify-center -mt-16 md:justify-end">
                                         <img className="object-cover mr-3 w-20 h-20 sm:w-32 sm:h-32 border-2 border-black rounded-full dark:border-blue-400"

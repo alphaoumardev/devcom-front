@@ -5,7 +5,7 @@ import Sidebar from "../components/Sidebar";
 const SinglePage = ({my_profile})=>
 {
     return(
-        <div className="flex w-full justify-center gap-10 left-2 mt-3 ">
+        <div className="flex w-full justify-center sm:gap-10 left-2 mt-3 ">
             <div className="sticky top-36">
                 <Sidebar />
             </div>

@@ -21,6 +21,7 @@ const Replies = ({data, id, commentator}) =>
         e.preventDefault()
         dispatch(postRepliesAction(post, comment, commentator, parent))
     }
+    // console.log(data)
     return(
         <div>
         {data?.map((item, index)=>

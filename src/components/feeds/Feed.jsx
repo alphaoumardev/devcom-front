@@ -25,7 +25,7 @@ const Feed = ({feeds, my_profile, loadmore}) =>
     return(
         <div>
             {feeds?.slice(0,loadmore)?.map((item, index)=>
-                <div key={index} className="max-w-3xl mb-4 h-auto px-8 py-4 bg-white rounded dark:bg-gray-800 hover:shadow-lg">
+                <div key={index} className="w-full sm:max-w-3xl mb-4 h-auto p-2 sm:px-8 sm:py-4 bg-white rounded dark:bg-gray-800 hover:shadow-lg">
                     <div>
                         <div className="flex items-center justify-between">
                             <div className="flex items-center">
@@ -43,10 +43,10 @@ const Feed = ({feeds, my_profile, loadmore}) =>
 
                         <div className="mt-2 ">
                             <a href={`/single/${item?.id}`}
-                               className="text-2xl ml-2 font-bold text-gray-700 capitalize dark:text-white hover:text-blue-600 dark:hover:text-gray-200 hover:underline">{item?.title}</a>
+                               className="text-xl sm:text-2xl ml-2 font-bold text-gray-700 capitalize dark:text-white hover:text-blue-600 dark:hover:text-gray-200 hover:underline">{item?.title}</a>
                             <div className="flex space-x-3">
                                 <div>
-                                    <p className="mt-2 ml-3 text-gray-600 dark:text-gray-300 indent-3">{item?.content?.slice(0, 250)}<a href={`/single/${item?.id}`} className="text-blue-700">...</a></p>
+                                    <p className="mt-2 ml-3 text-gray-600 dark:text-gray-300 indent-3">{item?.content?.slice(0, 110)}<a href={`/single/${item?.id}`} className="text-blue-700">...</a></p>
                                 </div>
                                 <div className="hidden sm:block">
                                     <a href={`/single/${item?.id}`}>
@@ -61,9 +61,9 @@ const Feed = ({feeds, my_profile, loadmore}) =>
                             </a>
                         </div>
 
-                        <div className="flex items-center justify-between mt-4">
+                        <div className="flex items-center justify-center justify-between mt-4 mb-2 ml-8 w-10/12">
 
-                            <div className="flex items-center hover:text-blue-500"
+                            <div className="flex  items-center hover:text-blue-500"
                                  data-bs-toggle="modal" data-bs-target="#feedCommentModal">
                                 <MdOutlineQuickreply size={20} className="mr-2" onMouseOver={()=>setPost(item?.id)}/>
                                 {item?.num_replies>0 && <span>{item?.num_replies}</span>}
@@ -83,7 +83,7 @@ const Feed = ({feeds, my_profile, loadmore}) =>
                             <div className="flex items-center hover:text-blue-700">
                                 <RiShareForwardLine size={20} className="mr-2"/>{item?.shares}
                             </div>
-                            <a href={`/single/${item?.id}`} className="text-blue-600 dark:text-blue-400 hover:underline">Read more</a>
+                            <a href={`/single/${item?.id}`} className="hidden sm:flex text-blue-600 dark:text-blue-400 hover:underline">Read more</a>
                         </div>
                     </div>
                 </div>

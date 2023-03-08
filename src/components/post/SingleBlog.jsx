@@ -2,11 +2,12 @@ import {useParams} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {useEffect,} from "react";
 import {getOneFeedAction,} from "../../redux/Actions/feedActions";
-import SingleLeft from "./SingleLeft";
+import CommentLeft from "./CommentLeft";
 import moment from "moment";
-import RecentPosts from "./RecentPosts";
 import {loadMyInfoAction} from "../../redux/Actions/mineAction";
 import Replies from "./Replies";
+import RecentPosts from "./RecentPosts";
+import {IoMdPerson} from "react-icons/io";
 
 const SingleBlog = ()=>
 {
@@ -23,40 +24,42 @@ const SingleBlog = ()=>
     }, [dispatch, id]);
     // console.log(data)
     return(
-        <div>
-        <div className="flex w-full justify-center gap-4 left-2 mt-3">
-            <div className="">
-                <SingleLeft  data={data} id={id} my_profile={my_profile} />
+        <div className={""}>
+        <div className="flex w-full justify-center gap-4 left-2 mt-3 mb-12">
+            <div className="hidden sm:block">
+                <CommentLeft data={data} id={id} my_profile={my_profile} />
             </div>
             <div className="flex-col ">
-            <div className="max-w-3xl mb-4 p-5 h-auto rounded border">
+            <div className="w-full sm:max-w-3xl mb-4 p-2 sm:p-5 h-auto rounded sm:border">
                 <div>
-                    <div className="flex items-center justify-between">
-                        <div className="flex items-center"> </div>
-                    </div>
                     <div className="">
                         {/*single post*/}
                         <div className="w-full flex">
                             <div className="">
-                                <div className="flex-col mt-5 ">
+                                <div className="flex-col mt-5 w-full">
                                     <div className="py-3 flex">
-                                        <div className="flex">
-                                            <img src={data?.profile?.avatar} alt={data?.profile?.user?.username?.charAt(0)}
-                                                 className="h-10 w-10 rounded-full object-cover capitalize"/>
-                                            <span className="ml-5 capitalize">{data?.profile?.user?.username}
-                                                <b className="text-blue-700 ml-1">@{data?.profile?.user?.username}</b><br/>
-                                                <b className="text-blue-400">{moment(data?.posted?.toString()).startOf().fromNow()}</b>
+                                        {data?.profile?.avatar ?
+                                            <img className="rounded-full  h-10 w-10 object-cover"
+                                                 src={data?.profile?.avatar} alt=""/> :
+                                            <IoMdPerson className="rounded-full h-10 w-10 object-contain text-gray-400"/>}
+
+                                        <div className={"sm:hidden flex-col ml-2 mr-2 mb-1"}>
+                                            <div className="font-bold text-gray-700 cursor-pointer dark:text-gray-200 ml-1 capitalize">{data?.profile?.user?.username}</div>
+                                            <div className="font-thin capitalize ml-1 text-blue-500 ">@{data?.profile?.user?.username}</div>
+                                        </div>
+                                        <span className="sm:hidden ml-3">{moment(data?.posted?.toString()).startOf().fromNow()}</span>
+
+                                        <div className="hidden sm:flex font-bold text-gray-700 cursor-pointer dark:text-gray-200 capitalize ml-2">{data?.profile?.user?.username}
+                                            <span className="font-thin capitalize ml-1 text-blue-500">@{data?.profile?.user?.username}
+                                                <span className="ml-4 text-black">{moment(data?.posted?.toString()).startOf().fromNow()}</span>
                                             </span>
                                         </div>
                                     </div>
                                     <h1 className="mt-4 font-bold text-3xl text-gray-800 dark:text-white md:mt-0 md:text-3xl">{data?.title}</h1>
 
-                                    <p className="mt-2 ">
-                                        {data?.content}
-                                        <a href="#" data-mdb-ripple="true" data-mdb-ripple-color="light">
-                                            {data?.cover_image &&<img className="rounded h-72 w-full object-cover"  src={data?.cover_image} alt=""/>}
-                                        </a>
-                                    </p>
+                                    <p className="m-2 ">{data?.content}</p>
+                                    {data?.cover_image &&<img className="rounded h-72 w-full object-cover mt-2"  src={data?.cover_image} alt=""/>}
+
                                     {/* the post replies start here*/}
                                     <Replies data={data?.replies} id={id} commentator={commentator}/>
                                 </div>
