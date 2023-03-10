@@ -6,8 +6,6 @@ import {deleteMyNotification, getNotificationsAction} from "../../redux/Actions/
 import {AiOutlineMessage} from "react-icons/ai";
 import moment from "moment/moment";
 import {useEffect} from "react";
-import {getTopicsAction} from "../../redux/Actions/topicsActions";
-import {getFeedAction} from "../../redux/Actions/feedActions";
 
 const NotificationsMobile =()=>
 {

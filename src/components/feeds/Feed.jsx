@@ -1,4 +1,3 @@
-import PopoverInfo from "../modals/PopoverInfo";
 import moment from "moment";
 import {MdBookmarkAdded, MdOutlineBookmarkBorder, MdOutlineQuickreply} from "react-icons/md";
 import {postLikeAction, postRepliesAction, postSavesAction} from "../../redux/Actions/feedActions";
@@ -7,14 +6,16 @@ import {FiLink} from "react-icons/fi";
 import {GrLocation} from "react-icons/gr";
 import {BsCodeSlash, BsEmojiHeartEyes, BsImage} from "react-icons/bs";
 import {useState} from "react";
-import {useDispatch} from "react-redux";
-import {Popover} from "antd";
+import {useDispatch, useSelector} from "react-redux";
+import {IoMdPerson} from "react-icons/io";
 
-const Feed = ({feeds, my_profile, loadmore}) =>
+const Feed = ({feeds, loadmore}) =>
 {
     const dispatch = useDispatch()
+    const {my_info,} = useSelector(state=> state.getMyInfoReducer)
+
     const [comment, setComment] = useState('');
-    const commentator = my_profile ? my_profile?.id : null;
+    const commentator = my_info ? my_info?.id : null;
     const [post, setPost] = useState(null);
 
     const submitComment = (e) =>
@@ -27,17 +28,33 @@ const Feed = ({feeds, my_profile, loadmore}) =>
             {feeds?.slice(0,loadmore)?.map((item, index)=>
                 <div key={index} className="w-full sm:max-w-3xl mb-4 h-auto p-2 sm:px-8 sm:py-4 bg-white rounded dark:bg-gray-800 hover:shadow-lg">
                     <div>
+                        {/*<div className="flex items-center justify-between">*/}
+                        {/*    <div className="flex items-center">*/}
+                        {/*        <Popover content={<PopoverInfo item={item}/>}>*/}
+                        {/*            <img  src={`http://127.0.0.1:8000/${item?.profile?.avatar}`} alt="" className="object-cover w-10 h-10 mx-4 rounded-full" />*/}
+                        {/*        </Popover>*/}
+                        {/*        <a href={`/hisprofile/${item?.profile?.id}`} className="font-bold text-gray-700 cursor-pointer dark:text-gray-200 capitalize">{item?.profile?.user?.username}<span className="font-thin capitalize ml-1 text-blue-600">@{item?.profile?.user?.username}*/}
+                        {/*            <span className="ml-3">{moment(item?.posted?.toString()).startOf().fromNow()}</span>*/}
+                        {/*            </span>*/}
+                        {/*        </a>*/}
+                        {/*    </div>*/}
+                        {/*    <span className="text-sm font-light text-gray-600 dark:text-gray-400"></span>*/}
+                        {/*    <a href={`/${item?.topic?.name}`} className="px-3 py-1 text-sm font-bold text-gray-100 transition-colors duration-300 transform bg-gray-600 rounded cursor-pointer hover:bg-gray-500">{item?.topic?.name}</a>*/}
+                        {/*</div>*/}
+
                         <div className="flex items-center justify-between">
                             <div className="flex items-center">
-                                <Popover content={<PopoverInfo item={item} my_profile={my_profile}/>}>
-                                    <img  src={item?.profile?.avatar} alt="" className="hidden object-cover w-10 h-10 mx-4 rounded-full sm:block" />
-                                </Popover>
-                                <a href={`/hisprofile/${item?.profile?.id}`} className="font-bold text-gray-700 cursor-pointer dark:text-gray-200 capitalize">{item?.profile?.user?.username}<span className="font-thin capitalize ml-1">@{item?.profile?.user?.username}
-                                    <span className="ml-3">{moment(item?.posted?.toString()).startOf().fromNow()}</span>
-                            </span>
-                                </a>
+                                {item?.profile?.avatar ?
+                                    <img className="rounded-full  h-10 w-10 object-cover" src={item?.profile?.avatar} alt=""/> :
+                                    <IoMdPerson className="rounded-full h-10 w-10 object-contain text-gray-400"/>}
+
+                                <div className={"flex-col ml-2 mr-2 mb-1 sm:flex sm:items-center"}>
+                                    <div className="font-bold text-gray-700 cursor-pointer dark:text-gray-200 ml-1 capitalize">{item?.profile?.user?.username}</div>
+                                    <div className="font-thin capitalize ml-1 text-blue-500 ">@{item?.profile?.user?.username}</div>
+                                </div>
+                                <span className="ml-3">{moment(item?.posted?.toString()).startOf().fromNow()}</span>
                             </div>
-                            <span className="text-sm font-light text-gray-600 dark:text-gray-400"></span>
+                            {/*<span className="text-sm font-light text-gray-600 dark:text-gray-400"></span>*/}
                             <a href={`/${item?.topic?.name}`} className="px-3 py-1 text-sm font-bold text-gray-100 transition-colors duration-300 transform bg-gray-600 rounded cursor-pointer hover:bg-gray-500">{item?.topic?.name}</a>
                         </div>
 
@@ -50,14 +67,14 @@ const Feed = ({feeds, my_profile, loadmore}) =>
                                 </div>
                                 <div className="hidden sm:block">
                                     <a href={`/single/${item?.id}`}>
-                                        {item?.cover_image &&<img src={item?.cover_image} className="object-cover  rounded-lg md:h-28  md:w-96 md:rounded md:rounded-lg" alt=""/>}
+                                        {item?.feed_image &&<img src={item?.feed_image} className="object-cover  rounded-lg md:h-28  md:w-96 md:rounded md:rounded-lg" alt=""/>}
                                     </a>
                                 </div>
                             </div>
                         </div>
                         <div className="sm:hidden">
                             <a href={`/single/${item?.id}`}>
-                                {item?.cover_image &&<img src={item?.cover_image} className="object-cover w-full h-40 rounded-lg md:h-28  md:w-64 md:rounded md:rounded-lg" alt=""/>}
+                                {item?.feed_image &&<img src={item?.feed_image} className="object-cover w-full h-40 rounded-lg md:h-28  md:w-64 md:rounded md:rounded-lg" alt=""/>}
                             </a>
                         </div>
 

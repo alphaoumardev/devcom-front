@@ -8,14 +8,13 @@ import {
     postFeedAction,
 } from "../redux/Actions/feedActions";
 import {useParams} from "react-router-dom";
-import {getTopicsAction, postTopicAction} from "../redux/Actions/topicsActions";
+import {postTopicAction} from "../redux/Actions/topicsActions";
 import {Input} from "@material-tailwind/react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import "react-quill/dist/quill.bubble.css";
 import {FaExchangeAlt} from "react-icons/fa";
 import parse from 'html-react-parser';
-import {loadMyInfoAction} from "../redux/Actions/mineAction";
 import Loader from "./modals/Loader";
 import Feed from "./feeds/Feed";
 
@@ -33,7 +32,7 @@ const Feeds = ({query}) =>
 
     let {name} = useParams()
     const {feeds} = useSelector(state => state.getFeedsReducer)
-    const {my_profile,} = useSelector(state=> state.getMyInfoReducer)
+    const {my_info,} = useSelector(state=> state.getMyInfoReducer)
     const [loadingFeeds, setLoadingFeeds] = useState(false);
     const [loadmore, setLoadmore] = useState(20);
 
@@ -65,8 +64,6 @@ const Feeds = ({query}) =>
     }
     useEffect(() =>
     {
-        dispatch(getTopicsAction())
-        dispatch(loadMyInfoAction())
         dispatch(getFeedAction(name, query))
 
         window.addEventListener('scroll', handleInfiniteScroll)
@@ -79,7 +76,7 @@ const Feeds = ({query}) =>
         newPost.append('title', title)
         newPost.append('topic', topic)
         newPost.append('content', content)
-        newPost.append('profile', my_profile?.id)
+        newPost.append('profile', my_info?.id)
         newPost.append('cover_image', cover_image)
         e.preventDefault()
         dispatch(postFeedAction(newPost))
@@ -96,11 +93,11 @@ const Feeds = ({query}) =>
             <div className="max-w-3xl mb-4 h-auto px-8 py-4 bg-white rounded-lg  dark:bg-gray-800">
             <div>
                 <div className="flex items-center justify-between">
-                    {my_profile &&
+                    {my_info &&
                         <a href={"/me"} className="flex items-center">
-                            <img className="relative rounded-full  h-10 w-10 object-cover" src={my_profile?.avatar} alt=""/>
-                            <span className="font-bold text-gray-700 cursor-pointer ml-1 capitalize dark:text-gray-200">{my_profile?.user?.username}
-                            <span className="font-thin">@{my_profile?.user?.username}</span></span>
+                            <img className="relative rounded-full  h-10 w-10 object-cover" src={my_info?.avatar} alt=""/>
+                            <span className="font-bold text-gray-700 cursor-pointer ml-1 capitalize dark:text-gray-200">{my_info?.user?.username}
+                            <span className="font-thin">@{my_info?.user?.username}</span></span>
                         </a>
                     }
                 </div>
@@ -174,7 +171,7 @@ const Feeds = ({query}) =>
             </div>
         </div>
 
-        <Feed feeds={feeds} my_profile={my_profile} loadmore={loadmore}/>
+        <Feed feeds={feeds} loadmore={loadmore}/>
         <Loader loadingFeeds={loadingFeeds}/>
 
         {/*    modal add new topic*/}

@@ -6,20 +6,21 @@ import {RiTeamLine} from "react-icons/ri";
 import {MdPersonAddAlt} from "react-icons/md";
 import {FiHelpCircle} from "react-icons/fi";
 import {logout} from "../../redux/Actions/authActions";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 
-const MyDropDown = ({my_profile})=>
+const MyDropDown = ()=>
 {
+    const {my_info} = useSelector(state => state.getMyInfoReducer)
     const dispatch = useDispatch()
     return(
         <div>
             <div className="block w-60 p-5  bg-white rounded-md shadow-xl dark:bg-gray-800">
 
                 <a href="/me"  className="flex items-center p-3 -mt-2 text-sm text-gray-600 transition-colors duration-300 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white">
-                    <img className="relative rounded-full  h-10 w-10 object-cover" src={my_profile?.avatar} alt=""/>
+                    <img className="relative rounded-full  h-10 w-10 object-cover" src={my_info?.avatar} alt=""/>
                     <div className="mx-1">
-                        <h1 className="text-sm font-semibold text-gray-700 dark:text-gray-200">{my_profile?.user?.username}</h1>
-                        <p className="text-sm text-gray-500 dark:text-gray-400">{my_profile?.user?.email}</p>
+                        <h1 className="text-sm font-semibold text-gray-700 dark:text-gray-200">{my_info?.user?.username}</h1>
+                        <p className="text-sm text-gray-500 dark:text-gray-400">{my_info?.user?.email}</p>
                     </div>
                 </a>
                 <hr className="border-gray-200 dark:border-gray-700 "/>

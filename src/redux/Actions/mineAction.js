@@ -5,10 +5,11 @@ import {
     S_MY_SAVINGS, F_MY_SAVINGS,
     S_I_FOLLOW, F_I_FOLLOW, S_DELETE_MY_POST, F_DELETE_MY_POST, F_EDIT_MY_POST, S_EDIT_MY_POST,
     S_EDIT_MY_PROFILE, F_EDIT_MY_PROFILE, S_HIS_PROFILE, F_HIS_PROFILE, S_USER_INFO, F_USER_INFO,
+    S_USER_PROFILE, F_USER_PROFILE
 } from "../Types";
 import {getFeedAction} from "./feedActions";
 
-const config = {
+const header_config = {
     headers: {
         "Content-Type": "application/json",
         'Authorization': `Token ${localStorage.getItem('token')}`,
@@ -27,7 +28,7 @@ export const loadMyInfoAction = () => async dispatch =>
 {
     if(localToken)
     {
-        const config = {
+        const header_config = {
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Token ${localStorage.getItem('token')}`,
@@ -36,7 +37,7 @@ export const loadMyInfoAction = () => async dispatch =>
         }
         try
         {
-            await axios.get('/api/my-profile/', config).then((res)=>
+            await axios.get('/api/my-info/', header_config).then((res)=>
             {
                 dispatch(
                     {
@@ -50,6 +51,40 @@ export const loadMyInfoAction = () => async dispatch =>
         {
             dispatch({
                 type: F_USER_INFO,
+                payload: error
+            })
+            // console.log(error)
+        }
+    }
+}
+
+export const loadMyProfileAction = () => async dispatch =>
+{
+    if(localToken)
+    {
+        const header_config = {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Token ${localStorage.getItem('token')}`,
+                'Accept': 'application/json'
+            }
+        }
+        try
+        {
+            await axios.get('/api/my-profile/', header_config).then((res)=>
+            {
+                dispatch(
+                    {
+                        type: S_USER_PROFILE,
+                        payload: res.data,
+                    })
+                // console.log(res.data)
+            })
+        }
+        catch (error)
+        {
+            dispatch({
+                type: F_USER_PROFILE,
                 payload: error
             })
             // console.log(error)
@@ -87,7 +122,7 @@ export const deleteMyPostAction = (id) => async (dispatch) =>
 {
     try
     {
-        await axios.delete(`/api/edit-my-post/${id}`, config).then(res =>
+        await axios.delete(`/api/edit-my-post/${id}`, header_config).then(res =>
         {
             dispatch(
                 {
@@ -136,7 +171,7 @@ export const getHisProfileAction = (id) => async (dispatch) =>
 {
     try
     {
-        await axios.get(`/api/his-profile/${id}`, config).then(res =>
+        await axios.get(`/api/his-profile/${id}`, header_config).then(res =>
         {
             dispatch(
                 {
@@ -160,7 +195,7 @@ export const profileIFollowAction = () => async (dispatch) =>
 {
     try
     {
-        await axios.get(`/api/i-follow/`, config).then(res =>
+        await axios.get(`/api/i-follow/`, header_config).then(res =>
         {
             dispatch(
                 {
@@ -183,7 +218,7 @@ export const likedPostsAction = () => async (dispatch) =>
 {
     try
     {
-        await axios.get(`/api/my-likes/`, config).then(res =>
+        await axios.get(`/api/my-likes/`, header_config).then(res =>
         {
             dispatch(
                 {
@@ -206,7 +241,7 @@ export const getSavedPostsAction = () => async (dispatch) =>
 {
     try
     {
-        await axios.get(`/api/my-savings/`, config).then(res =>
+        await axios.get(`/api/my-savings/`, header_config).then(res =>
         {
             dispatch(
                 {
@@ -229,7 +264,7 @@ export const profileFollowingMeAction = () => async (dispatch) =>
 {
     try
     {
-        await axios.get(`/api/followedby/`, config).then(res =>
+        await axios.get(`/api/followedby/`, header_config).then(res =>
         {
             dispatch(
                 {

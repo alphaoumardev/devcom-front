@@ -9,7 +9,6 @@ import {
     getRecommadedProfilesAction,
     getTrendingAction
 } from "../../redux/Actions/activitiesAction";
-import {loadMyInfoAction} from "../../redux/Actions/mineAction";
 import PopoverFollow from "../modals/PopoverFollow";
 
 const ActivitiesMobile = ()=>
@@ -17,14 +16,13 @@ const ActivitiesMobile = ()=>
     const dispatch = useDispatch()
     const {trending_feed} = useSelector(state => state.getTrendingReducer)
     const {recommanded} = useSelector(state => state.getRecommendedProfilesReducer)
-    const {my_profile} = useSelector(state => state.getMyInfoReducer)
+    const {my_info} = useSelector(state => state.getMyInfoReducer)
     const [moreTrending, setMoreTrending] = useState(4);
     const [moreToFollow, setMoreToFollow] = useState(4);
     useEffect(() =>
     {
         dispatch(getTrendingAction())
         dispatch(getRecommadedProfilesAction())
-        dispatch(loadMyInfoAction())
     }, [dispatch,]);
 
     return(
@@ -33,14 +31,14 @@ const ActivitiesMobile = ()=>
             <span className="uppercase px-12 py-3 bg-gray-100 flex justify-center items-center rounded-full">RECENT ACTIVITIES</span>
             <div className="block w-full h-auto rounded hover:shadow bg-white max-w-sm">
                 <div className="py-3 pl-3 border-b border-gray-300 flex">
-                    <img className="relative rounded-full  h-10 w-10 object-cover" src={my_profile?.avatar} alt=""/>
-                    <a href={'/me'} className="ml-5 uppercase">{my_profile?.user?.username}<br/><b className="text-blue-700">@{my_profile?.user?.username}</b></a>
+                    <img className="relative rounded-full  h-10 w-10 object-cover" src={my_info?.avatar} alt=""/>
+                    <a href={'/me'} className="ml-5 uppercase">{my_info?.user?.username}<br/><b className="text-blue-700">@{my_info?.user?.username}</b></a>
                     <span className="justify-end"></span>
                 </div>
-                {my_profile?.bio &&
+                {my_info?.bio &&
                 <div className="p-6 text-base">
                     <h5 className="text-gray-900 text-xl font-medium mb-2">About Me</h5>
-                    <span className="text-gray-700 text-base mb-4">{my_profile?.bio}</span>
+                    <span className="text-gray-700 text-base mb-4">{my_info?.bio}</span>
                 </div>}
             </div>
 
@@ -73,7 +71,7 @@ const ActivitiesMobile = ()=>
                 <div className="flow-root">
                     {recommanded?.slice(0, moreToFollow)?.map((item, index)=>
                         <div key={index}>
-                            {!my_profile?.following?.includes(item?.id)&&
+                            {!my_info?.following?.includes(item?.id)&&
                             <div className="flex items-center justify-between space-x-4">
                                 <div className="flex items-center p-2">
                                     <Popover content={<PopoverFollow item={item}/>}>

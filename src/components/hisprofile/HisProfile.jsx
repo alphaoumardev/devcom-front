@@ -1,4 +1,4 @@
-import {getHisProfileAction, loadMyInfoAction} from "../../redux/Actions/mineAction";
+import {getHisProfileAction, } from "../../redux/Actions/mineAction";
 import {useDispatch, useSelector} from "react-redux";
 import {useEffect} from "react";
 import {useParams} from "react-router-dom";
@@ -10,14 +10,14 @@ const HisProfile = ()=>
     let {id} = useParams()
     const dispatch = useDispatch()
     const {hisprofile, hisposts, hisfollowers, hisfollowing} = useSelector(state =>state.getHisProfileReducer)
-    const {my_profile, } = useSelector(state => state.getMyInfoReducer)
+    // const {my_profile, } = useSelector(state => state.getMyInfoReducer)
 
     useEffect(() =>
     {
         return () =>
         {
             dispatch(getHisProfileAction(id))
-            dispatch(loadMyInfoAction())
+            // dispatch(loadMyInfoAction())
         };
     }, [dispatch, ]);
 
@@ -47,7 +47,7 @@ const HisProfile = ()=>
                                 {/*d*/}
                             </div>
                             <HisTab hisprofile={hisprofile}
-                                    my_profile={my_profile}
+                                    // my_profile={my_profile}
                                     hisposts={hisposts}
                                     hisfollowing={hisfollowing}
                                     hisfollowers={hisfollowers}

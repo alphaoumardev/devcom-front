@@ -1,8 +1,7 @@
 import {useDispatch, useSelector} from "react-redux";
 import {useEffect, useState} from "react";
 import {MdBookmarkAdded, MdOutlineBookmarkBorder, MdOutlineQuickreply} from "react-icons/md";
-import {getTopicsAction} from "../../redux/Actions/topicsActions";
-import {deleteMyPostAction, loadMyInfoAction} from "../../redux/Actions/mineAction";
+import {deleteMyPostAction} from "../../redux/Actions/mineAction";
 import {IoMdPerson} from "react-icons/io";
 import moment from "moment";
 import {postLikeAction, postSavesAction} from "../../redux/Actions/feedActions";
@@ -37,7 +36,9 @@ import Loader from "../modals/Loader";
 const MyPosts = () =>
 {
     const dispatch = useDispatch()
-    const {my_profile, my_posts} = useSelector(state=> state.getMyInfoReducer)
+    const {my_info} = useSelector(state=> state.getMyInfoReducer)
+    const {my_posts} = useSelector(state=> state.getMyProfileReducer)
+
     const [itemToEdit, setItemToEdit] = useState({});
     const [loadmore, setLoadmore] = useState(4);
     const [loadingFeeds, setLoadingFeeds] = useState(false);
@@ -53,10 +54,8 @@ const MyPosts = () =>
     }
     useEffect(() =>
     {
-        if (my_profile)
+        if (my_info)
         {
-            dispatch(getTopicsAction())
-            dispatch(loadMyInfoAction())
             window.addEventListener('scroll', handleInfiniteScroll)
             return ()=> window.removeEventListener('scroll', handleInfiniteScroll )
         }
@@ -71,14 +70,14 @@ const MyPosts = () =>
                             <div>
                                 <div className="flex items-center justify-between">
                                     <div className="flex items-center">
-                                        {my_profile.avatar ?
+                                        {my_info?.avatar ?
                                             <img className="rounded-full  h-10 w-10 object-cover"
-                                                 src={my_profile.avatar} alt=""/> :
+                                                 src={my_info?.avatar} alt=""/> :
                                                 <IoMdPerson className="rounded-full h-10 w-10 object-contain text-gray-400"/>}
 
                                         <div className={"flex-col ml-2 mr-2 mb-1 sm:flex sm:items-center"}>
-                                            <div className="font-bold text-gray-700 cursor-pointer dark:text-gray-200 ml-1 capitalize">{my_profile?.user?.username}</div>
-                                            <div className="font-thin capitalize ml-1 text-blue-500 ">@{my_profile?.user?.username}</div>
+                                            <div className="font-bold text-gray-700 cursor-pointer dark:text-gray-200 ml-1 capitalize">{my_info?.user?.username}</div>
+                                            <div className="font-thin capitalize ml-1 text-blue-500 ">@{my_info?.user?.username}</div>
                                         </div>
                                         <span className="ml-3">{moment(item?.posted?.toString()).startOf().fromNow()}</span>
                                     </div>

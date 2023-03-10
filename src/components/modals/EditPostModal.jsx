@@ -5,7 +5,7 @@ import {GrLocation} from "react-icons/gr";
 import {BsCodeSlash, BsImage} from "react-icons/bs";
 import {Input} from "@material-tailwind/react";
 import {getTopicsAction} from "../../redux/Actions/topicsActions";
-import {editMyPostAction, loadMyInfoAction} from "../../redux/Actions/mineAction";
+import {editMyPostAction} from "../../redux/Actions/mineAction";
 
 const EditPostModal = ({item}) =>
 {
@@ -15,7 +15,7 @@ const EditPostModal = ({item}) =>
     const [title, setTitle] = useState('');
     const [cover_image, setCover_image] = useState(null);
 
-    const {my_profile,} = useSelector(state=> state.getMyInfoReducer)
+    const {my_info,} = useSelector(state=> state.getMyInfoReducer)
     const {topics} = useSelector(state => state.getTopicsReducer)
     const [changeEditor, setChangeEditor] = useState(true);
     const editPost = async (e) =>
@@ -24,7 +24,7 @@ const EditPostModal = ({item}) =>
         editedPost.append('title', title ? title : item?.title)
         editedPost.append('topic', topic ? topic : item?.topic?.id)
         editedPost.append('content', content ? content : item?.content)
-        editedPost.append('profile', my_profile?.id)
+        editedPost.append('profile', my_info?.id)
         if(cover_image !== null)
         {
             editedPost.append('cover_image', cover_image)
@@ -34,17 +34,13 @@ const EditPostModal = ({item}) =>
     }
     useEffect(() =>
     {
-        if (my_profile)
+        if (my_info)
         {
             dispatch(getTopicsAction())
-            dispatch(loadMyInfoAction())
         }
     }, [dispatch, ]);
-    // console.log(item)
     return(
         <div>
-
-
             {/*    modal add new topic*/}
             <div
                 className="modal fade fixed top-0 left-0 hidden w-full h-full outline-none overflow-x-hidden overflow-y-auto"

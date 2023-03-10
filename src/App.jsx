@@ -17,34 +17,34 @@ import NotificationsMobile from "./components/notifications/NotificationsMobile"
 const App = ()=>
 {
     const dispatch = useDispatch()
-    const {my_profile, } = useSelector(state => state.getMyInfoReducer)
+    const {my_info, } = useSelector(state => state.getMyInfoReducer)
     const [query, setQuery] = useState('');
 
     useEffect(() =>
     {
-        if (my_profile)
+        if (my_info)
         {
             dispatch(loadMyInfoAction())
         }
     }, [dispatch]);
-    // console.log(my_profile)
+    // console.log(my_info)
     return(
         <>
             {window.location.pathname==="/login" ||
-             window.location.pathname==="/register"? "": <MainHeader my_profile={my_profile} setQuery={setQuery}/>}
-            {my_profile &&
+             window.location.pathname==="/register"? "": <MainHeader setQuery={setQuery}/>}
+            {my_info &&
                 <Routes>
                     <Route path="/login" element={<Login/>}/>
                     <Route path="/register" element={<Signup/>}/>
 
-                    <Route exact path="/" element={<Home query={query} my_profile={my_profile}/>}/>
+                    <Route exact path="/" element={<Home query={query} />}/>
                     <Route exact path="/:name" element={<Home query={query}/>}/>
 
                     <Route path="/me" element={<Me/>}/>
 
                     <Route exact path="/settings" element={<MeSettings/>}/>
-                    <Route exact path="hisprofile/:id" element={<His/>}/>
-                    <Route path="/single/:id" element={<SinglePage my_profile={my_profile}/>}/>
+                    <Route exact path="hisprofile/:id" element={<His />}/>
+                    <Route path="/single/:id" element={<SinglePage/>}/>
 
                     <Route path="/activities" element={<ActivitiesMobile/>}/>
                     <Route path="/notifications" element={<NotificationsMobile/>}/>
@@ -52,7 +52,7 @@ const App = ()=>
                 </Routes>
             }
             {window.location.pathname==="/login" ||
-            window.location.pathname==="/register"? "": <BottomNavigation my_profile={my_profile} setQuery={setQuery}/>}
+            window.location.pathname==="/register"? "": <BottomNavigation/>}
 
         </>
     )

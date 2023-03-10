@@ -10,8 +10,8 @@ const Home = ({query, my_profile})=>
             {/*<Header/>*/}
             <div className="flex justify-center items-baseline gap-6  left-5">
                 <Sidebar/>
-                <Feeds query={query} my_profile={my_profile}/>
-                <Activities/>
+                <Feeds query={query} />
+                <Activities />
             </div>
         </>
     )

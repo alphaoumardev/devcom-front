@@ -1,5 +1,3 @@
-import thunk from "redux-thunk";
-import logger from 'redux-logger'
 // import {applyMiddleware,} from "@reduxjs/toolkit";
 // import {composeWithDevTools} from "redux-devtools-extension";
 // import { legacy_createStore as createStore} from 'redux'
@@ -8,13 +6,13 @@ import logger from 'redux-logger'
 // const middleware = [thunk]
 // const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(...middleware)))
 // export default store
-//
-import {configureStore, createImmutableStateInvariantMiddleware} from '@reduxjs/toolkit'
+import thunk from "redux-thunk";
+import {configureStore,} from '@reduxjs/toolkit'
 import {authReducer} from "./reducers/authReducer";
 import {
     deleteMyPostReducer, editMyPostReducer, editMyProfilleReducer, getHisProfileReducer,
     getlikedPostsReducer,
-    getMyInfoReducer,
+    getMyInfoReducer, getMyProfileReducer,
     getprofileFollowingMeReducer, getprofileIFollowReducer,
     getsavedPostsReducer
 } from "./reducers/mineReducer";
@@ -29,13 +27,11 @@ import {
 import {followProfileReducer, getRecommendedProfilesReducer, getTrendingReducer} from "./reducers/activitiesReducer";
 import {deleteMyNotificationReducer, getNotificationsReducer} from "./reducers/notificationReducer";
 
-const immutableInvariantMiddleware = createImmutableStateInvariantMiddleware({
-    ignoredPaths: ["ignoredPath", "ignoredNested.one", "ignoredNested.two"],
-})
 export const store = configureStore({
     reducer: {
         authReducer:authReducer,
         getMyInfoReducer:getMyInfoReducer,
+        getMyProfileReducer:getMyProfileReducer,
 
         getTopicsReducer:getTopicsReducer,
         getFeedsReducer:getFeedsReducer,
@@ -58,19 +54,12 @@ export const store = configureStore({
         editMyProfilleReducer:editMyProfilleReducer,
         getHisProfileReducer:getHisProfileReducer,
         postLikeCommentReducer:postLikeCommentReducer,
-
         getNotificationsReducer:getNotificationsReducer,
         deleteMyNotificationReducer:deleteMyNotificationReducer,
     },
 
-    // middleware: (getDefaultMiddleware) =>
-    //     getDefaultMiddleware({
-    //         serializableCheck: false,
-    //         immutableCheck:false
-    //     }),
     middleware: (getDefaultMiddleware) => [...getDefaultMiddleware({
         immutableCheck: false,
         serializableCheck:false,
-    })]
-    // middleware:[thunk]
+    }), thunk]
 })

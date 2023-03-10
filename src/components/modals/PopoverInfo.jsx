@@ -1,10 +1,11 @@
 import {followProfileAction} from "../../redux/Actions/activitiesAction";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 
-const PopoverInfo = ({item, my_profile})=>
+const PopoverInfo = ({item})=>
 {
     const dispatch = useDispatch()
-    // console.log(item)
+    const {my_info,} = useSelector(state=> state.getMyInfoReducer)
+
     return(
         <div className=" w-56 h-40 pb-3 transition-opacity duration-300 dark:text-gray-400 dark:bg-gray-800 dark:border-gray-600">
             <div className="flex justify-between items-center mb-2">
@@ -20,9 +21,9 @@ const PopoverInfo = ({item, my_profile})=>
                     </div>
                 </div>
                 <div>
-                    {item?.profile?.id !== my_profile?.id &&
+                    {item?.profile?.id !== my_info?.id &&
                     <>
-                        { my_profile?.following?.find((index)=>index?.id === item?.profile?.id)?
+                        { my_info?.following?.find((index)=>index?.id === item?.profile?.id)?
                         <button type="button"
                                 onClick={()=>dispatch(followProfileAction(item?.profile?.id))}
                                 className="text-white bg-red-500 hover:bg-blue-300 font-medium rounded-lg text-xs px-3 py-1.5 dark:bg-blue-500 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Unfollow

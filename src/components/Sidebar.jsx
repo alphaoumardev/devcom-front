@@ -1,23 +1,19 @@
 import {BiDownArrow,} from "react-icons/bi";
 import {useDispatch, useSelector} from "react-redux";
-import {useParams} from "react-router-dom";
 import {useEffect, useState} from "react";
 import {getTopicsAction} from "../redux/Actions/topicsActions";
 import {GrDiamond} from "react-icons/gr";
 import {CgComponents, CgFileDocument} from "react-icons/cg";
 import {GiHelp} from "react-icons/gi"
-import {getFeedAction} from "../redux/Actions/feedActions";
 const Sidebar = ()=>
 {
     const dispatch = useDispatch()
-    let {name} = useParams()
 
     const {topics} = useSelector(state => state.getTopicsReducer)
     const [loadmore, setLoadmore] = useState(8);
     useEffect(() =>
     {
         dispatch(getTopicsAction())
-        dispatch(getFeedAction(name))
     }, [dispatch]);
     // console.log(topics)
     return(

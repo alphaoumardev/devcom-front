@@ -8,14 +8,15 @@ import {
     Tab,
     TabPanel,
 } from "@material-tailwind/react";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {followProfileAction} from "../../redux/Actions/activitiesAction";
 import {postLikeAction, postSavesAction} from "../../redux/Actions/feedActions";
 import {Empty} from "antd";
 import {IoMdPerson} from "react-icons/io";
 
-const HisTab = ({hisprofile, hisposts, hisfollowers, hisfollowing, my_profile})=>
+const HisTab = ({hisprofile, hisposts, hisfollowers, hisfollowing})=>
 {
+    const {my_info} = useSelector(state => state.getMyInfoReducer)
     const dispatch = useDispatch()
     return(
         <div>
@@ -86,13 +87,13 @@ const HisTab = ({hisprofile, hisposts, hisfollowers, hisfollowing, my_profile})=
                                                 <MdOutlineQuickreply size={20} className="mr-2"/>{item?.num_replies > 0 && <span>{item?.num_replies}</span>}
                                             </a>
                                             <div className="flex items-center text-gray-600 hover:text-green-500">
-                                                {item?.saves?.includes(my_profile?.id) ?
+                                                {item?.saves?.includes(my_info?.id) ?
                                                     <MdBookmarkAdded size={20} color={"green"} type="submit"  onClick={() => dispatch(postSavesAction(item?.id, hisprofile?.id))}/>:
                                                     <MdOutlineBookmarkBorder size={20} type="submit"  onClick={() => dispatch(postSavesAction(item?.id,hisprofile?.id))}/>}
                                                 {item?.num_saves > 0 && <span className='ml-2'>{item?.num_saves}</span>}
                                             </div>
                                             <div className="flex items-center text-gray-500 hover:text-red-700">
-                                                {item?.likes?.includes(my_profile?.id) ?
+                                                {item?.likes?.includes(my_info?.id) ?
                                                     <RiHeart2Fill size={20} color={"red"} type="submit" onClick={() => dispatch(postLikeAction(item?.id,hisprofile?.id))}/>:
                                                     <RiHeart2Line size={20} type="submit" onClick={() => dispatch(postLikeAction(item?.id,hisprofile?.id))}/>}
                                                 {item?.num_likes>0 &&<span className='ml-2'>{item?.num_likes}</span>}
@@ -127,13 +128,13 @@ const HisTab = ({hisprofile, hisposts, hisfollowers, hisfollowing, my_profile})=
                                             </div>
                                             <div className="flex items-center space-x-3 ">
                                                 <div>
-                                                    {my_profile?.following?.find((index)=>index?.id === item?.id) ?
+                                                    {my_info?.following?.find((index)=>index?.id === item?.id) ?
                                                         <button type="button"
                                                                 className="cursor-pointer bg-red-200 px-3 py-1 rounded-3xl text-base font-semibold text-gray-900 dark:text-white">
                                                             Following
                                                         </button> :
                                                         <button type="button" onClick={() => dispatch(followProfileAction(item?.id, hisprofile?.id))}
-                                                                disabled={my_profile?.id === item?.id}
+                                                                disabled={my_info?.id === item?.id}
                                                                 className="cursor-pointer bg-blue-200 px-3 py-1 rounded-3xl text-base font-semibold text-gray-900 dark:text-white">
                                                             Follow
                                                         </button>
@@ -171,13 +172,13 @@ const HisTab = ({hisprofile, hisposts, hisfollowers, hisfollowing, my_profile})=
                                         </div>
                                         <div className="flex items-center space-x-3 ">
                                             <div>
-                                                {my_profile?.following?.find((index)=>index?.id === item?.id) ?
+                                                {my_info?.following?.find((index)=>index?.id === item?.id) ?
                                                     <button type="button"
                                                             className="cursor-pointer bg-red-200 px-3 py-1 rounded-3xl text-base font-semibold text-gray-900 dark:text-white">
                                                         Following
                                                     </button> :
                                                     <button type="button" onClick={() => dispatch(followProfileAction(item?.id, hisprofile?.id))}
-                                                            disabled={my_profile?.id === item?.id}
+                                                            disabled={my_info?.id === item?.id}
                                                             className="cursor-pointer bg-blue-200 px-3 py-1 rounded-3xl text-base font-semibold text-gray-900 dark:text-white">
                                                         Follow
                                                     </button>

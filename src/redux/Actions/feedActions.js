@@ -13,7 +13,7 @@ const config = {
         "Accept": "application/json"
     }
 }
-const fe = {
+const simpleToken = {
     headers: {
         'Authorization': `Token ${localStorage.getItem('token')}`,
         "Content-Type": 'multipart/form-data',
@@ -97,7 +97,7 @@ export const postFeedAction = (image) => async (dispatch) =>
 {
     try
     {
-        await axios.post(`/api/feeds/`, image, fe ).then(res =>
+        await axios.post(`/api/feeds/`, image, simpleToken ).then(res =>
         {
             dispatch(
                 {
@@ -228,11 +228,8 @@ export const postLikeCommentsAction = (index, id) => async (dispatch) =>
                     type:S_POST_LIKE_COMMENT,
                     payload:res.data
                 })
-            // console.log(res.data)
-            // dispatch(getFeedAction(null, null))
             dispatch(getOneFeedAction(id))
             dispatch(loadMyInfoAction())
-            // dispatch(getHisProfileAction())
         })
     }
     catch (error)

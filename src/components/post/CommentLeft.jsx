@@ -16,13 +16,15 @@ import {
     postLikeAction,
     postRepliesAction, postSavesAction
 } from "../../redux/Actions/feedActions";
-import {useDispatch,} from "react-redux";
+import {useDispatch, useSelector,} from "react-redux";
 
-const CommentLeft = ({data, id, my_profile})=>
+const CommentLeft = ({data, id})=>
 {
     const dispatch = useDispatch()
+    const {my_info} = useSelector(state=> state.getMyInfoReducer)
+
     const [comment, setComment] = useState('');
-    const commentator = my_profile ? my_profile?.id : null;
+    const commentator = my_info ? my_info?.id : null;
     let post = id
     // console.log(parent)
     const submitComments = (e) =>

@@ -1,9 +1,11 @@
 import {Empty} from "antd";
 import {followProfileAction} from "../../redux/Actions/activitiesAction";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 
-const MyFollowers = ({followedby, my_profile})=>
+const MyFollowers = ({followedby,})=>
 {
+    const {my_info,} = useSelector(state=> state.getMyInfoReducer)
+
     const dispatch = useDispatch()
     return(
         <div>
@@ -23,7 +25,7 @@ const MyFollowers = ({followedby, my_profile})=>
                                 </div>
                                 <div className="flex items-center space-x-3 ">
                                     <div>
-                                        {my_profile?.following?.some((obj) =>obj.id === item?.id) ?
+                                        {my_info?.following?.some((obj) =>obj.id === item?.id) ?
                                             <button type="button"
                                                     className="cursor-pointer bg-red-200 px-3 py-1 rounded-3xl text-base font-semibold text-gray-900 dark:text-white">
                                                 Following

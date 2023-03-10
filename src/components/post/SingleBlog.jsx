@@ -4,7 +4,6 @@ import {useEffect,} from "react";
 import {getOneFeedAction,} from "../../redux/Actions/feedActions";
 import CommentLeft from "./CommentLeft";
 import moment from "moment";
-import {loadMyInfoAction} from "../../redux/Actions/mineAction";
 import Replies from "./Replies";
 import RecentPosts from "./RecentPosts";
 import {IoMdPerson} from "react-icons/io";
@@ -14,20 +13,19 @@ const SingleBlog = ()=>
     const {id} =useParams()
     const dispatch = useDispatch()
     const {data ,recent_posts} = useSelector(state => state.getOneFeedReducer)
-    const {my_profile} = useSelector(state => state.getMyInfoReducer)
-    const commentator = my_profile ? my_profile?.id : null;
+    const {my_info} = useSelector(state => state.getMyInfoReducer)
+    const commentator = my_info ? my_info?.id : null;
 
     useEffect(() =>
     {
-        dispatch(loadMyInfoAction())
         dispatch(getOneFeedAction(id))
     }, [dispatch, id]);
-    // console.log(data)
+    console.log(data)
     return(
         <div className={""}>
         <div className="flex w-full justify-center gap-4 left-2 mt-3 mb-12">
             <div className="hidden sm:block">
-                <CommentLeft data={data} id={id} my_profile={my_profile} />
+                <CommentLeft data={data} id={id} />
             </div>
             <div className="flex-col ">
             <div className="w-full sm:max-w-3xl mb-4 p-2 sm:p-5 h-auto rounded sm:border">

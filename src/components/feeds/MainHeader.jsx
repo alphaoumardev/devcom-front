@@ -6,24 +6,22 @@ import {GrDiamond} from "react-icons/gr";
 import {CgComponents, CgFileDocument} from "react-icons/cg";
 import {GiHelp} from "react-icons/gi";
 import {useDispatch, useSelector} from "react-redux";
-import {useParams} from "react-router-dom";
-import {getTopicsAction} from "../../redux/Actions/topicsActions";
-import {getFeedAction} from "../../redux/Actions/feedActions";
 import {BsFillBellFill, BsSearch} from "react-icons/bs";
 import Notifications from "../notifications/Notifications";
 import MyDropDown from "../header/MyDropDown";
 import {Popover} from "antd";
 import {getNotificationsAction} from "../../redux/Actions/notificationAction";
+import {useNavigate} from "react-router-dom";
 
 
-export default function MainHeader({my_profile, setQuery})
+export default function MainHeader({setQuery})
 {
     const [open, setOpen] = useState(false)
+    const {my_info} = useSelector(state => state.getMyInfoReducer)
 
     const dispatch = useDispatch()
-    let {name} = useParams()
+    const navigate = useNavigate()
 
-    const {topics} = useSelector(state => state.getTopicsReducer)
     const [loadmore, setLoadmore] = useState(8);
 
     let date = new Date();
@@ -33,7 +31,7 @@ export default function MainHeader({my_profile, setQuery})
     let [minutes] = useState(date.getMinutes());
 
     let token_ = localStorage.getItem('token')
-    let storage_profile = JSON.parse(localStorage.getItem('my_profile'));
+    let storage_profile = JSON.parse(localStorage.getItem('my_info'));
     let expiration_date = storage_profile?.expiry?.slice(0,17).replaceAll("-","").replaceAll(":",'').replace('T','')
     month = month < 10 ? '0'+month : month;
     day = day < 10 ? '0'+day : day;
@@ -41,18 +39,19 @@ export default function MainHeader({my_profile, setQuery})
     minutes = minutes < 10 ? '0'+minutes : minutes;
 
     let current_date = date.getFullYear()+""+month+""+ day+""+hour+""+minutes
+
+    const {topics} = useSelector(state => state.getTopicsReducer)
     const {notification} = useSelector(state => state.getNotificationsReducer)
 
-    if((parseInt(current_date)>=parseInt(expiration_date)) || (token_===null))
-    {
-        localStorage.clear()
-        // navigate('/login')
-        window.location.pathname = "/login"
-    }
+
     useEffect(() =>
     {
-        dispatch(getTopicsAction())
-        dispatch(getFeedAction(name))
+        if((parseInt(current_date)>=parseInt(expiration_date)) || (token_===null))
+        {
+            localStorage.removeItem('token')
+            localStorage.clear()
+            navigate('/login')
+        }
         dispatch(getNotificationsAction())
 
     }, [dispatch]);
@@ -192,7 +191,7 @@ export default function MainHeader({my_profile, setQuery})
                                 <div className="relative hidden md:block">
                                     <Popover content={<Notifications notification={notification}/>} placement="bottom">
                                         <div className="relative peer mr-2" title="Notifications">
-                                            {my_profile&&
+                                            {my_info&&
                                                 <button
                                                     className="peer relative inline-flex items-center text-sm font-medium text-center text-gray-500 hover:text-gray-900 focus:outline-none dark:hover:text-white dark:text-gray-400"
                                                     type="button">
@@ -210,9 +209,9 @@ export default function MainHeader({my_profile, setQuery})
 
                                 {/*<-- Dropdown popover me -->*/}
                                 <div className=" relative block">
-                                    <Popover content={<MyDropDown my_profile={my_profile}/>} placement="bottom">
+                                    <Popover content={<MyDropDown />} placement="bottom">
                                         <div className="relative peer ">
-                                            <img className="relative rounded-full  h-12 w-12 object-cover" src={my_profile?.avatar} alt=""/>
+                                            <img className="relative rounded-full  h-12 w-12 object-cover" src={my_info?.avatar} alt=""/>
                                             <span className="bottom-0 left-8 absolute  w-3 h-3 bg-green-400 border-2 border-white dark:border-gray-800 rounded-full"></span>
                                         </div>
                                     </Popover>

@@ -2,22 +2,22 @@ import {useDispatch} from "react-redux";
 import {useState} from "react";
 import {editMyProfileAction} from "../../redux/Actions/mineAction";
 
-const EditMyProfile = ({my_profile,})=>
+const EditMyProfile = ({my_info})=>
 {
     const dispatch = useDispatch()
-    const [email, setEmail] = useState(my_profile?.user?.email);
-    const [username, setUsername] = useState(my_profile?.user?.username);
-    const [bio, setBio] = useState(my_profile?.bio);
+    const [email, setEmail] = useState(my_info?.user?.email);
+    const [username, setUsername] = useState(my_info?.user?.username);
+    const [bio, setBio] = useState(my_info?.bio);
     const [avatar, setAvatar] = useState(null);
     const [cover_image, setCover_image] = useState(null);
 
     const editMyProfile = async (e) =>
     {
         let editedProfile = new FormData()
-        editedProfile.append('email', email ? email : my_profile?.user?.email)
-        editedProfile.append('username', username ? username : my_profile?.user?.username)
-        editedProfile.append('user', my_profile?.user?.id)
-        editedProfile.append('bio', bio ? bio : my_profile?.bio)
+        editedProfile.append('email', email ? email : my_info?.user?.email)
+        editedProfile.append('username', username ? username : my_info?.user?.username)
+        editedProfile.append('user', my_info?.user?.id)
+        editedProfile.append('bio', bio ? bio : my_info?.bio)
         if(avatar !== null)
         {
             editedProfile.append('avatar', avatar )
@@ -44,7 +44,7 @@ const EditMyProfile = ({my_profile,})=>
                                 <form onSubmit={editMyProfile}>
                                     <div className="relative z-0 mb-6 w-full group">
                                         <input type="email" name="email" id="email"
-                                               defaultValue={my_profile?.user?.email}
+                                               defaultValue={my_info?.user?.email}
                                                onChange={(e)=>setEmail(e.target.value)}
                                                className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                                placeholder=" " required={true}/>
@@ -52,7 +52,7 @@ const EditMyProfile = ({my_profile,})=>
                                     </div>
                                     <div className="relative z-0 mb-6 w-full group">
                                         <input type="text" name="username" id="username"
-                                               defaultValue={my_profile?.user?.username}
+                                               defaultValue={my_info?.user?.username}
                                                onChange={(e)=>setUsername(e.target.value)}
                                                className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                                placeholder=" " required={true}/>
@@ -77,9 +77,9 @@ const EditMyProfile = ({my_profile,})=>
                                             <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
                                                    htmlFor="profile">Profile Photo</label>
                                             <input
-                                                // defaultValue={my_profile?.avatar}
+                                                // defaultValue={my_info?.avatar}
                                                 accept='image/*'
-                                                onChange={(e)=>setAvatar(e.target.files[0] ? e.target.files[0] : my_profile?.avatar)}
+                                                onChange={(e)=>setAvatar(e.target.files[0] ? e.target.files[0] : my_info?.avatar)}
                                                 className="block w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
                                                 id="image_cover" type="file" required={false}/>
                                         </div>
@@ -87,16 +87,16 @@ const EditMyProfile = ({my_profile,})=>
                                             <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
                                                    htmlFor="cover">Cover Image</label>
                                             <input
-                                                // defaultValue={my_profile?.cover_image}
+                                                // defaultValue={my_info?.cover_image}
                                                 accept='image/*'
-                                                onChange={(e)=>setCover_image(e.target.files[0] ? e.target.files[0] : my_profile?.image_cover)}
+                                                onChange={(e)=>setCover_image(e.target.files[0] ? e.target.files[0] : my_info?.image_cover)}
                                                 className="block w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
                                                 id="cover" type="file" required={false}/>
                                         </div>
                                     </div>
                                     <div className="relative z-0 mb-6 w-full group">
                                         <textarea id="message" rows="3"
-                                                  defaultValue={my_profile?.bio}
+                                                  defaultValue={my_info?.bio}
                                                   onChange={(e)=>setBio(e.target.value)}
                                                   className="block px-0 w-full text-normal text-gray-800 bg-white border-0 dark:bg-gray-800 focus:ring-0 dark:text-white dark:placeholder-gray-400"
                                                   placeholder="Tell us about yourself..."/>
