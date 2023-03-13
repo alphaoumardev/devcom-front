@@ -20,7 +20,7 @@ const SingleBlog = ()=>
     {
         dispatch(getOneFeedAction(id))
     }, [dispatch, id]);
-    console.log(data)
+    // console.log(data)
     return(
         <div className={""}>
         <div className="flex w-full justify-center gap-4 left-2 mt-3 mb-12">
