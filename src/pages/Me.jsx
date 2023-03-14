@@ -1,4 +1,4 @@
-import Activities from "../components/Activities";
+import Activities from "../components/activities/Activities";
 import MyFeed from "../components/me/MyFeed";
 import Sidebar from "../components/Sidebar";
 

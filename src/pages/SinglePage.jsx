@@ -1,15 +1,15 @@
-import Activities from "../components/Activities";
+import Activities from "../components/activities/Activities";
 import SingleBlog from "../components/post/SingleBlog";
 import Sidebar from "../components/Sidebar";
 
-const SinglePage = ({my_profile})=>
+const SinglePage = ()=>
 {
     return(
-        <div className="flex w-full justify-center gap-10 left-2 mt-3 ">
+        <div className="flex w-full justify-center sm:gap-10 left-2 mt-3 ">
             <div className="sticky top-36">
                 <Sidebar />
             </div>
-            <SingleBlog my_profile={my_profile} />
+            <SingleBlog />
             <div className="sticky top-36">
                 <Activities/>
             </div>

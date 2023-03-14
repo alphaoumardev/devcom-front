@@ -10,7 +10,7 @@ const Login = ()=>
     const navigate = useNavigate()
     const dispatch = useDispatch()
     const token = localStorage.getItem('token')
-    const {my_profile, error} = useSelector(state => state.authReducer)
+    const {my_info, error} = useSelector(state => state.authReducer)
     const [credentialError, setCredentialError] = useState('');
     const [formData, setFormData] = useState({username:"", password:""});
     const {username, password} = formData
@@ -31,7 +31,7 @@ const Login = ()=>
         {
             navigate("/")
         }
-    }, [dispatch, my_profile]);
+    }, [dispatch, my_info]);
 
     // if(isLoading){return <Fragment>
     //     <div role="status">

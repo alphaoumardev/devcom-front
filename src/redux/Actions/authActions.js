@@ -20,7 +20,7 @@ export const register = (username, email, password)=> async dispatch =>
     const body = JSON.stringify({username, email, password})
     try
     {
-        const res = await axios.post('register/', body, config)
+        const res = await axios.post('/signup/', body, config)
         dispatch({
             type:S_REGISTER,
             payload: res.data,
@@ -40,14 +40,15 @@ export const login = (username, password) => async dispatch =>
     const body = JSON.stringify({username, password})
     try
     {
-        const res = await axios.post('login/', body, config)
-
-        dispatch({
-            type:S_LOGIN,
-            payload: res.data,
+        await axios.post('/signin/', body, config).then(res=>
+        {
+            dispatch({
+                type:S_LOGIN,
+                payload: res.data,
+            })
+            dispatch(loadMyInfoAction())
+            localStorage.setItem('my_profile', JSON.stringify(res.data))
         })
-        dispatch(loadMyInfoAction())
-        localStorage.setItem('my_profile', JSON.stringify(res.data))
     }
     catch (error)
     {
@@ -55,15 +56,29 @@ export const login = (username, password) => async dispatch =>
     }
 }
 
-export const logout = () => dispatch =>
+export const logout = () => async dispatch =>
 {
     try
     {
-        localStorage.clear()
-        dispatch({type:S_LOGOUT})
-    }
-    catch (error)
+        const config = {
+            headers: {
+                "Content-Type": 'application/json',
+                'Authorization': `Token ${localStorage.getItem('token')}`,
+                "Accept": "application/json"
+            }
+        }
+
+        const body = JSON.stringify({})
+
+        await axios.post('/logout/', body, config).then(() =>
+        {
+            dispatch({type: S_LOGOUT})
+            localStorage.clear()
+            window.location.pathname="/login"
+        })
+    } catch (error)
     {
         dispatch(postActionPayloadError(F_LOGOUT, error))
+        // console.log(error)
     }
 }

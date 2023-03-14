@@ -11,7 +11,7 @@ import {
 const accessToken = localStorage.getItem('token') ? localStorage.getItem('token') : null;
 const profileStorage = localStorage.getItem('profile')? JSON.parse(localStorage.getItem('profile')):null
 
-export const authReducer = (state= {error:null, my_profile: profileStorage, token: accessToken}, action)=>
+export const authReducer = (state= {error:null, my_info: profileStorage, token: accessToken}, action)=>
 {
     switch (action.type)
     {
@@ -25,14 +25,14 @@ export const authReducer = (state= {error:null, my_profile: profileStorage, toke
             return{
                 ...state,
                 token: action.payload.token,
-                my_profile: action.payload,
+                my_info: action.payload,
             }
         case S_UPDATE_PROFILE:
             return{
                 ...state,
-                my_profile:{
+                my_info:{
                     ...action.payload,
-                    ...state.my_profile
+                    ...state.my_info
                 }
             }
         case F_LOGIN:
@@ -41,7 +41,7 @@ export const authReducer = (state= {error:null, my_profile: profileStorage, toke
             return {
                 ...state,
                 error: action.payload,
-                my_profile:null,
+                my_info:null,
                 token: null,
             };
 
@@ -50,7 +50,7 @@ export const authReducer = (state= {error:null, my_profile: profileStorage, toke
             sessionStorage.clear()
             return{
                 ...state,
-                my_profile: null,
+                my_info: null,
                 token: null,
                 error: action.payload
             }

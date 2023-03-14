@@ -1,27 +1,24 @@
 import {BiDownArrow,} from "react-icons/bi";
 import {useDispatch, useSelector} from "react-redux";
-import {useParams} from "react-router-dom";
 import {useEffect, useState} from "react";
 import {getTopicsAction} from "../redux/Actions/topicsActions";
 import {GrDiamond} from "react-icons/gr";
 import {CgComponents, CgFileDocument} from "react-icons/cg";
 import {GiHelp} from "react-icons/gi"
-import {getFeedAction} from "../redux/Actions/feedActions";
 const Sidebar = ()=>
 {
     const dispatch = useDispatch()
-    let {name} = useParams()
 
     const {topics} = useSelector(state => state.getTopicsReducer)
-    const [loadmore, setLoadmore] = useState(7);
+    const [loadmore, setLoadmore] = useState(8);
     useEffect(() =>
     {
         dispatch(getTopicsAction())
-        dispatch(getFeedAction(name))
-    }, [dispatch,]);
+    }, [dispatch]);
+    // console.log(topics)
     return(
 
-        <aside className="sticky top-0 max-w-xl w-96 hover:shadow-2xl" aria-label="Sidebar">
+        <aside className="hidden md:block sticky top-0 max-w-xl w-96 hover:shadow-2xl" aria-label="Sidebar">
             <div className=" py-4 px-3 bg-gray-50 rounded dark:bg-gray-800">
                 <ul className="space-y-2">
                     <li>
