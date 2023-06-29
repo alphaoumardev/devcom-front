@@ -5,8 +5,7 @@ import {FiEye, FiHelpCircle} from "react-icons/fi";
 import {BiCommand} from "react-icons/bi";
 import {RiTeamLine} from "react-icons/ri";
 import {logout} from "../redux/Actions/authActions";
-import {IoMdLogOut, } from "react-icons/io";
-import {IoMdPerson} from "react-icons/io";
+import {IoMdLogOut, IoMdPerson,} from "react-icons/io";
 import {useDispatch} from "react-redux";
 import {useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
@@ -46,7 +45,7 @@ const Header =({my_profile, setQuery})=>
                 <div>
                     <a href="/" className="flex">
                         <img src="https://res.cloudinary.com/diallo/image/upload/v1662517794/devcom_qxhwcj.jpg"
-                             className="mr-3 rounded-full  h-14 w-14 object-cover rounded-full  sm:h-14 "
+                             className="mr-3 h-14 w-14 object-cover rounded-full  sm:h-14 "
                              alt="Logo"/>
                         <span
                             className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Devco</span>
@@ -58,7 +57,7 @@ const Header =({my_profile, setQuery})=>
                         <BsSearch/>
                     </div>
                         <input type="search" id="search"
-                               className="block p-4 pl-10 w-full text-xl  border-none bg-gray-200 text-sm text-gray-900  rounded-lg focus:ring-blue-200 focus:border-blue-200 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                               className="block p-4 pl-10 w-full border-none bg-gray-200 text-sm text-gray-900  rounded-lg focus:ring-blue-200 focus:border-blue-200 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                placeholder="Search..." required onChange={(e)=>setQuery(e.target.value)}/>
                 </div>
 
@@ -279,4 +278,3 @@ const Header =({my_profile, setQuery})=>
     )
 }
 export default Header
-

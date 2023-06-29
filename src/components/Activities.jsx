@@ -5,7 +5,6 @@ import {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {followProfileAction, getRecommadedProfilesAction, getTrendingAction} from "../redux/Actions/activitiesAction";
 import {loadMyInfoAction} from "../redux/Actions/authActions";
-import {getMyInfoReducer} from "../redux/reducers/authReducer";
 
 const Activities = ()=>
 {
@@ -21,7 +20,6 @@ const Activities = ()=>
         dispatch(getRecommadedProfilesAction())
         dispatch(loadMyInfoAction)
     }, [dispatch]);
-// console.log(my_profile)
     return(
         <>
         <div className="flex-col sticky top-0 max-w-xl bg-gray-50 rounded p-5 border-gray-100 hover:shadow">
@@ -63,14 +61,14 @@ const Activities = ()=>
                 <a href="#" className="inline-flex items-center text-blue-600 hover:underline">See more<FiExternalLink className="ml-1"/></a>
             </div>
             {/*Relevent people*/}
-            <div className="p-4  w-full max-w-md bg-white rounded-lg hover:shadow mt-4 sm:p-8 hover:shadow-lg dark:bg-gray-800 dark:border-gray-700">
+            <div className="p-4  w-full max-w-md bg-white rounded-lg hover:shadow mt-4 sm:p-8 dark:bg-gray-800 dark:border-gray-700">
                 <div className="flex justify-between items-center mb-4">
                     <h5 className="text-xl font-bold leading-none text-gray-900 dark:text-white">Relevent People</h5>
                     <a href="#" className="text-sm font-medium text-blue-600 hover:underline dark:text-blue-500">See more</a>
                 </div>
                 <div className="flow-root">
                     <ul role="list" className="divide-y divide-gray-200 dark:divide-gray-700">
-                        {recommanded?.map((item, index)=>
+                        {recommanded?.map((item, index) =>
                             <li key={index} className="py-3 sm:py-4">
                                 <div className="flex items-center space-x-4">
                                     <div className="flex-shrink-0">
@@ -83,7 +81,7 @@ const Activities = ()=>
                                     </div>
                                     {!followed?
                                         <button type="button"
-                                                onClick={()=>{
+                                                onClick={() => {
                                                     dispatch(followProfileAction(item?.id))
                                                     setFollowed(!followed)
                                                 }}
@@ -91,7 +89,7 @@ const Activities = ()=>
                                             Follow
                                         </button>:
                                         <button type="button"
-                                                onClick={()=>{
+                                                onClick={() => {
                                                     dispatch(followProfileAction(item?.id))
                                                     // setFollowed(true)
                                                 }}
@@ -106,7 +104,7 @@ const Activities = ()=>
                 </div>
             </div>
         {/*copyright*/}
-            <div className="  max-w-xl w-full max-w-md  rounded-lg mt-4 sm:p-8  dark:bg-gray-800 ">
+            <div className="max-w-xl w-full rounded-lg mt-4 sm:p-8  dark:bg-gray-800 ">
                 <div className="flex-1 min-w-0 text-base">
                     <a href="#" className="font-medium text-gray-900 truncate dark:text-white"> Terms of Service</a><br/>
                     <a href="#" className="font-medium text-gray-900 truncate dark:text-white"> About us</a>
