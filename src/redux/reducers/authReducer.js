@@ -3,8 +3,6 @@ import {
     F_LOGIN,
     F_REGISTER,
     S_REGISTER,
-    S_GOOGLE_AUTH,
-    F_GOOGLE_AUTH,
     S_LOGOUT,
     F_LOGOUT,
     S_UPDATE_PROFILE,
