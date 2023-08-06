@@ -1,16 +1,4 @@
-import {
-    LOGIN_REQUEST,
-    S_LOGIN,
-    F_LOGIN,
-    REGISTER_REQUEST,
-    F_REGISTER,
-    S_REGISTER,
-    S_LOAD_PROFILE,
-    F_LOAD_PROFILE,
-    S_LOGOUT,
-    F_LOGOUT,
-    S_USER_INFO, F_USER_INFO,
-} from '../Types'
+import {F_LOGIN, F_LOGOUT, F_REGISTER, F_USER_INFO, S_LOGIN, S_LOGOUT, S_REGISTER, S_USER_INFO,} from '../Types'
 import axios from "axios";
 
 export const postActionPayloadError = (type, error) => ({
