@@ -1,11 +1,4 @@
-import {
-    S_GET_TRENDING,
-    F_GET_TRENDING,
-    S_GET_RECOMMENDED_PROFILES,
-    F_GET_RECOMMENDED_PROFILES,
-    S_FOLLOW,
-    F_FOLLOW, F_FOLLOWING_ME,S_FOLLOWING_ME
-} from '../Types'
+import {F_FOLLOW, F_GET_RECOMMENDED_PROFILES, F_GET_TRENDING, S_FOLLOW, S_GET_RECOMMENDED_PROFILES, S_GET_TRENDING} from '../Types'
 
 export const getTrendingReducer = (state={trending_feed: []}, action)=>
 {
