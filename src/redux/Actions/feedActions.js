@@ -1,8 +1,4 @@
-import {
-    F_GET_FEED, S_GET_FEED, F_GET_FEEDS, S_GET_FEEDS, S_POST_FEED,
-    F_POST_FEED, S_POST_REPLIES, F_POST_REPLIES, S_POST_LIKES,
-    F_POST_LIKES, S_POST_SAVES, F_POST_SAVES
-} from "../Types";
+import {F_GET_FEED, F_GET_FEEDS, F_POST_FEED, F_POST_LIKES, F_POST_REPLIES, F_POST_SAVES, S_GET_FEED, S_GET_FEEDS, S_POST_FEED, S_POST_LIKES, S_POST_REPLIES, S_POST_SAVES} from "../Types";
 import axios from "axios";
 
 const config = {
@@ -126,7 +122,6 @@ export const postRepliesAction = (post, comment, commentator) => async (dispatch
                     type:S_POST_REPLIES,
                     payload:res.data
                 })
-            // console.log(res.data)
         })
     }
     catch (error)

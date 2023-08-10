@@ -1,8 +1,4 @@
-import {
-    F_GET_TRENDING, S_GET_TRENDING,
-    S_GET_RECOMMENDED_PROFILES,F_GET_RECOMMENDED_PROFILES,
-    S_FOLLOW,F_FOLLOW,
-} from "../Types";
+import {F_FOLLOW, F_GET_RECOMMENDED_PROFILES, F_GET_TRENDING, S_FOLLOW, S_GET_RECOMMENDED_PROFILES, S_GET_TRENDING,} from "../Types";
 import axios from "axios";
 
 const config = {
@@ -34,7 +30,6 @@ export const getTrendingAction = () => async (dispatch) =>
             })
     }
 }
-
 export const getRecommadedProfilesAction = () => async (dispatch) =>
 {
     try
@@ -71,7 +66,6 @@ export const followProfileAction = (id) => async (dispatch) =>
                     type: S_FOLLOW,
                     payload: res.data
                 })
-            // console.log(reds.data)
         })
     }
     catch (error)
@@ -83,4 +77,3 @@ export const followProfileAction = (id) => async (dispatch) =>
             })
     }
 }
-

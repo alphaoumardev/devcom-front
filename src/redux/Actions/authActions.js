@@ -17,7 +17,6 @@ export const register = (username, email, password)=> async dispatch =>
             type:S_REGISTER,
             payload: res.data,
         })
-        // console.log(res.data)
     }
     catch (error)
     {
@@ -38,8 +37,6 @@ export const login = (username, password) => async dispatch =>
             type:S_LOGIN,
             payload: res.data,
         })
-        // console.log(res.data)
-
         dispatch(loadMyInfoAction())
         localStorage.setItem('my_profile', JSON.stringify(res.data))
     }
@@ -85,7 +82,6 @@ export const logout = () => dispatch =>
 {
     try
     {
-        // localStorage.removeItem('profile')
         localStorage.clear()
         dispatch({type:S_LOGOUT})
     }
