@@ -1,4 +1,4 @@
-import {F_GET_TOPICS, S_GET_TOPICS, S_POST_TOPICS, F_POST_TOPICS} from "../Types";
+import {F_GET_TOPICS, F_POST_TOPICS, S_GET_TOPICS, S_POST_TOPICS} from "../Types";
 import axios from "axios";
 
 const config = {
@@ -8,7 +8,6 @@ const config = {
         "Accept": "application/json"
     }
 }
-
 export const getTopicsAction = () => async (dispatch) =>
 {
     try
@@ -31,7 +30,6 @@ export const getTopicsAction = () => async (dispatch) =>
             })
     }
 }
-
 export const postTopicAction = (name) => async (dispatch) =>
 {
     const body = JSON.stringify({name})
