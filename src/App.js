@@ -22,7 +22,7 @@ const App = ()=>
     {
         if (my_profile)
         {
-            dispatch(loadMyInfoAction())
+            dispatch(loadMyInfoAction()).then(() => {})
         }
     }, [dispatch]);
     return(
